@@ -5,13 +5,21 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.FunctionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Button;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.DefaultDriveCommand;
+import frc.robot.commands.EndgameSequencerCommand;
+import frc.robot.commands.IndexCommand;
+import frc.robot.commands.IntakeCommand;
+import frc.robot.commands.ShooterCommand;
+import frc.robot.commands.TurretCommand;
+import frc.robot.commands.Zero;
 import frc.robot.subsystems.DrivetrainSubsystem;
 
 /**
@@ -25,6 +33,12 @@ public class RobotContainer {
   private final DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
 
   private final XboxController driveController = new XboxController(Constants.CONTROLLOR_DRIVE);
+  private final XboxController manipController = new XboxController(Constants.CONTROLLOR_MANIP);
+  private JoystickButton manipCircle;
+  private JoystickButton manipSquare;
+  private JoystickButton manipX;
+  private JoystickButton manipY;
+  private JoystickButton manipLT;
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -44,6 +58,18 @@ public class RobotContainer {
 
     // Configure the button bindings
     configureButtonBindings();
+
+    // Set comands for the buttons
+    manipCircle.whileHeld(new IntakeCommand());
+    manipSquare.whileHeld(new ShooterCommand());
+    manipSquare.whenReleased(new Zero());
+    manipCircle.whenReleased(new Zero());
+    manipX.whileHeld(new IndexCommand());
+    manipX.whenReleased(new Zero());
+    manipY.whileHeld(new TurretCommand());
+    manipY.whenReleased(new Zero());
+    manipLT.whileHeld(new EndgameSequencerCommand());
+    manipLT.whenReleased(new Zero());
   }
 
   /**
@@ -57,6 +83,11 @@ public class RobotContainer {
     new Button(driveController::getBackButton)
             // No requirements because we don't need to interrupt anything
             .whenPressed(m_drivetrainSubsystem::zeroGyroscope);
+    manipCircle = new JoystickButton(manipController, Constants.CONTROLLOR_MANIP_CIRCLE);
+    manipSquare = new JoystickButton(manipController, Constants.CONTROLLOR_MANIP_SQUARE);
+    manipX = new JoystickButton(manipController, Constants.CONTROLLOR_MANIP_X);
+    manipY = new JoystickButton(manipController, Constants.CONTROLLOR_MANIP_TRIANGLE);
+    manipLT = new JoystickButton(manipController, Constants.CONTROLLOR_MANIP_LT);
   }
 
   /**
