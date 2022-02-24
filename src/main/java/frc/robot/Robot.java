@@ -7,6 +7,11 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.subsystems.DrivetrainSubsystem;
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Pnuematics;
+import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Turret;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -15,10 +20,16 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  * project.
  */
 public class Robot extends TimedRobot {
+
   private Command m_autonomousCommand;
 
-  private RobotContainer m_robotContainer;
+  public static DrivetrainSubsystem driveTrain;
 
+  public static Intake intake;
+  public static Shooter shooter;
+  public static Pnuematics pnuematics;
+  public static RobotContainer m_robotContainer;
+  public static Turret turret;
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -28,6 +39,11 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+
+    intake = new Intake();
+    shooter = new Shooter();
+    pnuematics = new Pnuematics();
+    turret = new Turret();
   }
 
   /**
@@ -56,6 +72,11 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
+    // reset gyro and other stuff I guess
+    driveTrain.zeroGyroscope();
+    // I think I'm supposed to reset encoders, but I don't know what I'm doing so I didn't
+    //I also just stopped here because I don't know if I actually need to do this part.
+
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
     // schedule the autonomous command (example)
