@@ -48,7 +48,8 @@ public class Intake extends SubsystemBase {
     intakeMotor.configPeakOutputReverse(-1);
 
     soundTest.addInstrument(intakeMotor);
-    soundTest.loadMusic("deploy\\test.chrp");
+    soundTest.loadMusic("deploy\\tester.chrp"); // If you get an error here its because I made a mistake. 
+    // I probably didn't put the music in the correct path
 
     indexMotor = new TalonFX(0); // Change value when known
     indexMotor.configPeakOutputForward(1);

@@ -19,7 +19,9 @@ public class IntakeCommand extends CommandBase{
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        Intake.getIntake().toggleMusic(); //Not entirely sure what to do here.
+
+        // Robot.intake.setIntakeSpeed(1);
+        Robot.intake.toggleMusic(); // Play Music hahahahahhahahahaha. Probably Deacon Blues if I got it working
 
     }
 
