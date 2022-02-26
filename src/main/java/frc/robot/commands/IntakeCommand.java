@@ -8,7 +8,7 @@ public class IntakeCommand extends CommandBase{
 
     public IntakeCommand() {
         // Use addRequirements() here to declare subsystem dependencies.
-        addRequirements(Robot.intake);
+        //addRequirements(Robot.intake);
     }
 
     @Override
@@ -20,8 +20,8 @@ public class IntakeCommand extends CommandBase{
     @Override
     public void execute() {
 
-        // Robot.intake.setIntakeSpeed(1);
-        Robot.intake.toggleMusic(); // Play Music hahahahahhahahahaha. Probably Deacon Blues if I got it working
+         Robot.intake.setIntakeSpeed(-.5);
+        //Robot.intake.toggleMusic(); // Play Music hahahahahhahahahaha. Probably Deacon Blues if I got it working
 
     }
 

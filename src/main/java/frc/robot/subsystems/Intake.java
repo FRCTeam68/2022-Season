@@ -21,7 +21,7 @@ public class Intake extends SubsystemBase {
   private TalonFX intakeMotor;
   private TalonFX indexMotor;
 
-  private Orchestra soundTest;
+  //private Orchestra soundTest;
 
   // Colour sensors with their colours
   private ColorSensorV3 topSensor;
@@ -42,16 +42,16 @@ public class Intake extends SubsystemBase {
   /** Creates a new Intake. */
   public Intake() {
 
-    soundTest = new Orchestra();
-    intakeMotor = new TalonFX(0); // Intake Motor (Change value when known)
+ //   soundTest = new Orchestra();
+    intakeMotor = new TalonFX(12); // Intake Motor (Change value when known)
     intakeMotor.configPeakOutputForward(1);
     intakeMotor.configPeakOutputReverse(-1);
-
+/*
     soundTest.addInstrument(intakeMotor);
     soundTest.loadMusic("deploy\\tester.chrp"); // If you get an error here its because I made a mistake. 
     // I probably didn't put the music in the correct path
-
-    indexMotor = new TalonFX(0); // Change value when known
+*/
+    indexMotor = new TalonFX(14); // Change value when known
     indexMotor.configPeakOutputForward(1);
     indexMotor.configPeakOutputReverse(-1);
 
@@ -67,7 +67,7 @@ public class Intake extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    CommandScheduler.getInstance().setDefaultCommand(Robot.intake, new IntakeCommand());
+    //CommandScheduler.getInstance().setDefaultCommand(Robot.intake, new IntakeCommand());
   }
 
   public boolean doesTopSense(){
@@ -109,12 +109,12 @@ public class Intake extends SubsystemBase {
     intakeMotor.set(ControlMode.PercentOutput, intakeSpeed);
     indexMotor.set(ControlMode.PercentOutput, indexSpeed);
   }
-
+/*
   public void toggleMusic(){
     if (!soundTest.isPlaying())
       soundTest.play();
     else
       soundTest.stop();
   }
-
+*/
 }

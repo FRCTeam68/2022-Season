@@ -37,7 +37,7 @@ public class RobotContainer {
   private JoystickButton manipCircle;
   private JoystickButton manipSquare;
   private JoystickButton manipX;
-  private JoystickButton manipY;
+  private JoystickButton manipTriangle;
   private JoystickButton manipLT;
 
   /**
@@ -66,8 +66,8 @@ public class RobotContainer {
     manipCircle.whenReleased(new Zero());
     manipX.whileHeld(new IndexCommand());
     manipX.whenReleased(new Zero());
-    manipY.whileHeld(new TurretCommand());
-    manipY.whenReleased(new Zero());
+    manipTriangle.whileHeld(new TurretCommand());
+    manipTriangle.whenReleased(new Zero());
     manipLT.whileHeld(new EndgameSequencerCommand());
     manipLT.whenReleased(new Zero());
   }
@@ -86,7 +86,7 @@ public class RobotContainer {
     manipCircle = new JoystickButton(manipController, Constants.CONTROLLOR_MANIP_CIRCLE);
     manipSquare = new JoystickButton(manipController, Constants.CONTROLLOR_MANIP_SQUARE);
     manipX = new JoystickButton(manipController, Constants.CONTROLLOR_MANIP_X);
-    manipY = new JoystickButton(manipController, Constants.CONTROLLOR_MANIP_TRIANGLE);
+    manipTriangle = new JoystickButton(manipController, Constants.CONTROLLOR_MANIP_TRIANGLE);
     manipLT = new JoystickButton(manipController, Constants.CONTROLLOR_MANIP_LT);
   }
 

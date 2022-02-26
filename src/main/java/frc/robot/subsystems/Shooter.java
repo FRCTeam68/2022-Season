@@ -10,8 +10,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Shooter extends SubsystemBase{
 
-  private TalonFX shooter;
-
+  private TalonFX shooterLeft;
+  private TalonFX shooterRight;
   private double gP = 0;
   private double gI = 0;
   private double gD = 0;
@@ -21,19 +21,32 @@ public class Shooter extends SubsystemBase{
 
   public Shooter() {
     //TalonFX Initialization
-    shooter.configFactoryDefault();
-    shooter.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, 0, 0);
+    shooterLeft = new TalonFX(9); 
+    shooterRight = new TalonFX(10); 
+    shooterLeft.configFactoryDefault();
+    shooterRight.configFactoryDefault();
+    shooterLeft.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, 0, 0);
+    shooterRight.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, 0, 0);
 
-    shooter.set(ControlMode.Velocity,0);
+    shooterLeft.set(ControlMode.Velocity,0);
+    shooterLeft.config_kP(0, gP);
+    shooterLeft.config_kI(0, gI);
+    shooterLeft.config_kD(0, gD);
+    shooterLeft.config_kF(0, gF);
 
-    shooter.config_kP(0, gP);
-    shooter.config_kI(0, gI);
-    shooter.config_kD(0, gD);
-    shooter.config_kF(0, gF);
+    shooterRight.set(ControlMode.Velocity,0);
+    shooterRight.config_kP(0, gP);
+    shooterRight.config_kI(0, gI);
+    shooterRight.config_kD(0, gD);
+    shooterRight.config_kF(0, gF);
 
-    shooter.setNeutralMode(NeutralMode.Coast);
+    shooterLeft.setNeutralMode(NeutralMode.Coast);
 
-    shooter.setSensorPhase(true);
+    shooterLeft.setSensorPhase(true);
+
+    shooterRight.setNeutralMode(NeutralMode.Coast);
+
+    shooterRight.setSensorPhase(true);
   }
 
   @Override
@@ -48,13 +61,17 @@ public class Shooter extends SubsystemBase{
     speedByEncoder();       
 
     //getting encoder values 
-    double encValue = shooter.getSensorCollection().getIntegratedSensorVelocity();
-    double normalizedRPM = (encValue/2048)*600;
+    double encValueLeft = shooterLeft.getSensorCollection().getIntegratedSensorVelocity();
+    double normalizedRPMLeft = (encValueLeft/2048)*600;
 
-    
+    double encValueRight = shooterRight.getSensorCollection().getIntegratedSensorVelocity();
+    double normalizedRPMRight = (encValueRight/2048)*600;
+
     //display encoder values on SmartDashboard
-    SmartDashboard.putNumber("encoder value(RPM)", normalizedRPM);
-    SmartDashboard.putNumber("Raw encoder value", encValue);
+    SmartDashboard.putNumber("encoder value(RPM)", normalizedRPMLeft);
+    SmartDashboard.putNumber("Raw encoder value", encValueLeft);
+    SmartDashboard.putNumber("encoder value(RPM)", normalizedRPMRight);
+    SmartDashboard.putNumber("Raw encoder value", encValueRight);
   }
 
   public void editable() {
@@ -69,14 +86,15 @@ public class Shooter extends SubsystemBase{
     if(gP != P) {
 
       gP = P;
-     shooter.config_kP(0, gP);
-
+     shooterLeft.config_kP(0, gP);
+     shooterRight.config_kP(0, gP);
     }
 
     if(gI != I){
 
       gI = I;
-      shooter.config_kI(0, gI);
+      shooterLeft.config_kI(0, gI);
+      shooterRight.config_kI(0, gI);
 
   
 
@@ -85,15 +103,15 @@ public class Shooter extends SubsystemBase{
     if(gD != D){
 
       gD = D;
-      shooter.config_kD(0, gD);
-
+      shooterLeft.config_kD(0, gD);
+      shooterRight.config_kD(0, gD);
     }
 
     if(gF != F){
 
       gF = F;
-      shooter.config_kF(0,gF);
-
+      shooterLeft.config_kF(0, gD);
+      shooterRight.config_kF(0, gD);
     }
 
     if(gRef != Ref){
@@ -113,17 +131,21 @@ public class Shooter extends SubsystemBase{
 
     // turning set RPM into encoder input
     double encFeedValue = (gRef/600)*2048/0.5; //in place of the 1, put in the gear ratio
-    shooter.set(ControlMode.Velocity, encFeedValue);
-    
+    shooterLeft.set(ControlMode.Velocity, -encFeedValue);
+    shooterRight.set(ControlMode.Velocity, encFeedValue);
     SmartDashboard.putNumber("encoderFeedValue", encFeedValue);
   }
   
   public void zeroEncoders(){
-    shooter.set(ControlMode.Position, 0); //Maybe works?
-    shooter.setSelectedSensorPosition(0); // Test at some point
+    shooterLeft.set(ControlMode.Position, 0); //Maybe works?
+    shooterLeft.setSelectedSensorPosition(0); // Test at some point
+    shooterRight.set(ControlMode.Position, 0); //Maybe works?
+    shooterRight.setSelectedSensorPosition(0); // Test at some point
   }
 
   public void setSpeed(double speed){
-    shooter.set(ControlMode.PercentOutput, speed);
+    shooterLeft.set(ControlMode.PercentOutput, -speed);
+    shooterRight.set(ControlMode.PercentOutput, speed);
+    
   }
 }

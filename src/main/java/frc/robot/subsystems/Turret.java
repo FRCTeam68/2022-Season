@@ -16,14 +16,15 @@ public class Turret extends SubsystemBase{
         encoder = new CANCoder(0); // We will set the CONSTANTS Value when we have it
         
 
-        turretMotor = new TalonFX(0); //Change ID when known
+        turretMotor = new TalonFX(11); //Change ID when known
         turretMotor.configPeakOutputForward(1);
         turretMotor.configPeakOutputReverse(-1);
     }
 
     @Override
     public void periodic(){
-
+        
+        
     }
 
     public void setTurretSpeed(double speed){

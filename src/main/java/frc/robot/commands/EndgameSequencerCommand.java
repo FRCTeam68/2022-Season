@@ -7,7 +7,7 @@ public class EndgameSequencerCommand extends CommandBase{
         Boolean finished = false;
         public EndgameSequencerCommand() {
           // Use addRequirements() here to declare subsystem dependencies.
-          addRequirements(Robot.pnuematics);
+         // addRequirements(Robot.pnuematics);
         }
       
         // Called when the command is initially scheduled.

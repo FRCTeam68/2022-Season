@@ -25,7 +25,7 @@ public class IndexCommand extends CommandBase {
         if ((hasBall && Robot.intake.doesTopSense()) || manualOverride){
             // Intake.getIntake().setIndexSpeed(1); //Not entirely sure what to do here.
         }
-      
+        //Robot.intake.setIndexSpeed(.2);
 
     }
 

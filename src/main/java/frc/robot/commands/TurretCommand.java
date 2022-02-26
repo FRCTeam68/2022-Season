@@ -6,7 +6,7 @@ import frc.robot.Robot;
 public class TurretCommand extends CommandBase{
 
     public TurretCommand(){
-        addRequirements(Robot.turret);
+       // addRequirements(Robot.turret);
     }
     
     
