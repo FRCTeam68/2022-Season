@@ -2,28 +2,24 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
-import com.ctre.phoenix.sensors.CANCoder;
+
+import  frc.robot.Constants;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Turret extends SubsystemBase{
 
-    private CANCoder encoder;
-
     private TalonFX turretMotor;
     
     public Turret(){
-        encoder = new CANCoder(0); // We will set the CONSTANTS Value when we have it
-        
-
-        turretMotor = new TalonFX(11); //Change ID when known
+        turretMotor = new TalonFX(Constants.TURRET_MOTOR); 
         turretMotor.configPeakOutputForward(1);
         turretMotor.configPeakOutputReverse(-1);
+        turretMotor.configFactoryDefault();
     }
 
     @Override
     public void periodic(){
-        
         
     }
 
@@ -32,7 +28,7 @@ public class Turret extends SubsystemBase{
     }
 
     public double readEncoder(){
-        return encoder.getPosition(); 
+        return turretMotor.getSelectedSensorPosition();
     }
     
 }

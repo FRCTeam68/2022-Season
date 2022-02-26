@@ -15,11 +15,8 @@ import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.DefaultDriveCommand;
 import frc.robot.commands.EndgameSequencerCommand;
-import frc.robot.commands.IndexCommand;
-import frc.robot.commands.IntakeCommand;
-import frc.robot.commands.ShooterCommand;
-import frc.robot.commands.TurretCommand;
-import frc.robot.commands.Zero;
+
+import frc.robot.commands.*;
 import frc.robot.subsystems.DrivetrainSubsystem;
 
 /**
@@ -30,7 +27,7 @@ import frc.robot.subsystems.DrivetrainSubsystem;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
+  public final static DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
 
   private final XboxController driveController = new XboxController(Constants.CONTROLLOR_DRIVE);
   private final XboxController manipController = new XboxController(Constants.CONTROLLOR_MANIP);
@@ -39,6 +36,7 @@ public class RobotContainer {
   private JoystickButton manipX;
   private JoystickButton manipTriangle;
   private JoystickButton manipLT;
+  private JoystickButton driveSelect;
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -60,12 +58,9 @@ public class RobotContainer {
     configureButtonBindings();
 
     // Set comands for the buttons
-    manipCircle.whileHeld(new IntakeCommand());
+    driveSelect.whenPressed(new ZeroGyro());
     manipSquare.whileHeld(new ShooterCommand());
     manipSquare.whenReleased(new Zero());
-    manipCircle.whenReleased(new Zero());
-    manipX.whileHeld(new IndexCommand());
-    manipX.whenReleased(new Zero());
     manipTriangle.whileHeld(new TurretCommand());
     manipTriangle.whenReleased(new Zero());
     manipLT.whileHeld(new EndgameSequencerCommand());
@@ -80,9 +75,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     // Back button zeros the gyroscope
-    new Button(driveController::getBackButton)
-            // No requirements because we don't need to interrupt anything
-            .whenPressed(m_drivetrainSubsystem::zeroGyroscope);
+    driveSelect = new JoystickButton(driveController, Constants.CONTROLLOR_DRIVE_SELECT);
     manipCircle = new JoystickButton(manipController, Constants.CONTROLLOR_MANIP_CIRCLE);
     manipSquare = new JoystickButton(manipController, Constants.CONTROLLOR_MANIP_SQUARE);
     manipX = new JoystickButton(manipController, Constants.CONTROLLOR_MANIP_X);
@@ -120,5 +113,14 @@ public class RobotContainer {
     value = Math.copySign(value * value, value);
 
     return value;
+  }
+
+  public double getRightXboxManipulatorJoystickValue() {
+    double rightAxis;
+    rightAxis = manipController.getRightY();
+    // Allow for up to 10% of joystick noise
+    rightAxis = (Math.abs(rightAxis) < 0.1) ? 0 : rightAxis;
+    return rightAxis;
+
   }
 }

@@ -20,9 +20,16 @@ public class IntakeCommand extends CommandBase{
     @Override
     public void execute() {
 
-         Robot.intake.setIntakeSpeed(-.5);
-        //Robot.intake.toggleMusic(); // Play Music hahahahahhahahahaha. Probably Deacon Blues if I got it working
-
+        if(Robot.intake.getIndexBeamBreak()){
+            Robot.intake.setSpeedOfIndexAndIntake(0, Robot.m_robotContainer.getRightXboxManipulatorJoystickValue());
+        }
+        else if(Robot.intake.getIndexBeamBreak() && Robot.intake.getIntakeBeamBreak()){
+            Robot.intake.setSpeedOfIndexAndIntake(0, 0);
+        }
+        else{
+            Robot.intake.setSpeedOfIndexAndIntake(Robot.m_robotContainer.getRightXboxManipulatorJoystickValue(), Robot.m_robotContainer.getRightXboxManipulatorJoystickValue());
+        }
+    
     }
 
     // Called once the command ends or is interrupted.

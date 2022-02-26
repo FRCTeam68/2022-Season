@@ -7,6 +7,9 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
+
+import  frc.robot.Constants;
 
 public class Shooter extends SubsystemBase{
 
@@ -21,8 +24,8 @@ public class Shooter extends SubsystemBase{
 
   public Shooter() {
     //TalonFX Initialization
-    shooterLeft = new TalonFX(9); 
-    shooterRight = new TalonFX(10); 
+    shooterLeft = new TalonFX(Constants.LEFT_SHOOTER_MOTOR); 
+    shooterRight = new TalonFX(Constants.RIGHT_SHOOTER_MOTOR); 
     shooterLeft.configFactoryDefault();
     shooterRight.configFactoryDefault();
     shooterLeft.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, 0, 0);
@@ -91,35 +94,26 @@ public class Shooter extends SubsystemBase{
     }
 
     if(gI != I){
-
       gI = I;
       shooterLeft.config_kI(0, gI);
       shooterRight.config_kI(0, gI);
-
-  
-
     }
 
     if(gD != D){
-
       gD = D;
       shooterLeft.config_kD(0, gD);
       shooterRight.config_kD(0, gD);
     }
 
     if(gF != F){
-
       gF = F;
       shooterLeft.config_kF(0, gD);
       shooterRight.config_kF(0, gD);
     }
 
     if(gRef != Ref){
-
       gRef = Ref; 
-
     }
-
     SmartDashboard.putNumber("P Input", gP);
     SmartDashboard.putNumber("I Input", gI);
     SmartDashboard.putNumber("D Input", gD);

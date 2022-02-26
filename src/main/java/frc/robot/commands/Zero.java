@@ -29,9 +29,6 @@ public class Zero extends CommandBase {
   @Override
   public void execute() {
     Robot.shooter.setSpeed(0);
-    Robot.turret.setTurretSpeed(0);
-    Robot.intake.setSpeedOfIndexAndIntake(0, 0);
-    
     isDone = true;
   }
 

@@ -7,7 +7,6 @@ public class EndgameSequencerCommand extends CommandBase{
         Boolean finished = false;
         public EndgameSequencerCommand() {
           // Use addRequirements() here to declare subsystem dependencies.
-         // addRequirements(Robot.pnuematics);
         }
       
         // Called when the command is initially scheduled.
@@ -18,8 +17,7 @@ public class EndgameSequencerCommand extends CommandBase{
         // Called every time the scheduler runs while the command is scheduled.
         @Override
         public void execute() {
-          Robot.pnuematics.changeSolenoidPosition(Robot.pnuematics.getEndgameSolenoid1());
-          finished = true;
+          
         }
       
         // Called once the command ends or is interrupted.

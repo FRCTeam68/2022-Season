@@ -9,26 +9,22 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.music.Orchestra;
 import com.revrobotics.ColorSensorV3;
 
+import edu.wpi.first.hal.DigitalGlitchFilterJNI;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
-import frc.robot.commands.IntakeCommand;
+import  frc.robot.Constants;
 
 public class Intake extends SubsystemBase {
 
   private TalonFX intakeMotor;
   private TalonFX indexMotor;
 
-  //private Orchestra soundTest;
-
-  // Colour sensors with their colours
-  private ColorSensorV3 topSensor;
-  private ColorSensorV3 lowSensor; 
-
-  private I2C.Port topSensorPort;
-  private I2C.Port lowSensorPort;
+  private DigitalInput intakeSensor;
+  private DigitalInput indexSensor;
 
   public static Intake intake;
 
@@ -42,25 +38,17 @@ public class Intake extends SubsystemBase {
   /** Creates a new Intake. */
   public Intake() {
 
- //   soundTest = new Orchestra();
-    intakeMotor = new TalonFX(12); // Intake Motor (Change value when known)
+
+    intakeMotor = new TalonFX(Constants.INTAKE_MOTOR); // Intake Motor (Change value when known)
     intakeMotor.configPeakOutputForward(1);
     intakeMotor.configPeakOutputReverse(-1);
-/*
-    soundTest.addInstrument(intakeMotor);
-    soundTest.loadMusic("deploy\\tester.chrp"); // If you get an error here its because I made a mistake. 
-    // I probably didn't put the music in the correct path
-*/
-    indexMotor = new TalonFX(14); // Change value when known
+
+    indexMotor = new TalonFX(Constants.INDEX_MOTOR); // Change value when known
     indexMotor.configPeakOutputForward(1);
     indexMotor.configPeakOutputReverse(-1);
 
-    //Init Color Sensors
-    topSensorPort = I2C.Port.kOnboard;
-    lowSensorPort = I2C.Port.kOnboard;
-
-    topSensor = new ColorSensorV3(topSensorPort);
-    lowSensor = new ColorSensorV3(lowSensorPort);
+    intakeSensor = new DigitalInput(Constants.INTAKE_SENSOR);
+    indexSensor = new DigitalInput(Constants.INDEX_SENSOR);
 
   }
 
@@ -70,31 +58,14 @@ public class Intake extends SubsystemBase {
     //CommandScheduler.getInstance().setDefaultCommand(Robot.intake, new IntakeCommand());
   }
 
-  public boolean doesTopSense(){
-    if (getTopIR() < 0.1) //I don't really know the value here. Will need some testing I guess
-      return true;
-    
-    return false;
-  }
+  public boolean getIntakeBeamBreak(){
+    return intakeSensor.get();
+  } 
 
-  // Returns the infered approx. for the top sensor. Higher it is, the closer the object
-  public int getTopIR(){
-    return topSensor.getIR();
-  }
-
-  // Returns the infered approx. for the low sensor. Higher it is, the closer the object
-  public int getLowIR(){
-    return lowSensor.getIR();
-  }
-
-  public Color getTopColor(){
-    return topSensor.getColor();
-  }
-
-  public Color getLowColor(){
-    return lowSensor.getColor();
-  }
-
+  public boolean getIndexBeamBreak(){
+    return indexSensor.get();
+  } 
+  
   public void setIntakeSpeed(double speed){
     intakeMotor.set(ControlMode.PercentOutput, speed);
   }
@@ -109,12 +80,5 @@ public class Intake extends SubsystemBase {
     intakeMotor.set(ControlMode.PercentOutput, intakeSpeed);
     indexMotor.set(ControlMode.PercentOutput, indexSpeed);
   }
-/*
-  public void toggleMusic(){
-    if (!soundTest.isPlaying())
-      soundTest.play();
-    else
-      soundTest.stop();
-  }
-*/
+
 }
