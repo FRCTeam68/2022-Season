@@ -20,7 +20,8 @@ public class ChangeIntakePos extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.pnuematics.changeSolenoidPosition(Robot.pnuematics.getIntakeSolenoid());  //Open back up once we are actually programming stuff
+    Robot.pnuematics.changeIntakeMode(); //Open back up once we are actually programming stuff
+   //Robot.pnuematics.setSolenoidOut(Robot.pnuematics.getIntakeSolenoid());
     isFinishedCo = true;
   }
 

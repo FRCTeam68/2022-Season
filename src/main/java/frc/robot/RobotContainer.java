@@ -13,11 +13,9 @@ import edu.wpi.first.wpilibj2.command.FunctionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.DefaultDriveCommand;
-import frc.robot.commands.EndgameSequencerCommand;
-
 import frc.robot.commands.*;
 import frc.robot.subsystems.DrivetrainSubsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -37,6 +35,8 @@ public class RobotContainer {
   private JoystickButton manipTriangle;
   private JoystickButton manipLT;
   private JoystickButton driveSelect;
+  private JoystickButton manipRB;
+  private JoystickButton manipLB;
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -57,14 +57,21 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
 
-    // Set comands for the buttons
+    // Set commands for the driver buttons
     driveSelect.whenPressed(new ZeroGyro());
+
+    //set commands for the manip buttons
+    manipLT.whileHeld(new IntakeCommand());
+    manipLT.whenReleased(new StopIntake());
+    manipLB.whileHeld(new Shoot());
+    manipLB.whenReleased(new ShootStop());
+    manipCircle.whenPressed(new ChangeIntakePos());
+    
     manipSquare.whileHeld(new ShooterCommand());
     manipSquare.whenReleased(new Zero());
-    manipTriangle.whileHeld(new TurretCommand());
-    manipTriangle.whenReleased(new Zero());
-    manipLT.whileHeld(new EndgameSequencerCommand());
-    manipLT.whenReleased(new Zero());
+    
+    createSmartDashboardNumber("Velocity", 0);
+    
   }
 
   /**
@@ -81,6 +88,8 @@ public class RobotContainer {
     manipX = new JoystickButton(manipController, Constants.CONTROLLOR_MANIP_X);
     manipTriangle = new JoystickButton(manipController, Constants.CONTROLLOR_MANIP_TRIANGLE);
     manipLT = new JoystickButton(manipController, Constants.CONTROLLOR_MANIP_LT);
+    manipLB = new JoystickButton(manipController, Constants.CONTROLLOR_MANIP_LB);
+    manipRB = new JoystickButton(manipController, Constants.CONTROLLOR_MANIP_RB);
   }
 
   /**
@@ -122,5 +131,27 @@ public class RobotContainer {
     rightAxis = (Math.abs(rightAxis) < 0.1) ? 0 : rightAxis;
     return rightAxis;
 
+  }
+
+  public boolean getManipRB() {
+		boolean buttonPressed = false;
+		if (manipRB.get()) {
+			buttonPressed = true;
+		}
+		return buttonPressed;
+	}
+  public static double createSmartDashboardNumber(String key, double defValue) {
+
+    // See if already on dashboard, and if so, fetch current value
+    double value = SmartDashboard.getNumber(key, defValue);
+  
+    // Make sure value is on dashboard, puts back current value if already set
+    // otherwise puts back default value
+    SmartDashboard.putNumber(key, value);
+  
+    return value;
+  }
+  public double getVelocity(){
+    return SmartDashboard.getNumber("Velocity", 0);
   }
 }

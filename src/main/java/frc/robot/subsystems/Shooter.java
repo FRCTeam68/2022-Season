@@ -5,6 +5,8 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -21,6 +23,8 @@ public class Shooter extends SubsystemBase{
   private double gF = 0; //Feed Forward
   private double gRef = 0; //Setpoint
   private double shootSpeed = 1;
+  private SimpleMotorFeedforward feedForward;
+  private PIDController shooterPID;
 
   public Shooter() {
     //TalonFX Initialization
@@ -30,7 +34,7 @@ public class Shooter extends SubsystemBase{
     shooterRight.configFactoryDefault();
     shooterLeft.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, 0, 0);
     shooterRight.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, 0, 0);
-
+    
     shooterLeft.set(ControlMode.Velocity,0);
     shooterLeft.config_kP(0, gP);
     shooterLeft.config_kI(0, gI);
@@ -50,33 +54,15 @@ public class Shooter extends SubsystemBase{
     shooterRight.setNeutralMode(NeutralMode.Coast);
 
     shooterRight.setSensorPhase(true);
+    feedForward = new SimpleMotorFeedforward(-5.0424, 0.0002596, 0.0030056);
+    shooterPID = new PIDController(0.05, 0, 0); //0.14258
   }
 
   @Override
   public void periodic() {
 
-    // This method will be called once per scheduler run
-
-    //method for editing PID values on SmartDashboard            
-    editable();
-                
-    //run motor after setting setpoint values
-    speedByEncoder();       
-
-    //getting encoder values 
-    double encValueLeft = shooterLeft.getSensorCollection().getIntegratedSensorVelocity();
-    double normalizedRPMLeft = (encValueLeft/2048)*600;
-
-    double encValueRight = shooterRight.getSensorCollection().getIntegratedSensorVelocity();
-    double normalizedRPMRight = (encValueRight/2048)*600;
-
-    //display encoder values on SmartDashboard
-    SmartDashboard.putNumber("encoder value(RPM)", normalizedRPMLeft);
-    SmartDashboard.putNumber("Raw encoder value", encValueLeft);
-    SmartDashboard.putNumber("encoder value(RPM)", normalizedRPMRight);
-    SmartDashboard.putNumber("Raw encoder value", encValueRight);
   }
-
+/*
   public void editable() {
     
     // get edited PID values from smart dashboard
@@ -120,15 +106,8 @@ public class Shooter extends SubsystemBase{
     SmartDashboard.putNumber("F Input", gF);
     SmartDashboard.putNumber("Setpoint Input", gRef);
   }
-
-  public void speedByEncoder() {
-
-    // turning set RPM into encoder input
-    double encFeedValue = (gRef/600)*2048/0.5; //in place of the 1, put in the gear ratio
-    shooterLeft.set(ControlMode.Velocity, -encFeedValue);
-    shooterRight.set(ControlMode.Velocity, encFeedValue);
-    SmartDashboard.putNumber("encoderFeedValue", encFeedValue);
-  }
+*/
+  
   
   public void zeroEncoders(){
     shooterLeft.set(ControlMode.Position, 0); //Maybe works?
@@ -141,5 +120,12 @@ public class Shooter extends SubsystemBase{
     shooterLeft.set(ControlMode.PercentOutput, -speed);
     shooterRight.set(ControlMode.PercentOutput, speed);
     
+  }
+
+  public void shooterFeedForward(double velocity){
+    shooterLeft.set(ControlMode.PercentOutput, feedForward.calculate(velocity));
+    //+ shooterPID.calculate(shooterLeft.getSelectedSensorVelocity(), velocity));
+    shooterRight.set(ControlMode.PercentOutput, -feedForward.calculate(velocity));
+    //+ shooterPID.calculate(shooterRight.getSelectedSensorVelocity(), velocity));
   }
 }

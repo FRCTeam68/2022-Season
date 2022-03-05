@@ -5,13 +5,12 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.subsystems.DrivetrainSubsystem;
-import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.Pnuematics;
-import frc.robot.subsystems.Shooter;
-import frc.robot.subsystems.Turret;
+
+import frc.robot.subsystems.*;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -23,13 +22,14 @@ public class Robot extends TimedRobot {
 
   private Command m_autonomousCommand;
 
-  public static DrivetrainSubsystem driveTrain;
+  public static double velocity;
 
   public static Intake intake;
   public static Shooter shooter;
   public static Pnuematics pnuematics;
   public static RobotContainer m_robotContainer;
   public static Turret turret;
+  public static Vision vision;
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -44,6 +44,7 @@ public class Robot extends TimedRobot {
     shooter = new Shooter();
     pnuematics = new Pnuematics();
     turret = new Turret();
+    vision = new Vision();
   }
 
   /**
@@ -72,8 +73,7 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
-    // reset gyro and other stuff I guess
-    driveTrain.zeroGyroscope();
+  
     // I think I'm supposed to reset encoders, but I don't know what I'm doing so I didn't
     //I also just stopped here because I don't know if I actually need to do this part.
 
@@ -98,11 +98,17 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+    RobotContainer.m_drivetrainSubsystem.zeroGyroscope();
   }
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+    SmartDashboard.putNumber("Turret Encoder", Robot.turret.readEncoder());
+    SmartDashboard.putBoolean("Intake BeamBreak", Robot.intake.getIntakeBeamBreak());
+    SmartDashboard.putNumber("From method", m_robotContainer.getVelocity());
+    
+  }
 
   @Override
   public void testInit() {
@@ -113,4 +119,6 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during test mode. */
   @Override
   public void testPeriodic() {}
+
+  
 }

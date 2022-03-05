@@ -86,20 +86,21 @@ public final class Constants {
     //Endgame Constants Below Here
 
     //Pneumatics Constants below here
-    public static final int ENDGAME_PRIMARY_LIFT_A = 0;
-    public static final int ENDGAME_PRIMARY_LIFT_B = 0;
+    public static final int ENDGAME_PRIMARY_LIFT_A = 12;
+    public static final int ENDGAME_PRIMARY_LIFT_B = 3;
     public static final int ENDGAME_PRIMARY_CLAMP_A = 0;
     public static final int ENDGAME_PRIMARY_CLAMP_B = 0;
     public static final int ENDGAME_SECONDARY_LIFT_A = 0;
     public static final int ENDGAME_SECONDARY_LIFT_B = 0;
     public static final int ENDGAME_SECONDARY_CLAMP_A = 0;
     public static final int ENDGAME_SECONDARY_CLAMP_B = 0;
-    public static final int INTAKE_PCM_A = 0;
-    public static final int INTAKE_PCM_B = 0;
-    public static final int AIR_PUMP_CAN = 0;
+    public static final int INTAKE_PCM_A = 2;
+    public static final int INTAKE_PCM_B = 13;
+    public static final int AIR_PUMP_CAN = 19;
     //Intake Constantts Below Here
     public static final int INTAKE_MOTOR = 12;
-    public static final int INDEX_MOTOR = 14;
+    public static final int INDEX_MOTOR_HIGH = 14;
+    public static final int INDEX_MOTOR_LOW = 13;
     public static final int INTAKE_SENSOR = 0;
     public static final int INDEX_SENSOR = 1;
     //Controller Constants Below Here
@@ -109,8 +110,8 @@ public final class Constants {
     public static final int CONTROLLOR_DRIVE_B = 2;
     public static final int CONTROLLOR_DRIVE_X = 3;
     public static final int CONTROLLOR_DRIVE_Y = 4;
-    public static final int CONTROLLOR_DRIVE_RB = 5;
-    public static final int CONTROLLOR_DRIVE_LB = 6;
+    public static final int CONTROLLOR_DRIVE_LB = 5;
+    public static final int CONTROLLOR_DRIVE_RB = 6;
     public static final int CONTROLLOR_DRIVE_SELECT = 7;
     public static final int CONTROLLOR_DRIVE_START = 8;
     public static final int CONTROLLOR_DRIVE_LS = 9;

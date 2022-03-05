@@ -6,6 +6,7 @@ import frc.robot.subsystems.Intake;
 
 public class IntakeCommand extends CommandBase{
 
+    boolean isdone = false;
     public IntakeCommand() {
         // Use addRequirements() here to declare subsystem dependencies.
         //addRequirements(Robot.intake);
@@ -20,16 +21,18 @@ public class IntakeCommand extends CommandBase{
     @Override
     public void execute() {
 
-        if(Robot.intake.getIndexBeamBreak()){
-            Robot.intake.setSpeedOfIndexAndIntake(0, Robot.m_robotContainer.getRightXboxManipulatorJoystickValue());
+        if(Robot.intake.getIndexBeamBreak() && Robot.intake.getIntakeBeamBreak()){
+            Robot.intake.setSpeedOfIndexAndIntake(0, 0, 0);
+            isdone = true;
         }
-        else if(Robot.intake.getIndexBeamBreak() && Robot.intake.getIntakeBeamBreak()){
-            Robot.intake.setSpeedOfIndexAndIntake(0, 0);
+        else if(Robot.intake.getIndexBeamBreak()){
+            Robot.intake.setSpeedOfIndexAndIntake(0, .2, .5);
         }
         else{
-            Robot.intake.setSpeedOfIndexAndIntake(Robot.m_robotContainer.getRightXboxManipulatorJoystickValue(), Robot.m_robotContainer.getRightXboxManipulatorJoystickValue());
+            Robot.intake.setSpeedOfIndexAndIntake(.2, .2, .5);
         }
-    
+
+        //Robot.intake.setSpeedOfIndexAndIntake(.5, .5);
     }
 
     // Called once the command ends or is interrupted.
@@ -40,7 +43,7 @@ public class IntakeCommand extends CommandBase{
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return false;
+        return isdone;
     }
 
 }

@@ -17,7 +17,8 @@ public class ShooterCommand extends CommandBase{
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        Robot.shooter.setSpeed(.5);
+        Robot.intake.setSpeedOfIndexAndIntake(.5, .5, 0);
+        //Robot.shooter.setSpeed(.5);
         //Robot.shooter.speedByEncoder(); //Not entirely sure what to do here.
 
     }

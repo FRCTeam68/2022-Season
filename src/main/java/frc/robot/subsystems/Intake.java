@@ -21,7 +21,8 @@ import  frc.robot.Constants;
 public class Intake extends SubsystemBase {
 
   private TalonFX intakeMotor;
-  private TalonFX indexMotor;
+  private TalonFX indexMotorHigh;
+  private TalonFX indexMotorLow;
 
   private DigitalInput intakeSensor;
   private DigitalInput indexSensor;
@@ -43,9 +44,13 @@ public class Intake extends SubsystemBase {
     intakeMotor.configPeakOutputForward(1);
     intakeMotor.configPeakOutputReverse(-1);
 
-    indexMotor = new TalonFX(Constants.INDEX_MOTOR); // Change value when known
-    indexMotor.configPeakOutputForward(1);
-    indexMotor.configPeakOutputReverse(-1);
+    indexMotorHigh = new TalonFX(Constants.INDEX_MOTOR_HIGH); // Change value when known
+    indexMotorHigh.configPeakOutputForward(1);
+    indexMotorHigh.configPeakOutputReverse(-1);
+
+    indexMotorLow = new TalonFX(Constants.INDEX_MOTOR_LOW); // Change value when known
+    indexMotorLow.configPeakOutputForward(1);
+    indexMotorLow.configPeakOutputReverse(-1);
 
     intakeSensor = new DigitalInput(Constants.INTAKE_SENSOR);
     indexSensor = new DigitalInput(Constants.INDEX_SENSOR);
@@ -69,16 +74,19 @@ public class Intake extends SubsystemBase {
   public void setIntakeSpeed(double speed){
     intakeMotor.set(ControlMode.PercentOutput, speed);
   }
-
-  public void setIndexSpeed(double speed){
-    indexMotor.set(ControlMode.PercentOutput, speed);
+  public void setIndexHighSpeed(double speed){
+    indexMotorHigh.set(ControlMode.PercentOutput, speed);
+  }
+  public void setIndexLowSpeed(double speed){
+    indexMotorLow.set(ControlMode.PercentOutput, speed);
   }
 
   // Have a combined function because maybe you want to change both at the same time??
 
-  public void setSpeedOfIndexAndIntake(double indexSpeed, double intakeSpeed){
-    intakeMotor.set(ControlMode.PercentOutput, intakeSpeed);
-    indexMotor.set(ControlMode.PercentOutput, indexSpeed);
+  public void setSpeedOfIndexAndIntake(double indexHighSpeed, double indexLowSpeed, double intakeSpeed){
+    intakeMotor.set(ControlMode.PercentOutput, -intakeSpeed);
+    indexMotorLow.set(ControlMode.PercentOutput, -indexLowSpeed);
+    indexMotorHigh.set(ControlMode.PercentOutput, indexHighSpeed);
   }
 
 }

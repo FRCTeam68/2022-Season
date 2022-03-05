@@ -5,6 +5,8 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import static edu.wpi.first.wpilibj.DoubleSolenoid.Value.*;
+
 
 import  frc.robot.Constants;
 
@@ -22,30 +24,32 @@ public class Pnuematics extends SubsystemBase {
     
     public Pnuematics(){
 
-        // Init Double Solenoids a.k.a. Pnuematic cylinders or whatever they are called. Apparently we need 4 endgame ones and
-        // couple of other things.
-
-        // intakeMover = new DoubleSolenoid(Constants.AIR_PUMP_CAN, Constants.INTAKE_PCM_B, Constants.INTAKE_PCM_A);
+        /*
+        compressor = new Compressor(Constants.AIR_PUMP_CAN, PneumaticsModuleType.REVPH);
+        compressor.enableDigital();
+        */
+         intakeMover = new DoubleSolenoid(19,PneumaticsModuleType.REVPH, 2, 13);
         // primaryLift = new DoubleSolenoid(Constants.AIR_PUMP_CAN, Constants.INTAKE_PCM_B, Constants.INTAKE_PCM_A);
         // primaryClamp = new DoubleSolenoid(Constants.AIR_PUMP_CAN, Constants.INTAKE_PCM_B, Constants.INTAKE_PCM_A);
         // secondaryLift = new DoubleSolenoid(Constants.AIR_PUMP_CAN, Constants.INTAKE_PCM_B, Constants.INTAKE_PCM_A);
         // secondaryClamp = new DoubleSolenoid(Constants.AIR_PUMP_CAN, Constants.INTAKE_PCM_B, Constants.INTAKE_PCM_A);
-        compressor = new Compressor(Constants.AIR_PUMP_CAN, PneumaticsModuleType.CTREPCM);
+        
     }
 
     @Override
     public void periodic(){
 
     }
-
+/*
     public double getCompressorPressure(){
         return compressor.getPressure();
     }
-
+*/
+/*
     public Compressor getCompressor(){
         return compressor;
     }
-
+*/
     // I have no clue if we'll actually need much of this, because I'm not entirely sure what intake will be doing
     public void setSolenoidOut(DoubleSolenoid solenoid){
         DoubleSolenoid temp = solenoid;
@@ -58,14 +62,23 @@ public class Pnuematics extends SubsystemBase {
         temp.set(Value.kReverse);
     }
 
-    public void changeSolenoidPosition(DoubleSolenoid solenoid){
-        DoubleSolenoid temp = solenoid;
-        if (this.getSolenoidPosition(temp) == Value.kForward){
-            this.setSolenoidIn(temp);
-        }else {
-            this.setSolenoidOut(temp);
+    public void setIntakeIn() {
+        intakeMover.set(Value.kReverse);
+      }
+    
+      public void setIntakeOut() {
+        intakeMover.set(Value.kForward);
+      }
+      public Value getIntakePCM() {
+        return intakeMover.get();
+      }
+      public void changeIntakeMode() {
+        if (this.getIntakePCM() == Value.kReverse) {
+          this.setIntakeOut();
+        } else {
+          this.setIntakeIn();
         }
-    }
+      }
 
     public Value getSolenoidPosition(DoubleSolenoid solenoid){
         return solenoid.get();

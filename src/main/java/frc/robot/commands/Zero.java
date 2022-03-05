@@ -28,7 +28,7 @@ public class Zero extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.shooter.setSpeed(0);
+    Robot.intake.setSpeedOfIndexAndIntake(0, 0, 0);
     isDone = true;
   }
 
