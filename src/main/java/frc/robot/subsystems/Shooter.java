@@ -54,7 +54,8 @@ public class Shooter extends SubsystemBase{
     shooterRight.setNeutralMode(NeutralMode.Coast);
 
     shooterRight.setSensorPhase(true);
-    feedForward = new SimpleMotorFeedforward(-5.0424, 0.0002596, 0.0030056);
+    //feedForward = new SimpleMotorFeedforward(-5.0424, 0.0002596, 0.0030056);
+    feedForward = new SimpleMotorFeedforward(0.133, 0.0002596, 0.0030056);
     shooterPID = new PIDController(0.05, 0, 0); //0.14258
   }
 
@@ -117,15 +118,15 @@ public class Shooter extends SubsystemBase{
   }
 
   public void setSpeed(double speed){
-    shooterLeft.set(ControlMode.PercentOutput, -speed);
-    shooterRight.set(ControlMode.PercentOutput, speed);
+    shooterLeft.set(ControlMode.Velocity, -speed);
+    shooterRight.set(ControlMode.Velocity, speed);
     
   }
 
   public void shooterFeedForward(double velocity){
-    shooterLeft.set(ControlMode.PercentOutput, feedForward.calculate(velocity));
+    shooterLeft.set(ControlMode.PercentOutput, -feedForward.calculate(velocity));
     //+ shooterPID.calculate(shooterLeft.getSelectedSensorVelocity(), velocity));
-    shooterRight.set(ControlMode.PercentOutput, -feedForward.calculate(velocity));
+    shooterRight.set(ControlMode.PercentOutput, feedForward.calculate(velocity));
     //+ shooterPID.calculate(shooterRight.getSelectedSensorVelocity(), velocity));
   }
 }

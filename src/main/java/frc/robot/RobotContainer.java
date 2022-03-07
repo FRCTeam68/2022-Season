@@ -66,9 +66,18 @@ public class RobotContainer {
     manipLB.whileHeld(new Shoot());
     manipLB.whenReleased(new ShootStop());
     manipCircle.whenPressed(new ChangeIntakePos());
+    manipRB.whileHeld(new TurretLock());
     
     manipSquare.whileHeld(new ShooterCommand());
     manipSquare.whenReleased(new Zero());
+
+    manipCircle.whenPressed(new TurretPosition());
+
+    manipX.whileHeld(new TurretMoveX());
+    manipX.whenReleased(new TurretStop());
+
+    manipTriangle.whileHeld(new TurretMoveTriangle());
+    manipTriangle.whenReleased(new TurretStop());
     
     createSmartDashboardNumber("Velocity", 0);
     
