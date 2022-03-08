@@ -81,6 +81,12 @@ public final class Constants {
     //Shooter Constants Below Here
     public static final int LEFT_SHOOTER_MOTOR = 9;
     public static final int RIGHT_SHOOTER_MOTOR = 10;
+    
+    public static double RELEASE_ANGLE = 60.0; //degrees from horizontal
+    public static double THETA = Math.toRadians(RELEASE_ANGLE); 
+    public static double COMPRESSED_RADIUS = 4; //in
+    public static double FLYWHEEL_RADIUS = 2.0; //in
+    public static double SLIPPERINESS = 0.5;
     //Turret Constants Below Here
     public static final int TURRET_MOTOR = 11;
 
