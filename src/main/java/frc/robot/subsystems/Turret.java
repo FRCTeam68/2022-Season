@@ -25,8 +25,8 @@ public class Turret extends SubsystemBase{
         turretMotor.configFactoryDefault();
 
         //soft limits
-        turretMotor.configForwardSoftLimitThreshold(322560); //180-deg limit with ring gear 140, spur 10, gearbox 45, encoder 1024
-        turretMotor.configReverseSoftLimitThreshold(-322560);
+        turretMotor.configForwardSoftLimitThreshold(143360); //180-deg limit with ring gear 140, spur 10, gearbox 45, encoder 1024
+        turretMotor.configReverseSoftLimitThreshold(-143360);
         turretMotor.configForwardSoftLimitEnable(true);
         turretMotor.configReverseSoftLimitEnable(true);
 

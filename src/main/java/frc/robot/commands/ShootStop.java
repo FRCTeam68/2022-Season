@@ -19,7 +19,7 @@ public class ShootStop extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.shooter.shooterFeedForward(0);
+    Robot.shooter.setRPM(0);
   }
 
   // Called once the command ends or is interrupted.

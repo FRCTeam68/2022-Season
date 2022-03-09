@@ -3,12 +3,13 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.commands;
-import frc.robot.Robot;
-import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class Shoot extends CommandBase {
-  /** Creates a new Shoot. */
-  public Shoot() {
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Robot;
+
+public class IndexCommand extends CommandBase {
+  /** Creates a new IndexCommand. */
+  public IndexCommand() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -19,7 +20,7 @@ public class Shoot extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.shooter.distanceVelocity(); //2048 ticks per revolution; 600 goes from minutes to 100ms; 2000 rpm is goal Robot.shooter.setRPM(Robot.m_robotContainer.getRPM());
+    Robot.intake.setSpeedOfIndexAndIntake(.5, .5, 0);
   }
 
   // Called once the command ends or is interrupted.

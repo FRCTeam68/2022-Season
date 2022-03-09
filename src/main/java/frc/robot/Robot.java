@@ -106,7 +106,9 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     SmartDashboard.putNumber("Turret Encoder", Robot.turret.readEncoder());
     SmartDashboard.putBoolean("Intake BeamBreak", Robot.intake.getIntakeBeamBreak());
-    SmartDashboard.putNumber("From method", m_robotContainer.getVelocity());
+    SmartDashboard.putNumber("From method", m_robotContainer.getRPM());
+    SmartDashboard.putNumber("Limelight Distance", Robot.vision.calcDistance());
+    SmartDashboard.putNumber("Wheel RPM", Robot.shooter.getWheelRPM());
     
   }
 

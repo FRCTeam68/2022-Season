@@ -26,13 +26,13 @@ public class IntakeCommand extends CommandBase{
             isdone = true;
         }
         else if(Robot.intake.getIndexBeamBreak()){
-            Robot.intake.setSpeedOfIndexAndIntake(0, .2, .5);
+            Robot.intake.setSpeedOfIndexAndIntake(0, .25, .5);
         }
         else{
-            Robot.intake.setSpeedOfIndexAndIntake(.2, .2, .5);
+            Robot.intake.setSpeedOfIndexAndIntake(.25, .25, .6);
         }
 
-        //Robot.intake.setSpeedOfIndexAndIntake(.5, .5);
+        
     }
 
     // Called once the command ends or is interrupted.

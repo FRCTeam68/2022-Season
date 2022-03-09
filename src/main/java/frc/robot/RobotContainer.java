@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.FunctionalCommand;
@@ -28,7 +29,7 @@ public class RobotContainer {
   public final static DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
 
   private final XboxController driveController = new XboxController(Constants.CONTROLLOR_DRIVE);
-  private final XboxController manipController = new XboxController(Constants.CONTROLLOR_MANIP);
+  private final PS4Controller manipController = new PS4Controller(Constants.CONTROLLOR_MANIP);
   private JoystickButton manipCircle;
   private JoystickButton manipSquare;
   private JoystickButton manipX;
@@ -37,6 +38,7 @@ public class RobotContainer {
   private JoystickButton driveSelect;
   private JoystickButton manipRB;
   private JoystickButton manipLB;
+  private JoystickButton manipRT;
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -63,6 +65,8 @@ public class RobotContainer {
     //set commands for the manip buttons
     manipLT.whileHeld(new IntakeCommand());
     manipLT.whenReleased(new StopIntake());
+    manipRT.whileHeld(new IndexCommand());
+    manipRT.whenReleased(new StopIndex());
     manipLB.whileHeld(new Shoot());
     manipLB.whenReleased(new ShootStop());
     manipCircle.whenPressed(new ChangeIntakePos());
@@ -79,7 +83,7 @@ public class RobotContainer {
     manipTriangle.whileHeld(new TurretMoveTriangle());
     manipTriangle.whenReleased(new TurretStop());
     
-    createSmartDashboardNumber("Velocity", 0);
+    createSmartDashboardNumber("RPM", 0);
     
   }
 
@@ -99,6 +103,7 @@ public class RobotContainer {
     manipLT = new JoystickButton(manipController, Constants.CONTROLLOR_MANIP_LT);
     manipLB = new JoystickButton(manipController, Constants.CONTROLLOR_MANIP_LB);
     manipRB = new JoystickButton(manipController, Constants.CONTROLLOR_MANIP_RB);
+    manipRT = new JoystickButton(manipController, Constants.CONTROLLOR_MANIP_RT);
   }
 
   /**
@@ -135,7 +140,7 @@ public class RobotContainer {
 
   public double getRightXboxManipulatorJoystickValue() {
     double rightAxis;
-    rightAxis = manipController.getRightY();
+    rightAxis = manipController.getLeftY();
     // Allow for up to 10% of joystick noise
     rightAxis = (Math.abs(rightAxis) < 0.1) ? 0 : rightAxis;
     return rightAxis;
@@ -160,7 +165,7 @@ public class RobotContainer {
   
     return value;
   }
-  public double getVelocity(){
-    return SmartDashboard.getNumber("Velocity", 0);
+  public double getRPM(){
+    return SmartDashboard.getNumber("RPM", 0);
   }
 }

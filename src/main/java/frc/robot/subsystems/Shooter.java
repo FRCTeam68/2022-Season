@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 import  frc.robot.Constants;
+import frc.robot.Robot;
 
 public class Shooter extends SubsystemBase{
 
@@ -26,26 +27,45 @@ public class Shooter extends SubsystemBase{
   private SimpleMotorFeedforward feedForward;
   private PIDController shooterPID;
 
+  private double numerator;
+ private double denominator;
+ private double frac;
+ private double circball;
+ private double circwheel;
+ private double Vi;
+ private final double GRAVITY = -32;
+ private double xDisplacement = 0;
+ private final double LIMELIGHT_HEIGHT_OFF_GROUND = 41.375; //measure, in inches
+ private double angleToGoal;
+ private double rpsball;
+ private double rps_ratio;
+ private double rpsflywheel;
+ private static double rpm = 0; 
+ private double kP, kI, kD, kF;
+
   public Shooter() {
+
+    kP = 0.0465;
+    kI = 0.0005;
+    kD = 0.0;
+    kF = 0.048;
     //TalonFX Initialization
     shooterLeft = new TalonFX(Constants.LEFT_SHOOTER_MOTOR); 
     shooterRight = new TalonFX(Constants.RIGHT_SHOOTER_MOTOR); 
-    shooterLeft.configFactoryDefault();
+    //shooterLeft.configFactoryDefault();
     shooterRight.configFactoryDefault();
-    shooterLeft.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, 0, 0);
+    //shooterLeft.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, 0, 0);
     shooterRight.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, 0, 0);
     
-    shooterLeft.set(ControlMode.Velocity,0);
-    shooterLeft.config_kP(0, gP);
-    shooterLeft.config_kI(0, gI);
-    shooterLeft.config_kD(0, gD);
-    shooterLeft.config_kF(0, gF);
+    shooterLeft.follow(shooterRight);
+    shooterLeft.setInverted(true);
+    
 
     shooterRight.set(ControlMode.Velocity,0);
-    shooterRight.config_kP(0, gP);
-    shooterRight.config_kI(0, gI);
-    shooterRight.config_kD(0, gD);
-    shooterRight.config_kF(0, gF);
+    shooterRight.config_kP(0, kP);
+    shooterRight.config_kI(0, kI);
+    shooterRight.config_kD(0, kD);
+    shooterRight.config_kF(0, kF);
 
     shooterLeft.setNeutralMode(NeutralMode.Coast);
 
@@ -63,52 +83,7 @@ public class Shooter extends SubsystemBase{
   public void periodic() {
 
   }
-/*
-  public void editable() {
-    
-    // get edited PID values from smart dashboard
-    double P = SmartDashboard.getNumber("P Input", gP);
-    double I = SmartDashboard.getNumber("I Input", gI);
-    double D = SmartDashboard.getNumber("D Input", gD);
-    double F = SmartDashboard.getNumber("F Input", gF);
-    double Ref = SmartDashboard.getNumber("Setpoint Input", gRef);
 
-    if(gP != P) {
-
-      gP = P;
-     shooterLeft.config_kP(0, gP);
-     shooterRight.config_kP(0, gP);
-    }
-
-    if(gI != I){
-      gI = I;
-      shooterLeft.config_kI(0, gI);
-      shooterRight.config_kI(0, gI);
-    }
-
-    if(gD != D){
-      gD = D;
-      shooterLeft.config_kD(0, gD);
-      shooterRight.config_kD(0, gD);
-    }
-
-    if(gF != F){
-      gF = F;
-      shooterLeft.config_kF(0, gD);
-      shooterRight.config_kF(0, gD);
-    }
-
-    if(gRef != Ref){
-      gRef = Ref; 
-    }
-    SmartDashboard.putNumber("P Input", gP);
-    SmartDashboard.putNumber("I Input", gI);
-    SmartDashboard.putNumber("D Input", gD);
-    SmartDashboard.putNumber("F Input", gF);
-    SmartDashboard.putNumber("Setpoint Input", gRef);
-  }
-*/
-  
   
   public void zeroEncoders(){
     shooterLeft.set(ControlMode.Position, 0); //Maybe works?
@@ -118,15 +93,56 @@ public class Shooter extends SubsystemBase{
   }
 
   public void setSpeed(double speed){
-    shooterLeft.set(ControlMode.Velocity, -speed);
+    
     shooterRight.set(ControlMode.Velocity, speed);
     
   }
 
   public void shooterFeedForward(double velocity){
-    shooterLeft.set(ControlMode.PercentOutput, -feedForward.calculate(velocity));
-    //+ shooterPID.calculate(shooterLeft.getSelectedSensorVelocity(), velocity));
+
     shooterRight.set(ControlMode.PercentOutput, feedForward.calculate(velocity));
     //+ shooterPID.calculate(shooterRight.getSelectedSensorVelocity(), velocity));
+  }
+
+  public void m_calculateRPM(){
+    
+    
+    xDisplacement = Robot.vision.calcDistance();
+  
+    numerator = GRAVITY * xDisplacement * xDisplacement;
+    denominator = 2 * (LIMELIGHT_HEIGHT_OFF_GROUND - (xDisplacement * Math.tan(Constants.THETA))) * Math.pow(Math.cos(Constants.THETA), 2);
+    frac = numerator / denominator;
+    Vi = Math.sqrt(frac);
+
+    circball = (2 * Math.PI * Constants.COMPRESSED_RADIUS) / 12.0; //ft
+    circwheel = (2 * Math.PI * Constants.FLYWHEEL_RADIUS) /12.0; //ft
+
+    rpsball = Vi / circball; //rotations per second
+
+    rps_ratio = (circball / circwheel); //ratio of ball rpm to wheel rpm
+
+    rpsflywheel = rpsball * rps_ratio / Constants.SLIPPERINESS; //rotations per second
+
+    rpm = 60 * rpsflywheel;
+    
+  }
+  public void distanceVelocity(){
+    //4096 sensor units per rev
+    //velocity is in sensor units per 100ms (0.1 secs)
+    //launcher belt is 18 to 36
+    //60000 milisecs in 1 min
+    //RPM to U/100ms is rotations*4096 / 60000ms
+  //  double wheelRpm = SpectrumPreferences.getNumber("Launcher Setpoint", 1000);
+    double motorVelocity = (rpm / 600 * 2048) / 2;
+    shooterRight.set(ControlMode.Velocity, motorVelocity);
+  }
+  public void setRPM(double wheelRPM){
+    //Sensor Velocity in ticks per 100ms / Sensor Ticks per Rev * 600 (ms to min) * 2 gear ratio to shooter
+    //Motor Velocity in RPM / 600 (ms to min) * Sensor ticks per rev / pulley Ratio 36 to 18
+    double motorVelocity = (wheelRPM / 600 * 2048) / 2;
+    setSpeed(motorVelocity);
+  }
+  public double getWheelRPM(){
+    return rpm;
   }
 }
