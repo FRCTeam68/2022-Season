@@ -19,7 +19,7 @@ public class Shoot extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.shooter.distanceVelocity(); //2048 ticks per revolution; 600 goes from minutes to 100ms; 2000 rpm is goal Robot.shooter.setRPM(Robot.m_robotContainer.getRPM());
+    Robot.shooter.setRPM(Robot.m_robotContainer.getRPM()); //2048 ticks per revolution; 600 goes from minutes to 100ms; 2000 rpm is goal Robot.shooter.setRPM(Robot.m_robotContainer.getRPM());
   }
 
   // Called once the command ends or is interrupted.
