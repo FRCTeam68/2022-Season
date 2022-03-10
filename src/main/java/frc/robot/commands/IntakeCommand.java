@@ -26,7 +26,7 @@ public class IntakeCommand extends CommandBase{
             isdone = true;
         }
         else if(Robot.intake.getIndexBeamBreak()){
-            Robot.intake.setSpeedOfIndexAndIntake(0, .25, .5);
+            Robot.intake.setSpeedOfIndexAndIntake(0, .25, .6);
         }
         else{
             Robot.intake.setSpeedOfIndexAndIntake(.25, .25, .6);

@@ -48,7 +48,7 @@ public class Shooter extends SubsystemBase{
     kP = 0.0465;
     kI = 0.0005;
     kD = 0.0;
-    kF = 0.048;
+    kF = 0.060;
     //TalonFX Initialization
     shooterLeft = new TalonFX(Constants.LEFT_SHOOTER_MOTOR); 
     shooterRight = new TalonFX(Constants.RIGHT_SHOOTER_MOTOR); 
@@ -104,7 +104,7 @@ public class Shooter extends SubsystemBase{
     //+ shooterPID.calculate(shooterRight.getSelectedSensorVelocity(), velocity));
   }
 
-  public void m_calculateRPM(){
+  public double m_calculateRPM(){
     
     
     xDisplacement = Robot.vision.calcDistance();
@@ -125,6 +125,7 @@ public class Shooter extends SubsystemBase{
 
     rpm = 60 * rpsflywheel;
     
+    return rpm;
   }
   public void distanceVelocity(){
     //4096 sensor units per rev

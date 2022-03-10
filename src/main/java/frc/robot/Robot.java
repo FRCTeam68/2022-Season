@@ -99,6 +99,7 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
     RobotContainer.m_drivetrainSubsystem.zeroGyroscope();
+    Robot.turret.ResetEncoders();
   }
 
   /** This function is called periodically during operator control. */

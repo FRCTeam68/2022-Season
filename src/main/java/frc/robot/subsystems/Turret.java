@@ -25,8 +25,8 @@ public class Turret extends SubsystemBase{
         turretMotor.configFactoryDefault();
 
         //soft limits
-        turretMotor.configForwardSoftLimitThreshold(143360); //180-deg limit with ring gear 140, spur 10, gearbox 45, encoder 1024
-        turretMotor.configReverseSoftLimitThreshold(-143360);
+        turretMotor.configForwardSoftLimitThreshold(14336); //180-deg limit with ring gear 140, spur 10, gearbox 45, encoder 1024
+        turretMotor.configReverseSoftLimitThreshold(-14336);
         turretMotor.configForwardSoftLimitEnable(true);
         turretMotor.configReverseSoftLimitEnable(true);
 
@@ -50,12 +50,13 @@ public class Turret extends SubsystemBase{
     public double readEncoder(){
         return turretMotor.getSelectedSensorPosition();
     }
-
-    public void setTurretPosition( double position  ) {
-        
+/*
+    public void setTurretPosition(double position) {
         turretMotor.set(ControlMode.Position, position );
     }
-
-    
+*/    
+    public void ResetEncoders(){
+        turretMotor.setSelectedSensorPosition(0,0,0);
+      }
     
 }

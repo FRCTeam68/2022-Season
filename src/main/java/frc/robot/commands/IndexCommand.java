@@ -20,7 +20,19 @@ public class IndexCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.intake.setSpeedOfIndexAndIntake(.5, .5, 0);
+    Robot.intake.setSpeedOfIndexAndIntake(.5, .2, 0);
+    /*
+ if(Robot.intake.getIndexBeamBreak() && Robot.intake.getIntakeBeamBreak()){
+            Robot.intake.setSpeedOfIndexAndIntake(0, 0, 0);
+           
+        }
+        else if(Robot.intake.getIndexBeamBreak()){
+            Robot.intake.setSpeedOfIndexAndIntake(0, .25, .6);
+        }
+        else{
+            Robot.intake.setSpeedOfIndexAndIntake(.25, .25, .6);
+        }
+    */
   }
 
   // Called once the command ends or is interrupted.

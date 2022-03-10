@@ -21,10 +21,10 @@ public class TurretLock extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(Robot.m_robotContainer.getManipRB()){
-    Robot.turret.setTurretSpeed(Robot.vision.steeringAdjust());
-    }else{
-      Robot.turret.setTurretSpeed(0);
+    
+      Robot.turret.setTurretSpeed(0); //0
+    if(Robot.m_robotContainer.getManipCircle()){
+      Robot.turret.setTurretSpeed(Robot.vision.steeringAdjust());
     }
   }
   

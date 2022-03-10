@@ -9,6 +9,7 @@ import frc.robot.Robot;
 
 public class TurretPosition extends CommandBase {
   /** Creates a new TurretPosition. */
+  boolean isFinished;
   public TurretPosition() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -20,7 +21,10 @@ public class TurretPosition extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.turret.setTurretPosition(161280);
+    /*
+    Robot.turret.setTurretPosition(9000);
+    isFinished = true;
+    */
   }
 
   // Called once the command ends or is interrupted.
@@ -30,6 +34,6 @@ public class TurretPosition extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return isFinished;
   }
 }
