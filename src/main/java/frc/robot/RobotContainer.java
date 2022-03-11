@@ -133,8 +133,8 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return new InstantCommand();
-    //return new AutonCommand();
+    //return new InstantCommand();
+    return new AutonCommand();
   }
 
   private static double deadband(double value, double deadband) {
