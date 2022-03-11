@@ -29,7 +29,7 @@ public class Pnuematics extends SubsystemBase {
         compressor.enableDigital();
         */
          intakeMover = new DoubleSolenoid(19,PneumaticsModuleType.REVPH, 2, 13);
-        // primaryLift = new DoubleSolenoid(Constants.AIR_PUMP_CAN, Constants.INTAKE_PCM_B, Constants.INTAKE_PCM_A);
+         primaryLift = new DoubleSolenoid(19, PneumaticsModuleType.REVPH, 3, 12);
         // primaryClamp = new DoubleSolenoid(Constants.AIR_PUMP_CAN, Constants.INTAKE_PCM_B, Constants.INTAKE_PCM_A);
         // secondaryLift = new DoubleSolenoid(Constants.AIR_PUMP_CAN, Constants.INTAKE_PCM_B, Constants.INTAKE_PCM_A);
         // secondaryClamp = new DoubleSolenoid(Constants.AIR_PUMP_CAN, Constants.INTAKE_PCM_B, Constants.INTAKE_PCM_A);
@@ -77,6 +77,24 @@ public class Pnuematics extends SubsystemBase {
           this.setIntakeOut();
         } else {
           this.setIntakeIn();
+        }
+      }
+
+      public void extendLift() {
+        primaryLift.set(Value.kReverse);
+      }
+    
+      public void retractLift() {
+        primaryLift.set(Value.kForward);
+      }
+      public Value getLiftPCM() {
+        return primaryLift.get();
+      }
+      public void changeLiftMode() {
+        if (this.getLiftPCM() == Value.kForward) {
+          this.extendLift();
+        } else {
+          this.retractLift();
         }
       }
 

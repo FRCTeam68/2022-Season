@@ -30,6 +30,8 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import java.util.List;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -75,7 +77,7 @@ public class RobotContainer {
 
     // Set commands for the driver buttons
     driveSelect.whenPressed(new ZeroGyro());
-    
+    driveA.whenPressed(new PrimaryLiftCommand());
     //set commands for the manip buttons
     manipLT.whileHeld(new IntakeCommand());
     manipLT.whenReleased(new StopIntake());
@@ -83,21 +85,22 @@ public class RobotContainer {
     manipRT.whenReleased(new StopIndex());
     manipLB.whenPressed(new ChangeIntakePos());
     
+
     
     //manipRB.whileHeld(new TurretLock());
-    manipRB.whileHeld(new Shoot());
-    manipRB.whenReleased(new ShootStop());
+    //manipRB.whileHeld(new Shoot());
+    //manipRB.whenReleased(new ShootStop());
+    manipCircle.whileHeld(new OuttakeCommand());
+    manipCircle.whenReleased(new StopIntake());
 
-    manipSquare.whileHeld(new ShooterCommand());
+    manipSquare.whileHeld(new ShootMid());
     manipSquare.whenReleased(new Zero());
 
-    manipCircle.whileHeld(new TurretLock());
+    manipX.whileHeld(new ShootLow());
+    manipX.whenReleased(new ShootStop());
 
-    manipX.whileHeld(new TurretMoveX());
-    manipX.whenReleased(new TurretStop());
-
-    manipTriangle.whileHeld(new TurretMoveTriangle());
-    manipTriangle.whenReleased(new TurretStop());
+    manipTriangle.whileHeld(new ShootHigh());
+    manipTriangle.whenReleased(new ShootStop());
     
     createSmartDashboardNumber("RPM", 0);
     
@@ -112,6 +115,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
     // Back button zeros the gyroscope
     driveSelect = new JoystickButton(driveController, Constants.CONTROLLOR_DRIVE_SELECT);
+    driveA = new JoystickButton(driveController, Constants.CONTROLLOR_DRIVE_A);
     manipCircle = new JoystickButton(manipController, Constants.CONTROLLOR_MANIP_CIRCLE);
     manipSquare = new JoystickButton(manipController, Constants.CONTROLLOR_MANIP_SQUARE);
     manipX = new JoystickButton(manipController, Constants.CONTROLLOR_MANIP_X);
@@ -129,9 +133,9 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    //return new InstantCommand();
+    return new InstantCommand();
     
-      // Create config for trajectory
+     /* // Create config for trajectory
     TrajectoryConfig config =
         new TrajectoryConfig(
                 Constants.kMaxSpeedMetersPerSecond,
@@ -167,7 +171,7 @@ public class RobotContainer {
     m_drivetrainSubsystem.resetOdometry(exampleTrajectory.getInitialPose());
     // Run path following command, then stop at the end.
     return swerveControllerCommand.andThen(() ->new DefaultDriveCommand(m_drivetrainSubsystem,() -> 0,() -> 0,() -> 0));
-    
+    */
   }
 
   private static double deadband(double value, double deadband) {

@@ -30,6 +30,8 @@ public class Turret extends SubsystemBase{
         turretMotor.configForwardSoftLimitEnable(true);
         turretMotor.configReverseSoftLimitEnable(true);
 
+        turretMotor.setNeutralMode(NeutralMode.Brake);
+
         /* newer config API */
 			TalonFXConfiguration configs = new TalonFXConfiguration();
 			/* select integ-sensor for PID0 (it doesn't matter if PID is actually used) */

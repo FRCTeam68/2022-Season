@@ -3,14 +3,12 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.commands;
-
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 
-
-public class TurretLock extends CommandBase {
-  /** Creates a new TurretCommand. */
-  public TurretLock() {
+public class ShootLow extends CommandBase {
+  /** Creates a new ShootLow. */
+  public ShootLow() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -21,14 +19,8 @@ public class TurretLock extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    /*
-      Robot.turret.setTurretSpeed(0); //0
-    if(Robot.m_robotContainer.getManipCircle()){
-      Robot.turret.setTurretSpeed(Robot.vision.steeringAdjust());
-    }
-    */
+    Robot.shooter.setRPM(2000);
   }
-  
 
   // Called once the command ends or is interrupted.
   @Override
