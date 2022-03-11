@@ -7,10 +7,10 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 
-public class TurretMoveX extends CommandBase {
+public class TurretMoveRight extends CommandBase {
   /** Creates a new TurretMove. */
 
-  public TurretMoveX() {
+  public TurretMoveRight() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -21,7 +21,7 @@ public class TurretMoveX extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.turret.setTurretSpeed(.75);
+    Robot.turret.setTurretSpeed(.5);
   }
 
   // Called once the command ends or is interrupted.

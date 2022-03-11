@@ -20,7 +20,7 @@ public class AutonShot extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.shooter.setRPM(3600);
+    Robot.shooter.setRPM(3400);
   }
 
   // Called once the command ends or is interrupted.
