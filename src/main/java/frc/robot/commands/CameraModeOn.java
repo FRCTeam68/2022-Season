@@ -3,14 +3,13 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.commands;
-
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 
+import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class TurretLock extends CommandBase {
-  /** Creates a new TurretCommand. */
-  public TurretLock() {
+public class CameraModeOn extends CommandBase {
+  /** Creates a new CameraMode. */
+  public CameraModeOn() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -22,12 +21,9 @@ public class TurretLock extends CommandBase {
   @Override
   public void execute() {
     
-      
-      Robot.turret.setTurretSpeed(Robot.vision.steeringAdjust());
-    
-    
+      Robot.vision.setCameraMode(3, 0);
+   
   }
-  
 
   // Called once the command ends or is interrupted.
   @Override

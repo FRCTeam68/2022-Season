@@ -100,6 +100,7 @@ public class Robot extends TimedRobot {
     }
     RobotContainer.m_drivetrainSubsystem.zeroGyroscope();
     Robot.turret.ResetEncoders();
+    Robot.vision.setCameraMode(1, 1);
   }
 
   /** This function is called periodically during operator control. */

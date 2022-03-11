@@ -141,4 +141,16 @@ public final class Constants {
     public static final int CONTROLLOR_MANIP_RS = 12;
     public static final int CONTROLLOR_MANIP_PS = 13;
     public static final int CONTROLLOR_MANIP_PAD = 14;
+    /*
+    CONTROLLOR_MANIP_A = 1;
+    public static final int CONTROLLOR_MANIP_B = 2;
+    public static final int CONTROLLOR_MANIP_X = 3;
+    public static final int CONTROLLOR_MANIP_Y = 4;
+    public static final int CONTROLLOR_MANIP_LB = 5;
+    public static final int CONTROLLOR_MANIP_RB = 6;
+    public static final int CONTROLLOR_MANIP_SELECT = 7;
+    public static final int CONTROLLOR_MANIP_START = 8;
+    public static final int CONTROLLOR_MANIP_LS = 9;
+    public static final int CONTROLLOR_MANIP_RS = 10;
+    */
 }

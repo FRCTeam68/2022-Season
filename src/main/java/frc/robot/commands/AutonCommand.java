@@ -18,7 +18,7 @@ public class AutonCommand extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new ParallelCommandGroup(
-        new ShootMid(),
+        new AutonShot(),
         new SequentialCommandGroup(
           new WaitCommand(3),
           new IndexCommand()
