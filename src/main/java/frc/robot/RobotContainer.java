@@ -134,44 +134,7 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     return new InstantCommand();
-    
-     /* // Create config for trajectory
-    TrajectoryConfig config =
-        new TrajectoryConfig(
-                Constants.kMaxSpeedMetersPerSecond,
-                Constants.kMaxAccelerationMetersPerSecondSquared)
-            // Add kinematics to ensure max speed is actually obeyed
-            .setKinematics(Constants.kDriveKinematics);
-    // An example trajectory to follow.  All units in meters.
-    Trajectory exampleTrajectory =
-        TrajectoryGenerator.generateTrajectory(
-            // Start at the origin facing the +X direction
-            new Pose2d(0, 0, new Rotation2d(0)),
-            // Pass through these two interior waypoints, making an 's' curve path
-            List.of(new Translation2d(1, 1), new Translation2d(2, -1)),
-            // End 3 meters straight ahead of where we started, facing forward
-            new Pose2d(3, 0, new Rotation2d(0)),
-            config);
-    var thetaController =
-        new ProfiledPIDController(
-            Constants.kPThetaController, 0, 0, Constants.kThetaControllerConstraints);
-    thetaController.enableContinuousInput(-Math.PI, Math.PI);
-    SwerveControllerCommand swerveControllerCommand =
-        new SwerveControllerCommand(
-            exampleTrajectory,
-            m_drivetrainSubsystem::getPose, // Functional interface to feed supplier
-            Constants.kDriveKinematics,
-            // Position controllers
-            new PIDController(Constants.kPXController, 0, 0),
-            new PIDController(Constants.kPYController, 0, 0),
-            thetaController,
-            m_drivetrainSubsystem::setModuleStates,
-            m_drivetrainSubsystem);
-    // Reset odometry to the starting pose of the trajectory.
-    m_drivetrainSubsystem.resetOdometry(exampleTrajectory.getInitialPose());
-    // Run path following command, then stop at the end.
-    return swerveControllerCommand.andThen(() ->new DefaultDriveCommand(m_drivetrainSubsystem,() -> 0,() -> 0,() -> 0));
-    */
+    //return new AutonCommand();
   }
 
   private static double deadband(double value, double deadband) {
