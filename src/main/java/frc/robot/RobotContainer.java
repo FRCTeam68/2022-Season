@@ -113,7 +113,7 @@ public class RobotContainer {
     manipTriangle.whileHeld(new ShootHigh());
     manipTriangle.whenReleased(new ShootStop());
     
-    createSmartDashboardNumber("RPM", 0);
+    //createSmartDashboardNumber("RPM", 0);
     
   }
 

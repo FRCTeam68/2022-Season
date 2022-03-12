@@ -5,6 +5,8 @@
 package frc.robot;
 
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.CvSink;
+import edu.wpi.first.cscore.CvSource;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -46,6 +48,7 @@ public class Robot extends TimedRobot {
     pnuematics = new Pnuematics();
     turret = new Turret();
     vision = new Vision();
+    
     CameraServer.startAutomaticCapture();
   }
 
@@ -108,12 +111,9 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    SmartDashboard.putNumber("Turret Encoder", Robot.turret.readEncoder());
     SmartDashboard.putBoolean("Intake BeamBreak", Robot.intake.getIntakeBeamBreak());
-    SmartDashboard.putNumber("From method", m_robotContainer.getRPM());
     SmartDashboard.putNumber("Limelight Distance", Robot.vision.calcDistance());
     SmartDashboard.putNumber("Wheel RPM", Robot.shooter.getWheelRPM());
-    
   }
 
   @Override
