@@ -92,7 +92,7 @@ public class Vision extends SubsystemBase {
     double distanceIn = 0;
     final double degreesToTarget = Y.getDouble(0.0);
     final double height = 104 - 41.375;
-    final double limelightAngle = 20.0;
+    final double limelightAngle = 30.0;
     
 
     distanceIn = height/Math.tan(Math.toRadians(degreesToTarget+limelightAngle));
