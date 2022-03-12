@@ -31,6 +31,7 @@ public class Robot extends TimedRobot {
   public static RobotContainer m_robotContainer;
   public static Turret turret;
   public static Vision vision;
+  public static PathFollower pathFollower;
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -46,7 +47,9 @@ public class Robot extends TimedRobot {
     pnuematics = new Pnuematics();
     turret = new Turret();
     vision = new Vision();
+    pathFollower = new PathFollower("2ball");
     CameraServer.startAutomaticCapture();
+
   }
 
   /**

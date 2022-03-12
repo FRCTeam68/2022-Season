@@ -27,6 +27,7 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Robot;
 
 import static frc.robot.Constants.*;
 
@@ -87,6 +88,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
     currentLimit = new Mk3ModuleConfiguration();
     currentLimit.setDriveCurrentLimit(30.0);
     currentLimit.setSteerCurrentLimit(30.0);
+    
+    pathStateController.setPathPlannerFollower(Robot.pathFollower);
 
     // There are 4 methods you can call to create your swerve modules.
     // The method you use depends on what motors you are using.
@@ -287,7 +290,7 @@ public SwerveDriveOdometry getSwerveDriveOdometry(){
 				backRight_stateAngle);
 	}
 
-	private void driveOnPath() {
+	public void driveOnPath() {
 			DriveVelocities velocities = this.getPathStateController()
 					.getVelocitiesAtCurrentState(this.getSwerveDriveOdometry(), this.getGyroscopeRotation());
 
