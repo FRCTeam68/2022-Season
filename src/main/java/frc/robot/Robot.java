@@ -47,7 +47,7 @@ public class Robot extends TimedRobot {
     pnuematics = new Pnuematics();
     turret = new Turret();
     vision = new Vision();
-    pathFollower = new PathFollower("2ball");
+    pathFollower = new PathFollower("2ball.path");
     CameraServer.startAutomaticCapture();
 
   }
