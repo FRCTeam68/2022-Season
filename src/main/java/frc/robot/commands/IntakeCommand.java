@@ -29,7 +29,7 @@ public class IntakeCommand extends CommandBase{
             Robot.intake.setSpeedOfIndexAndIntake(0, .25, .6);
         }
         else{
-            Robot.intake.setSpeedOfIndexAndIntake(.25, .25, .6);
+            Robot.intake.setSpeedOfIndexAndIntake(.15, .25, .6);
         }
 
         

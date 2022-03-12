@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -45,6 +46,7 @@ public class Robot extends TimedRobot {
     pnuematics = new Pnuematics();
     turret = new Turret();
     vision = new Vision();
+    CameraServer.startAutomaticCapture();
   }
 
   /**
@@ -100,6 +102,7 @@ public class Robot extends TimedRobot {
     }
     RobotContainer.m_drivetrainSubsystem.zeroGyroscope();
     Robot.turret.ResetEncoders();
+    Robot.vision.setCameraMode(1, 1);
   }
 
   /** This function is called periodically during operator control. */

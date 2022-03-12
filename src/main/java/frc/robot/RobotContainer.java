@@ -44,8 +44,11 @@ public class RobotContainer {
 
   private final XboxController driveController = new XboxController(Constants.CONTROLLOR_DRIVE);
   private final PS4Controller manipController = new PS4Controller(Constants.CONTROLLOR_MANIP);
+  //private final XboxController manipController = new XboxController(Constants.CONTROLLOR_MANIP)
   private JoystickButton driveA;
   private JoystickButton driveSelect;
+  private JoystickButton driveLB;
+  private JoystickButton driveRB;
   private JoystickButton manipCircle;
   private JoystickButton manipSquare;
   private JoystickButton manipX;
@@ -78,6 +81,10 @@ public class RobotContainer {
     // Set commands for the driver buttons
     driveSelect.whenPressed(new ZeroGyro());
     driveA.whenPressed(new PrimaryLiftCommand());
+    driveLB.whileHeld(new TurretMoveLeft());
+    driveLB.whenReleased(new TurretStop());
+    driveRB.whileHeld(new TurretMoveRight());
+    driveRB.whenReleased(new TurretStop());
     //set commands for the manip buttons
     manipLT.whileHeld(new IntakeCommand());
     manipLT.whenReleased(new StopIntake());
@@ -87,9 +94,13 @@ public class RobotContainer {
     
 
     
-    //manipRB.whileHeld(new TurretLock());
-    //manipRB.whileHeld(new Shoot());
-    //manipRB.whenReleased(new ShootStop());
+    manipRB.whileHeld(new TurretLock());
+    manipRB.whenReleased(new TurretStop());
+    manipRB.whileHeld(new CameraModeOn());
+    manipRB.whenReleased(new CameraModeOff());
+    manipRB.whileHeld(new Shoot());
+    manipRB.whenReleased(new ShootStop());
+
     manipCircle.whileHeld(new OuttakeCommand());
     manipCircle.whenReleased(new StopIntake());
 
@@ -116,6 +127,9 @@ public class RobotContainer {
     // Back button zeros the gyroscope
     driveSelect = new JoystickButton(driveController, Constants.CONTROLLOR_DRIVE_SELECT);
     driveA = new JoystickButton(driveController, Constants.CONTROLLOR_DRIVE_A);
+    driveRB = new JoystickButton(driveController, Constants.CONTROLLOR_DRIVE_RB);
+    driveLB = new JoystickButton(driveController, Constants.CONTROLLOR_DRIVE_LB);
+
     manipCircle = new JoystickButton(manipController, Constants.CONTROLLOR_MANIP_CIRCLE);
     manipSquare = new JoystickButton(manipController, Constants.CONTROLLOR_MANIP_SQUARE);
     manipX = new JoystickButton(manipController, Constants.CONTROLLOR_MANIP_X);
@@ -124,6 +138,7 @@ public class RobotContainer {
     manipLB = new JoystickButton(manipController, Constants.CONTROLLOR_MANIP_LB);
     manipRB = new JoystickButton(manipController, Constants.CONTROLLOR_MANIP_RB);
     manipRT = new JoystickButton(manipController, Constants.CONTROLLOR_MANIP_RT);
+
   }
 
   /**
@@ -133,8 +148,8 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return new InstantCommand();
-    //return new AutonCommand();
+    //return new InstantCommand();
+    return new AutonCommand();
   }
 
   private static double deadband(double value, double deadband) {
@@ -169,9 +184,9 @@ public class RobotContainer {
     return rightAxis;
   }
 
-  public boolean getManipCircle() {
+  public boolean getManipRB() {
 		boolean buttonPressed = false;
-		if (manipCircle.get()) {
+		if (manipRB.get()) {
 			buttonPressed = true;
 		}
 		return buttonPressed;

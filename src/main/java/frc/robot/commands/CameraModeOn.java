@@ -4,11 +4,12 @@
 
 package frc.robot.commands;
 import frc.robot.Robot;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class ShootLow extends CommandBase {
-  /** Creates a new ShootLow. */
-  public ShootLow() {
+public class CameraModeOn extends CommandBase {
+  /** Creates a new CameraMode. */
+  public CameraModeOn() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -19,7 +20,9 @@ public class ShootLow extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.shooter.setRPM(1800);
+    
+      Robot.vision.setCameraMode(3, 0);
+   
   }
 
   // Called once the command ends or is interrupted.
