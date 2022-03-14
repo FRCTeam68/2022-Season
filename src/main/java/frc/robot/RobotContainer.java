@@ -15,18 +15,7 @@ import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-<<<<<<< HEAD
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.math.trajectory.Trajectory;
-import edu.wpi.first.math.trajectory.TrajectoryConfig;
-import edu.wpi.first.math.trajectory.TrajectoryGenerator;
-import frc.robot.commands.DefaultDriveCommand;
-import frc.robot.commands.ZeroGyro;
-=======
 import frc.robot.commands.*;
->>>>>>> Comp
 import frc.robot.subsystems.DrivetrainSubsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -54,11 +43,6 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   public final static DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
 
-<<<<<<< HEAD
-
-  XboxController driveController = new XboxController(Constants.CONTROLLOR_DRIVE);
-  JoystickButton driveSelect = new JoystickButton(driveController, Constants.CONTROLLOR_DRIVE_SELECT);
-=======
   private final XboxController driveController = new XboxController(Constants.CONTROLLOR_DRIVE);
   private final PS4Controller manipController = new PS4Controller(Constants.CONTROLLOR_MANIP);
   //private final XboxController manipController = new XboxController(Constants.CONTROLLOR_MANIP)
@@ -75,7 +59,6 @@ public class RobotContainer {
   private JoystickButton manipRB;
   private JoystickButton manipLB;
   
->>>>>>> Comp
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -143,9 +126,6 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     // Back button zeros the gyroscope
-<<<<<<< HEAD
-    driveSelect.whenPressed(new ZeroGyro());
-=======
     driveSelect = new JoystickButton(driveController, Constants.CONTROLLOR_DRIVE_SELECT);
     driveA = new JoystickButton(driveController, Constants.CONTROLLOR_DRIVE_A);
     driveRB = new JoystickButton(driveController, Constants.CONTROLLOR_DRIVE_RB);
@@ -160,7 +140,6 @@ public class RobotContainer {
     manipRB = new JoystickButton(manipController, Constants.CONTROLLOR_MANIP_RB);
     manipRT = new JoystickButton(manipController, Constants.CONTROLLOR_MANIP_RT);
 
->>>>>>> Comp
   }
 
   /**
@@ -170,56 +149,8 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-<<<<<<< HEAD
-    return new InstantCommand();
-    /*
-      // Create config for trajectory
-    TrajectoryConfig config =
-        new TrajectoryConfig(
-                AutoConstants.kMaxSpeedMetersPerSecond,
-                AutoConstants.kMaxAccelerationMetersPerSecondSquared)
-            // Add kinematics to ensure max speed is actually obeyed
-            .setKinematics(DriveConstants.kDriveKinematics);
-
-    // An example trajectory to follow.  All units in meters.
-    Trajectory exampleTrajectory =
-        TrajectoryGenerator.generateTrajectory(
-            // Start at the origin facing the +X direction
-            new Pose2d(0, 0, new Rotation2d(0)),
-            // Pass through these two interior waypoints, making an 's' curve path
-            List.of(new Translation2d(1, 1), new Translation2d(2, -1)),
-            // End 3 meters straight ahead of where we started, facing forward
-            new Pose2d(3, 0, new Rotation2d(0)),
-            config);
-
-    var thetaController =
-        new ProfiledPIDController(
-            AutoConstants.kPThetaController, 0, 0, AutoConstants.kThetaControllerConstraints);
-    thetaController.enableContinuousInput(-Math.PI, Math.PI);
-
-    SwerveControllerCommand swerveControllerCommand =
-        new SwerveControllerCommand(
-            exampleTrajectory,
-            m_robotDrive::getPose, // Functional interface to feed supplier
-            DriveConstants.kDriveKinematics,
-
-            // Position controllers
-            new PIDController(AutoConstants.kPXController, 0, 0),
-            new PIDController(AutoConstants.kPYController, 0, 0),
-            thetaController,
-            m_robotDrive::setModuleStates,
-            m_robotDrive);
-
-    // Reset odometry to the starting pose of the trajectory.
-    m_robotDrive.resetOdometry(exampleTrajectory.getInitialPose());
-
-    // Run path following command, then stop at the end.
-    return swerveControllerCommand.andThen(() -> m_robotDrive.drive(0, 0, 0, false));
-    */
-=======
     //return new InstantCommand();
     return new AutonCommand();
->>>>>>> Comp
   }
 
   private static double deadband(double value, double deadband) {
@@ -244,8 +175,6 @@ public class RobotContainer {
     return value;
   }
 
-<<<<<<< HEAD
-=======
   public double getRightXboxManipulatorJoystickValue() {
     double rightAxis;
     
@@ -278,5 +207,4 @@ public class RobotContainer {
   public double getRPM(){
     return SmartDashboard.getNumber("RPM", 0);
   }
->>>>>>> Comp
 }

@@ -28,13 +28,7 @@ public class Robot extends TimedRobot {
 
   private Command m_autonomousCommand;
 
-<<<<<<< HEAD
-  public static RobotContainer m_robotContainer;
-  public static Vision vision;
-  
-=======
   public static double velocity;
->>>>>>> Comp
 
   public static Intake intake;
   public static Shooter shooter;
@@ -51,15 +45,6 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-<<<<<<< HEAD
-    vision = new Vision();
-    
-
-
-    CameraServer.startAutomaticCapture();
-    
-    
-=======
 
     intake = new Intake();
     shooter = new Shooter();
@@ -68,7 +53,6 @@ public class Robot extends TimedRobot {
     vision = new Vision();
     
     CameraServer.startAutomaticCapture();
->>>>>>> Comp
   }
 
   /**
@@ -123,11 +107,8 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
     RobotContainer.m_drivetrainSubsystem.zeroGyroscope();
-<<<<<<< HEAD
-=======
     Robot.turret.ResetEncoders();
     Robot.vision.setCameraMode(1, 1);
->>>>>>> Comp
   }
 
   /** This function is called periodically during operator control. */

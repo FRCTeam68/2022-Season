@@ -35,8 +35,4 @@ public class ZeroGyro extends CommandBase {
   public boolean isFinished() {
     return isDone;
   }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> Comp
