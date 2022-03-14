@@ -3,7 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
-
+import frc.robot.Robot;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
@@ -81,6 +81,23 @@ public final class Constants {
     //Shooter Constants Below Here
     public static final int LEFT_SHOOTER_MOTOR = 9;
     public static final int RIGHT_SHOOTER_MOTOR = 10;
+    public static final double shooterTargetVelocity(int selector){
+        int choice = selector;
+        double velocity = 0;
+        switch(choice){
+            case 0: velocity = 0;
+            break;
+            case 1: velocity = 1800;
+            break;
+            case 2: velocity = 3700;
+            break;
+            case 3: velocity = 4700;
+            break;
+            case 4: velocity = Robot.shooter.m_calculateRPM();
+            break;
+        }
+        return velocity;
+    }
     
     public static double RELEASE_ANGLE = 60.0; //degrees from horizontal
     public static double THETA = Math.toRadians(RELEASE_ANGLE); 

@@ -8,30 +8,12 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.PS4Controller;
-import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.FunctionalCommand;
-import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.*;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.math.trajectory.Trajectory;
-import edu.wpi.first.math.trajectory.TrajectoryConfig;
-import edu.wpi.first.math.trajectory.TrajectoryGenerator;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.RunCommand;
-import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
-import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.controller.ProfiledPIDController;
-import java.util.List;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -192,6 +174,26 @@ public class RobotContainer {
 		}
 		return buttonPressed;
 	}
+
+  public int shooterSelect(){
+    int choice = 0;
+    if(manipX.get()){
+      choice = 1;
+    }
+    if(manipSquare.get()){
+      choice = 2;
+    }
+    if(manipTriangle.get()){
+      choice = 3;
+    }
+    if(manipRB.get()){
+      choice = 4;
+    }
+    else{
+      choice = 0;
+    }
+    return choice;
+  }
   
   public static double createSmartDashboardNumber(String key, double defValue) {
 

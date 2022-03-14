@@ -5,7 +5,9 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.Robot;
+import frc.robot.RobotContainer;
 
 public class IndexCommand extends CommandBase {
   /** Creates a new IndexCommand. */
@@ -20,19 +22,15 @@ public class IndexCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.intake.setSpeedOfIndexAndIntake(.5, .2, 0);
-    /*
- if(Robot.intake.getIndexBeamBreak() && Robot.intake.getIntakeBeamBreak()){
-            Robot.intake.setSpeedOfIndexAndIntake(0, 0, 0);
-           
-        }
-        else if(Robot.intake.getIndexBeamBreak()){
-            Robot.intake.setSpeedOfIndexAndIntake(0, .25, .6);
-        }
-        else{
-            Robot.intake.setSpeedOfIndexAndIntake(.25, .25, .6);
-        }
-    */
+    //Robot.intake.setSpeedOfIndexAndIntake(.5, .2, 0);
+    if(Robot.shooter.goodToShoot(Constants.shooterTargetVelocity(Robot.m_robotContainer.shooterSelect()))){
+      if(Constants.shooterTargetVelocity(Robot.m_robotContainer.shooterSelect())!=0){
+      Robot.intake.setSpeedOfIndexAndIntake(.5, .2, 0);
+      }
+    }
+    else{
+      Robot.intake.setSpeedOfIndexAndIntake(0, 0, 0);
+    }
   }
 
   // Called once the command ends or is interrupted.

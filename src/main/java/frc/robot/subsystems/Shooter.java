@@ -127,16 +127,6 @@ public class Shooter extends SubsystemBase{
     
     return rpm;
   }
-  public void distanceVelocity(){
-    //4096 sensor units per rev
-    //velocity is in sensor units per 100ms (0.1 secs)
-    //launcher belt is 18 to 36
-    //60000 milisecs in 1 min
-    //RPM to U/100ms is rotations*4096 / 60000ms
-  //  double wheelRpm = SpectrumPreferences.getNumber("Launcher Setpoint", 1000);
-    double motorVelocity = (rpm / 600 * 2048) / 2;
-    shooterRight.set(ControlMode.Velocity, motorVelocity);
-  }
   public void setRPM(double wheelRPM){
     //Sensor Velocity in ticks per 100ms / Sensor Ticks per Rev * 600 (ms to min) * 2 gear ratio to shooter
     //Motor Velocity in RPM / 600 (ms to min) * Sensor ticks per rev / pulley Ratio 36 to 18
@@ -145,5 +135,15 @@ public class Shooter extends SubsystemBase{
   }
   public double getWheelRPM(){
     return rpm;
+  }
+  public boolean goodToShoot(double target){
+    boolean isTrue = false;
+    if((target-100)<getWheelRPM()&&getWheelRPM()>(target+100)){
+      isTrue = true;
+    }
+    else{
+      isTrue = false;
+    }
+    return isTrue;
   }
 }
