@@ -37,7 +37,11 @@ public class Vision extends SubsystemBase {
 
     @Override
   public void periodic() {
+<<<<<<< HEAD
     
+=======
+    //CommandScheduler.getInstance().setDefaultCommand(Robot.vision, new CameraMode()); //Comment out for now
+>>>>>>> Comp
   }
 
   public boolean getTarget(){
@@ -60,6 +64,7 @@ public class Vision extends SubsystemBase {
   public double getYValue() {
     final double y = Y.getDouble(0.0);
     return y;
+<<<<<<< HEAD
   }
 
   public double getArea() {
@@ -93,6 +98,41 @@ public class Vision extends SubsystemBase {
     final double degreesToTarget = Y.getDouble(0.0);
     final double height = 98.25 - 20;
     final double limelightAngle = 26.2;
+=======
+  }
+
+  public double getArea() {
+    final double area = A.getDouble(0.0);
+    return area;
+  }
+
+  public void setCameraMode(final double ledMode, final double camMode) {
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(ledMode);
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").setNumber(camMode);
+  }
+
+  public double steeringAdjust() {
+
+    double steeringAdjust = 0;
+    final double x = X.getDouble(0.0);
+    final double Kp = -0.015;
+    final double min_command = 0.06;
+    final double heading_error = -x;
+
+        if(x>1.0){
+          steeringAdjust = Kp*heading_error+min_command;
+        }
+        else if(x<1.0){
+          steeringAdjust = Kp*heading_error-min_command;
+        }
+        return steeringAdjust;
+  }
+  public double calcDistance(){
+    double distanceIn = 0;
+    final double degreesToTarget = Y.getDouble(0.0);
+    final double height = 104 - 41.375;
+    final double limelightAngle = 30.0;
+>>>>>>> Comp
     
 
     distanceIn = height/Math.tan(Math.toRadians(degreesToTarget+limelightAngle));
@@ -100,4 +140,9 @@ public class Vision extends SubsystemBase {
     return distanceIn;
   }
 
+<<<<<<< HEAD
 }
+=======
+}
+
+>>>>>>> Comp

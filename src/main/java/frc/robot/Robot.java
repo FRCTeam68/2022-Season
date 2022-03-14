@@ -4,10 +4,17 @@
 
 package frc.robot;
 
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.CvSink;
+import edu.wpi.first.cscore.CvSource;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.cameraserver.CameraServer;
+import frc.robot.subsystems.*;
+
+
 import frc.robot.subsystems.*;
 
 
@@ -18,12 +25,23 @@ import frc.robot.subsystems.*;
  * project.
  */
 public class Robot extends TimedRobot {
+
   private Command m_autonomousCommand;
 
+<<<<<<< HEAD
   public static RobotContainer m_robotContainer;
   public static Vision vision;
   
+=======
+  public static double velocity;
+>>>>>>> Comp
 
+  public static Intake intake;
+  public static Shooter shooter;
+  public static Pnuematics pnuematics;
+  public static RobotContainer m_robotContainer;
+  public static Turret turret;
+  public static Vision vision;
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -33,6 +51,7 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+<<<<<<< HEAD
     vision = new Vision();
     
 
@@ -40,6 +59,16 @@ public class Robot extends TimedRobot {
     CameraServer.startAutomaticCapture();
     
     
+=======
+
+    intake = new Intake();
+    shooter = new Shooter();
+    pnuematics = new Pnuematics();
+    turret = new Turret();
+    vision = new Vision();
+    
+    CameraServer.startAutomaticCapture();
+>>>>>>> Comp
   }
 
   /**
@@ -68,6 +97,10 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
+  
+    // I think I'm supposed to reset encoders, but I don't know what I'm doing so I didn't
+    //I also just stopped here because I don't know if I actually need to do this part.
+
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
     // schedule the autonomous command (example)
@@ -90,11 +123,20 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
     RobotContainer.m_drivetrainSubsystem.zeroGyroscope();
+<<<<<<< HEAD
+=======
+    Robot.turret.ResetEncoders();
+    Robot.vision.setCameraMode(1, 1);
+>>>>>>> Comp
   }
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+    SmartDashboard.putBoolean("Intake BeamBreak", Robot.intake.getIntakeBeamBreak());
+    SmartDashboard.putNumber("Limelight Distance", Robot.vision.calcDistance());
+    SmartDashboard.putNumber("Wheel RPM", Robot.shooter.getWheelRPM());
+  }
 
   @Override
   public void testInit() {
@@ -105,4 +147,6 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during test mode. */
   @Override
   public void testPeriodic() {}
+
+  
 }

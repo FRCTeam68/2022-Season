@@ -1,0 +1,1 @@
+Removed                 "windowsx86-64", from "jniDependencies" in REVLib.json

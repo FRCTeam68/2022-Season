@@ -3,15 +3,13 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.commands;
-
 import frc.robot.Robot;
-import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class ZeroGyro extends CommandBase {
-  /** Creates a new ZeroGyro. */
+public class StopIntake extends CommandBase {
+  /** Creates a new StopIntake. */
   boolean isDone = false;
-  public ZeroGyro() {
+  public StopIntake() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -22,7 +20,7 @@ public class ZeroGyro extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.m_drivetrainSubsystem.zeroGyroscope();
+    Robot.intake.setSpeedOfIndexAndIntake(0, 0, 0);
     isDone = true;
   }
 
@@ -35,8 +33,4 @@ public class ZeroGyro extends CommandBase {
   public boolean isFinished() {
     return isDone;
   }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> Comp

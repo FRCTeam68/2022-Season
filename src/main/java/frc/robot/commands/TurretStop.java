@@ -4,14 +4,12 @@
 
 package frc.robot.commands;
 
-import frc.robot.Robot;
-import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Robot;
 
-public class ZeroGyro extends CommandBase {
-  /** Creates a new ZeroGyro. */
-  boolean isDone = false;
-  public ZeroGyro() {
+public class TurretStop extends CommandBase {
+  /** Creates a new TurretStop. */
+  public TurretStop() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -22,8 +20,7 @@ public class ZeroGyro extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.m_drivetrainSubsystem.zeroGyroscope();
-    isDone = true;
+    Robot.turret.setTurretSpeed(0);
   }
 
   // Called once the command ends or is interrupted.
@@ -33,10 +30,6 @@ public class ZeroGyro extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return isDone;
+    return true;
   }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> Comp
