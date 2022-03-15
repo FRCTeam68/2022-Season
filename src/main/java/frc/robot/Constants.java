@@ -141,6 +141,15 @@ public final class Constants {
     public static final int CONTROLLOR_MANIP_RS = 12;
     public static final int CONTROLLOR_MANIP_PS = 13;
     public static final int CONTROLLOR_MANIP_PAD = 14;
+
+    // Aircontroller stuff
+
+    public static final int CONTROLLER_LEFTX = 0;
+    public static final int CONTROLLER_LEFTY = 1;
+
+    public static final int CONTROLLER_RIGHTX = 3;
+    public static final int CONTROLLER_RIGHTY = 4;
+
     /*
     CONTROLLOR_MANIP_A = 1;
     public static final int CONTROLLOR_MANIP_B = 2;
