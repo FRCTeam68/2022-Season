@@ -22,7 +22,7 @@ public class ShootMid extends CommandBase {
   @Override
   public void execute() {
     //Robot.shooter.setRPM(3700);
-    Robot.shooter.setRPM(Constants.shooterTargetVelocity(Robot.m_robotContainer.shooterSelect()));
+    Robot.shooter.setRPM(Constants.shooterTargetRPM());
   }
 
   // Called once the command ends or is interrupted.

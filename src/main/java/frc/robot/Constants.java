@@ -81,22 +81,24 @@ public final class Constants {
     //Shooter Constants Below Here
     public static final int LEFT_SHOOTER_MOTOR = 9;
     public static final int RIGHT_SHOOTER_MOTOR = 10;
-    public static final double shooterTargetVelocity(int selector){
-        int choice = selector;
-        double velocity = 0;
-        switch(choice){
-            case 0: velocity = 0;
-            break;
-            case 1: velocity = 1800;
-            break;
-            case 2: velocity = 3700;
-            break;
-            case 3: velocity = 4700;
-            break;
-            case 4: velocity = Robot.shooter.m_calculateRPM();
-            break;
+    public static final double shooterTargetRPM(){
+        double RPM;
+        if(Robot.m_robotContainer.getManipX()){
+            RPM = 1800;
         }
-        return velocity;
+        if(Robot.m_robotContainer.getManipSquare()){
+            RPM = 3700;
+        }
+        if(Robot.m_robotContainer.getManipTriangle()){
+            RPM = 4700;
+        }
+        if(Robot.m_robotContainer.getManipRB()){
+            RPM = Robot.shooter.m_calculateRPM();
+        }
+        else{
+            RPM = 0;
+        }
+        return RPM;
     }
     
     public static double RELEASE_ANGLE = 60.0; //degrees from horizontal

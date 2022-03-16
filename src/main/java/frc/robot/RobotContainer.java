@@ -175,26 +175,30 @@ public class RobotContainer {
 		return buttonPressed;
 	}
 
-  public int shooterSelect(){
-    int choice = 0;
+  public boolean getManipX(){
+    boolean buttonPressed = false;
     if(manipX.get()){
-      choice = 1;
+      buttonPressed = true;
     }
-    if(manipSquare.get()){
-      choice = 2;
-    }
-    if(manipTriangle.get()){
-      choice = 3;
-    }
-    if(manipRB.get()){
-      choice = 4;
-    }
-    else{
-      choice = 0;
-    }
-    return choice;
+    return buttonPressed;
   }
-  
+
+  public boolean getManipSquare(){
+    boolean buttonPressed = false;
+    if(manipSquare.get()){
+      buttonPressed = true;
+    }
+    return buttonPressed;
+  }
+
+  public boolean getManipTriangle(){
+    boolean buttonPressed = false;
+    if(manipTriangle.get()){
+      buttonPressed = true;
+    }
+    return buttonPressed;
+  }
+
   public static double createSmartDashboardNumber(String key, double defValue) {
 
     // See if already on dashboard, and if so, fetch current value

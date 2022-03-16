@@ -22,15 +22,8 @@ public class IndexCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //Robot.intake.setSpeedOfIndexAndIntake(.5, .2, 0);
-    if(Robot.shooter.goodToShoot(Constants.shooterTargetVelocity(Robot.m_robotContainer.shooterSelect()))){
-      if(Constants.shooterTargetVelocity(Robot.m_robotContainer.shooterSelect())!=0){
-      Robot.intake.setSpeedOfIndexAndIntake(.5, .2, 0);
-      }
-    }
-    else{
-      Robot.intake.setSpeedOfIndexAndIntake(0, 0, 0);
-    }
+    Robot.intake.setSpeedOfIndexAndIntake(.5, .2, 0);
+    
   }
 
   // Called once the command ends or is interrupted.
