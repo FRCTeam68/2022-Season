@@ -86,13 +86,13 @@ public final class Constants {
         if(Robot.m_robotContainer.getManipX()){
             RPM = 1800;
         }
-        if(Robot.m_robotContainer.getManipSquare()){
+        else if(Robot.m_robotContainer.getManipSquare()){
             RPM = 3700;
         }
-        if(Robot.m_robotContainer.getManipTriangle()){
+        else if(Robot.m_robotContainer.getManipTriangle()){
             RPM = 4700;
         }
-        if(Robot.m_robotContainer.getManipRB()){
+        else if(Robot.m_robotContainer.getManipRB()){
             RPM = Robot.shooter.m_calculateRPM();
         }
         else{
@@ -135,17 +135,24 @@ public final class Constants {
     public static final int INDEX_SENSOR = 1;
     //Controller Constants Below Here
     public static final int CONTROLLOR_DRIVE = 0;
+    public static final int FLIGHT_CONTROLLOR_AONE = 1;
+    public static final int FLIGHT_CONTROLLOR_BZERO = 2;
+    public static final int FLIGHT_CONTROLLOR_BTWO = 3;
+    public static final int FLIGHT_CONTROLLOR_CZERO = 4;
+    public static final int FLIGHT_CONTROLLOR_CTWO = 5;
+    public static final int FLIGHT_CONTROLLOR_DZERO = 6;
+    public static final int FLIGHT_CONTROLLOR_DTWO = 7;
+    public static final int FLIGHT_CONTROLLOR_FTWO = 8;
+    public static final int FLIGHT_CONTROLLOR_FZERO = 9;
+    public static final int FLIGHT_CONTROLLOR_GTWO = 10;
+    public static final int FLIGHT_CONTROLLOR_GZERO = 11;
+    public static final int FLIGHT_CONTROLLOR_HONE = 12;
+    public static final int FLIGHT_CONTROLLOR_I = 13;
+    public static final int FLIGHT_CONTROLLOR_RESET = 14;
+    public static final int FLIGHT_CONTROLLOR_CANCEL = 15;
+    public static final int FLIGHT_CONTROLLOR_SELECT = 16;
+
     public static final int CONTROLLOR_MANIP = 1;
-    public static final int CONTROLLOR_DRIVE_A = 1;
-    public static final int CONTROLLOR_DRIVE_B = 2;
-    public static final int CONTROLLOR_DRIVE_X = 3;
-    public static final int CONTROLLOR_DRIVE_Y = 4;
-    public static final int CONTROLLOR_DRIVE_LB = 5;
-    public static final int CONTROLLOR_DRIVE_RB = 6;
-    public static final int CONTROLLOR_DRIVE_SELECT = 7;
-    public static final int CONTROLLOR_DRIVE_START = 8;
-    public static final int CONTROLLOR_DRIVE_LS = 9;
-    public static final int CONTROLLOR_DRIVE_RS = 10;
     public static final int CONTROLLOR_MANIP_SQUARE = 1;
     public static final int CONTROLLOR_MANIP_X = 2;
     public static final int CONTROLLOR_MANIP_CIRCLE = 3;

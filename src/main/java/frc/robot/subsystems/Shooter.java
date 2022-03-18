@@ -13,6 +13,7 @@ import frc.robot.Constants;
 
 import  frc.robot.Constants;
 import frc.robot.Robot;
+import frc.robot.commands.Shoot;
 
 public class Shooter extends SubsystemBase{
 
@@ -78,7 +79,10 @@ public class Shooter extends SubsystemBase{
     feedForward = new SimpleMotorFeedforward(0.133, 0.0002596, 0.0030056);
     shooterPID = new PIDController(0.05, 0, 0); //0.14258
   }
-
+  public void initDefaultCommand() {
+    // Set the default command for a subsystem here.
+    setDefaultCommand(new Shoot());
+}
   @Override
   public void periodic() {
 

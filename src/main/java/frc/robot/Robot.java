@@ -114,7 +114,8 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    
+    SmartDashboard.putNumber("RightStick", Robot.m_robotContainer.getRightManipulatorJoystickValue());
+    SmartDashboard.putBoolean("Good to Shoot", Robot.shooter.goodToShoot(Constants.shooterTargetRPM()));
     SmartDashboard.putNumber("Limelight Distance", Robot.vision.calcDistance());
     SmartDashboard.putNumber("Wheel RPM", Robot.shooter.getWheelRPM());
   }
