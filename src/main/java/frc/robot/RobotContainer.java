@@ -52,9 +52,9 @@ public class RobotContainer {
     // Left stick X axis -> left and right movement
     // Right stick X axis -> rotation
     m_drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(m_drivetrainSubsystem,
-            () -> -modifyAxis(-driveController.getRawAxis(Constants.CONTROLLER_LEFTY)) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND,
-            () -> -modifyAxis(driveController.getRawAxis(Constants.CONTROLLER_LEFTX)) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND,
-            () -> -modifyAxis(driveController.getRawAxis(Constants.CONTROLLER_RIGHTX)) * DrivetrainSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND
+            () -> -modifyAxis(-driveController.getRawAxis(Constants.CONTROLLER_LEFTY)) * Constants.MAX_VELOCITY_METERS_PER_SECOND,
+            () -> -modifyAxis(driveController.getRawAxis(Constants.CONTROLLER_LEFTX)) * Constants.MAX_VELOCITY_METERS_PER_SECOND,
+            () -> -modifyAxis(driveController.getRawAxis(Constants.CONTROLLER_RIGHTX)) * Constants.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND
     ));
     
     // Configure the button bindings
@@ -126,11 +126,12 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
-    //return new InstantCommand();
-    return new AutonCommand();
-  }
+  // public Command getAutonomousCommand() {
+  //   // An ExampleCommand will run in autonomous
+  //   //return new InstantCommand();
+  //   //return new AutonCommand();
+  //   return new RunPath();
+  // }
 
   private static double deadband(double value, double deadband) {
     if (Math.abs(value) > deadband) {
