@@ -146,12 +146,12 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
-    //return new InstantCommand();
-    //return new AutonCommand();
-    return new RunPath();
-  }
+  // public Command getAutonomousCommand() {
+  //   // An ExampleCommand will run in autonomous
+  //   //return new InstantCommand();
+  //   //return new AutonCommand();
+  //   return new RunPath();
+  // }
 
   private static double deadband(double value, double deadband) {
     if (Math.abs(value) > deadband) {

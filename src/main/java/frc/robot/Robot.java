@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-
+import frc.robot.commands.parent.SequentialCommandBase;
 import frc.robot.subsystems.*;
 
 
@@ -21,7 +21,7 @@ import frc.robot.subsystems.*;
  */
 public class Robot extends TimedRobot {
 
-  private Command m_autonomousCommand;
+  private SequentialCommandBase m_autonomousCommand;
 
   public static double velocity;
 
@@ -40,14 +40,14 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
+    pathFollower = new PathFollower("DriveStraight");
     m_robotContainer = new RobotContainer();
 
     intake = new Intake();
     shooter = new Shooter();
     pnuematics = new Pnuematics();
     turret = new Turret();
-    vision = new Vision();
-    pathFollower = new PathFollower("2ball"); 
+    vision = new Vision(); 
     CameraServer.startAutomaticCapture();
 
   }
@@ -82,8 +82,8 @@ public class Robot extends TimedRobot {
     // I think I'm supposed to reset encoders, but I don't know what I'm doing so I didn't
     //I also just stopped here because I don't know if I actually need to do this part.
 
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-
+    m_autonomousCommand = Autons.RUNPATH.getSequentialCommandBase();
+    m_autonomousCommand.setPathFollowers(Robot.pathFollower);
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
@@ -116,6 +116,9 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("From method", m_robotContainer.getRPM());
     SmartDashboard.putNumber("Limelight Distance", Robot.vision.calcDistance());
     SmartDashboard.putNumber("Wheel RPM", Robot.shooter.getWheelRPM());
+    SmartDashboard.putNumber("ODMX", RobotContainer.m_drivetrainSubsystem.getPose().getX());
+    SmartDashboard.putNumber("ODMY", RobotContainer.m_drivetrainSubsystem.getPose().getY());
+    SmartDashboard.putNumber("Rotation", RobotContainer.m_drivetrainSubsystem.getGyroscopeRotation().getRadians());
     
   }
 

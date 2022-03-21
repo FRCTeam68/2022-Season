@@ -89,7 +89,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     currentLimit.setDriveCurrentLimit(30.0);
     currentLimit.setSteerCurrentLimit(30.0);
     
-    pathStateController.setPathPlannerFollower(Robot.pathFollower);
+    
 
     // There are 4 methods you can call to create your swerve modules.
     // The method you use depends on what motors you are using.
@@ -105,7 +105,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
                 //module congig to current limit 
             currentLimit, 
                 //this can be either STANDARD or FAST dpending on gear config
-            Mk3SwerveModuleHelper.GearRatio.STANDARD, 
+            Mk3SwerveModuleHelper.GearRatio.FAST, 
             FRONT_LEFT_MODULE_DRIVE_MOTOR, 
             FRONT_LEFT_MODULE_STEER_MOTOR, 
             FRONT_LEFT_MODULE_STEER_ENCODER, 
@@ -121,7 +121,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
         .withSize(2, 4)
         .withPosition(2, 0), 
             currentLimit, 
-            Mk3SwerveModuleHelper.GearRatio.STANDARD, 
+            Mk3SwerveModuleHelper.GearRatio.FAST, 
             FRONT_RIGHT_MODULE_DRIVE_MOTOR,
             FRONT_RIGHT_MODULE_STEER_MOTOR,
             FRONT_RIGHT_MODULE_STEER_ENCODER,
@@ -133,7 +133,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
         .withSize(2, 4)
         .withPosition(4, 0), 
             currentLimit, 
-            Mk3SwerveModuleHelper.GearRatio.STANDARD,
+            Mk3SwerveModuleHelper.GearRatio.FAST,
             BACK_LEFT_MODULE_DRIVE_MOTOR,
             BACK_LEFT_MODULE_STEER_MOTOR,
             BACK_LEFT_MODULE_STEER_ENCODER,
@@ -145,7 +145,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
         .withSize(2, 4)
         .withPosition(6, 0), 
             currentLimit, 
-            Mk3SwerveModuleHelper.GearRatio.STANDARD,
+            Mk3SwerveModuleHelper.GearRatio.FAST,
             BACK_RIGHT_MODULE_DRIVE_MOTOR,
             BACK_RIGHT_MODULE_STEER_MOTOR,
             BACK_RIGHT_MODULE_STEER_ENCODER,
@@ -184,6 +184,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
       SmartDashboard.putNumber("Current Y", getPose().getY()); 
       SmartDashboard.putNumber("Auto Angle", getPose().getRotation().getDegrees()); 
   }
+
   /**
    * Sets the gyroscope angle to zero. This can be used to set the direction the robot is currently facing to the
    * 'forwards' direction.
@@ -200,14 +201,16 @@ public class DrivetrainSubsystem extends SubsystemBase {
   }
   public void zeroGyroscope() {
     m_navx.zeroYaw();
+    gyroOffset = new Rotation2d(0);
   }
+  
   public Rotation2d getGyroscopeRotation() {
-    if (m_navx.isMagnetometerCalibrated()) {
-     // We will only get valid fused headings if the magnetometer is calibrated
-      return Rotation2d.fromDegrees(m_navx.getFusedHeading());
-    }
+    // if (m_navx.isMagnetometerCalibrated()) {
+    //  // We will only get valid fused headings if the magnetometer is calibrated
+    //   return Rotation2d.fromDegrees(m_navx.getFusedHeading());
+    // }
    // We have to invert the angle of the NavX so that rotating the robot counter-clockwise makes the angle increase.
-    return Rotation2d.fromDegrees(360.0 - m_navx.getYaw());
+    return m_navx.getRotation2d().plus(gyroOffset);
   }
 
   public void drive(ChassisSpeeds chassisSpeeds) {
@@ -226,7 +229,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     m_backRightModule.set(states[3].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE, states[3].angle.getRadians());
 
     m_odometry.update(
-        new Rotation2d(getHeading()),
+        new Rotation2d(getGyroscopeRotation().getRadians()),
         getFLState(),
         getFRState(),
         getBLState(),

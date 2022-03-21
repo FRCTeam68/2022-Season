@@ -38,6 +38,7 @@ public class PathController {
 
     public DriveVelocities getVelocitiesAtCurrentState(SwerveDriveOdometry odometry, Rotation2d currentOrientation){
         PathPlannerTrajectory.PathPlannerState pathState = this.pathPlannerFollower.getCurrentState();
+        //outputting a null
         double fwd_back_position = pathState.poseMeters.getX(); //going down field, closer or farther from driver station
         double left_right_position = pathState.poseMeters.getY(); //side to side, parallel with driver station wall
         double angular_velocity = pathState.angularVelocity.getRadians();
