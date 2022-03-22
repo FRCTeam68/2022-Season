@@ -21,7 +21,7 @@ public class PathFollower {
     }
 
     private void loadPath(String pathName){
-        this.path = PathPlanner.loadPath(pathName, Constants.MAX_VELOCITY_METERS_PER_SECOND, Constants.MAX_ACCELERATION_METERS_PER_SECOND_PER_SECOND);
+        this.path = PathPlanner.loadPath(pathName, Constants.MAX_AUTON_VELOCITY_METERS_PER_SECOND, Constants.MAX_ACCELERATION_METERS_PER_SECOND_PER_SECOND);
         System.out.println(path.toString());
     }
 

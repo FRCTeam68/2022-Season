@@ -55,10 +55,15 @@ public final class Constants {
     public static final double BACK_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(-115.0); // FIXME Measure and set back right steer offset
 
     public static final double MAX_VELOCITY_METERS_PER_SECOND = 6380.0 / 60.0 *
-          SdsModuleConfigurations.MK3_STANDARD.getDriveReduction() *
-          SdsModuleConfigurations.MK3_STANDARD.getWheelDiameter() * Math.PI;
+          SdsModuleConfigurations.MK3_FAST.getDriveReduction() *
+          SdsModuleConfigurations.MK3_FAST.getWheelDiameter() * Math.PI;
+
+    public static final double MAX_AUTON_VELOCITY_METERS_PER_SECOND = 3190.0 / 60.0 *
+          SdsModuleConfigurations.MK3_FAST.getDriveReduction() *
+          SdsModuleConfigurations.MK3_FAST.getWheelDiameter() * Math.PI;
 
     public static final double MAX_ACCELERATION_METERS_PER_SECOND_PER_SECOND = 3.0;
+    
 
     public static final double MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND = MAX_VELOCITY_METERS_PER_SECOND /
           Math.hypot(DRIVETRAIN_TRACKWIDTH_METERS / 2.0, DRIVETRAIN_WHEELBASE_METERS / 2.0);

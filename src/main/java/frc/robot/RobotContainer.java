@@ -81,8 +81,8 @@ public class RobotContainer {
     manipRB.whileHeld(new Shoot());
     manipRB.whenReleased(new ShootStop());
 
-    manipCircle.whileHeld(new Shoot());
-    //manipCircle.whenReleased(new StopIntake());
+    manipCircle.whileHeld(new OuttakeCommand());
+    manipCircle.whenReleased(new StopIntake());
 
     manipSquare.whileHeld(new Shoot());
     //manipSquare.whenReleased(new Zero());
@@ -155,6 +155,16 @@ public class RobotContainer {
     return value;
   }
 
+  public double getLeftX(){
+    double leftXAxis;
+    leftXAxis = driveController.getRawAxis(Constants.CONTROLLER_LEFTX);
+    return leftXAxis;
+  }
+  public double getLeftY(){
+    double leftYAxis;
+    leftYAxis = driveController.getRawAxis(Constants.CONTROLLER_LEFTY);
+    return leftYAxis;
+  }
   public double getRightManipulatorJoystickValue() {
     double rightAxis;
     

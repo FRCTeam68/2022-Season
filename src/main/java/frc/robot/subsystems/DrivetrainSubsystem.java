@@ -68,9 +68,9 @@ public class DrivetrainSubsystem extends SubsystemBase {
 			backLeft_stateAngle = 0.0,
 			backRight_stateAngle = 0.0;
 
-      PIDController xPID = new PIDController(4,0,0);
-	PIDController yPID = new PIDController(4,0,0);
-	PIDController rotPID = new PIDController(8,0,0);
+      PIDController xPID = new PIDController(.05,0,0); //4 0.07 .25
+	    PIDController yPID = new PIDController(.05,0,0); //4 0.07 .25
+	    PIDController rotPID = new PIDController(.06,0,0); //3 0.06 0.01
 
 	PathController pathStateController = new PathController(xPID, yPID, rotPID);
 
@@ -270,7 +270,7 @@ public SwerveDriveOdometry getSwerveDriveOdometry(){
 				fieldRelative ? ChassisSpeeds.fromFieldRelativeSpeeds(
 						xSpeed, ySpeed, rot, getGyroscopeRotation())
 						: new ChassisSpeeds(xSpeed, ySpeed, rot));
-		SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, Constants.MAX_VELOCITY_METERS_PER_SECOND);
+		SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, Constants.MAX_AUTON_VELOCITY_METERS_PER_SECOND);
 		if (Math.abs(swerveModuleStates[0].speedMetersPerSecond) + Math.abs(swerveModuleStates[1].speedMetersPerSecond)
 				+ Math.abs(swerveModuleStates[2].speedMetersPerSecond)
 				+ Math.abs(swerveModuleStates[3].speedMetersPerSecond) > 0.001) {
@@ -280,16 +280,16 @@ public SwerveDriveOdometry getSwerveDriveOdometry(){
 			backRight_stateAngle = swerveModuleStates[3].angle.getRadians();
 		}
 		m_frontLeftModule.set(swerveModuleStates[0].speedMetersPerSecond
-						/ Constants.MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE,
+						/ Constants.MAX_AUTON_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE,
 				frontLeft_stateAngle);
 		m_frontRightModule.set(swerveModuleStates[1].speedMetersPerSecond
-						/ Constants.MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE,
+						/ Constants.MAX_AUTON_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE,
 				frontRight_stateAngle);
 		m_backLeftModule.set(swerveModuleStates[2].speedMetersPerSecond
-						/ Constants.MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE,
+						/ Constants.MAX_AUTON_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE,
 				backLeft_stateAngle);
 		m_backRightModule.set(swerveModuleStates[3].speedMetersPerSecond
-						/ Constants.MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE,
+						/ Constants.MAX_AUTON_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE,
 				backRight_stateAngle);
 	}
 
@@ -298,8 +298,8 @@ public SwerveDriveOdometry getSwerveDriveOdometry(){
 					.getVelocitiesAtCurrentState(this.getSwerveDriveOdometry(), this.getGyroscopeRotation());
 
 			Translation2d currentPosition = getSwerveDriveOdometry().getPoseMeters().getTranslation();
-			// System.out.println(String.format("Current Odometry [ X: %.2f Y:%.2f ] Heading [ Rot (radians): %.2f ]", currentPosition.getX(), currentPosition.getY(), getGyroHeading().getRadians()));
-			// System.out.println("Current Velocity Calculations: " + velocities.toString());
+			 System.out.println(String.format("Current Odometry [ X: %.2f Y:%.2f ] Heading [ Rot (radians): %.2f ]", currentPosition.getX(), currentPosition.getY(), getGyroscopeRotation().getRadians()));
+			 System.out.println("Current Velocity Calculations: " + velocities.toString());
 			driveAutonomously(velocities.getXVel(), velocities.getYVel(), velocities.getRotVel(), true);
 	}
 

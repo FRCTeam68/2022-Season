@@ -46,7 +46,7 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
-    pathFollower = new PathFollower("DriveStraight");
+    pathFollower = new PathFollower("2ball");
     m_robotContainer = new RobotContainer();
 
     intake = new Intake();
@@ -121,6 +121,8 @@ public class Robot extends TimedRobot {
     SmartDashboard.putBoolean("Good to Shoot", Robot.shooter.goodToShoot(Constants.shooterTargetRPM()));
     SmartDashboard.putNumber("Limelight Distance", Robot.vision.calcDistance());
     SmartDashboard.putNumber("Wheel RPM", Robot.shooter.getWheelRPM());
+    SmartDashboard.putNumber("LeftX", Robot.m_robotContainer.getLeftX());
+    SmartDashboard.putNumber("LeftY", Robot.m_robotContainer.getLeftY());
     /*
     SmartDashboard.putNumber("ODMX", RobotContainer.m_drivetrainSubsystem.getPose().getX());
     SmartDashboard.putNumber("ODMY", RobotContainer.m_drivetrainSubsystem.getPose().getY());

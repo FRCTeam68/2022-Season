@@ -85,7 +85,7 @@ public class Shooter extends SubsystemBase{
 }
   @Override
   public void periodic() {
-
+    //SmartDashboard.putBoolean("Good to shoot", goodToShoot(Constants.shooterTargetRPM()));
   }
 
   
