@@ -38,6 +38,7 @@ public class Robot extends TimedRobot {
   public static Turret turret;
   public static Vision vision;
   public static PathFollower pathFollower;
+  public static boolean isTeleop = false;
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -46,7 +47,7 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
-    pathFollower = new PathFollower("2ball");
+    pathFollower = new PathFollower("DriveStraight");
     m_robotContainer = new RobotContainer();
 
     intake = new Intake();
@@ -79,7 +80,9 @@ public class Robot extends TimedRobot {
   public void disabledInit() {}
 
   @Override
-  public void disabledPeriodic() {}
+  public void disabledPeriodic() {
+    isTeleop = false;
+  }
 
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
@@ -99,7 +102,7 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
-    
+    isTeleop = false;
   }
 
   @Override
@@ -119,16 +122,18 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
+    isTeleop = true;
     SmartDashboard.putNumber("RightStick", Robot.m_robotContainer.getRightManipulatorJoystickValue());
     SmartDashboard.putBoolean("Good to Shoot", Robot.shooter.goodToShoot(Constants.shooterTargetRPM()));
     SmartDashboard.putNumber("Limelight Distance", Robot.vision.calcDistance());
     SmartDashboard.putNumber("Wheel RPM", Robot.shooter.getWheelRPM());
     //SmartDashboard.putNumber("LeftX", Robot.m_robotContainer.getLeftX());
     //SmartDashboard.putNumber("LeftY", Robot.m_robotContainer.getLeftY());
-    
+    /*
     SmartDashboard.putNumber("ODMX", RobotContainer.m_drivetrainSubsystem.getPose().getX());
     SmartDashboard.putNumber("ODMY", RobotContainer.m_drivetrainSubsystem.getPose().getY());
     SmartDashboard.putNumber("Rotation", RobotContainer.m_drivetrainSubsystem.getGyroscopeRotation().getRadians());
+    */
     
   }
 
