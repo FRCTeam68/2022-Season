@@ -38,7 +38,6 @@ public class PathController {
 
     public DriveVelocities getVelocitiesAtCurrentState(SwerveDriveOdometry odometry, Rotation2d currentOrientation){
         PathPlannerTrajectory.PathPlannerState pathState = this.pathPlannerFollower.getCurrentState();
-        //outputting a null
         double fwd_back_position = pathState.poseMeters.getX(); //going down field, closer or farther from driver station
         double left_right_position = pathState.poseMeters.getY(); //side to side, parallel with driver station wall
         double angular_velocity = pathState.angularVelocity.getRadians();
@@ -50,16 +49,16 @@ public class PathController {
         double currentX = odometry.getPoseMeters().getX();
         double currentY = odometry.getPoseMeters().getY();
 
-        // System.out.println(String.format("Current Commands Pos and Vel [ X(pos): %.2f Y(pos): %.2f ] [ X(vel): %.2f Y(vel): %.2f ]", fwd_back_position, left_right_position, x_velocity, y_velocity));
-        // System.out.println(String.format("Current Commands Orientation [ Heading(pos): %.2f Heading(vel): %.2f ]", targetHolonomicHeading.getRadians(), angular_velocity));
+         System.out.println(String.format("Current Commands Pos and Vel [ X(pos): %.2f Y(pos): %.2f ] [ X(vel): %.2f Y(vel): %.2f ]", fwd_back_position, left_right_position, x_velocity, y_velocity));
+         System.out.println(String.format("Current Commands Orientation [ Heading(pos): %.2f Heading(vel): %.2f ]", targetHolonomicHeading.getRadians(), angular_velocity));
 
 
 
         double output_x_vel = x_velocity + x_pid.calculate(currentX, fwd_back_position);
         double output_y_vel = y_velocity + y_pid.calculate(currentY, left_right_position);
         // TODO validate that the error below is calculated correctly, maybe plus?
-        Rotation2d orientationError = targetHolonomicHeading.minus(currentOrientation);
-        System.out.println(String.format("Current orientation error %.5f",  orientationError));
+        Rotation2d orientationError = targetHolonomicHeading.minus(currentOrientation); 
+        
         double output_rot_vel = angular_velocity + rot_pid.calculate(-orientationError.getRadians(), 0.0);
 
         return new DriveVelocities(output_x_vel, output_y_vel, output_rot_vel);

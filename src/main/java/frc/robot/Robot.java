@@ -98,7 +98,9 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during autonomous. */
   @Override
-  public void autonomousPeriodic() {}
+  public void autonomousPeriodic() {
+    
+  }
 
   @Override
   public void teleopInit() {
@@ -121,13 +123,13 @@ public class Robot extends TimedRobot {
     SmartDashboard.putBoolean("Good to Shoot", Robot.shooter.goodToShoot(Constants.shooterTargetRPM()));
     SmartDashboard.putNumber("Limelight Distance", Robot.vision.calcDistance());
     SmartDashboard.putNumber("Wheel RPM", Robot.shooter.getWheelRPM());
-    SmartDashboard.putNumber("LeftX", Robot.m_robotContainer.getLeftX());
-    SmartDashboard.putNumber("LeftY", Robot.m_robotContainer.getLeftY());
-    /*
+    //SmartDashboard.putNumber("LeftX", Robot.m_robotContainer.getLeftX());
+    //SmartDashboard.putNumber("LeftY", Robot.m_robotContainer.getLeftY());
+    
     SmartDashboard.putNumber("ODMX", RobotContainer.m_drivetrainSubsystem.getPose().getX());
     SmartDashboard.putNumber("ODMY", RobotContainer.m_drivetrainSubsystem.getPose().getY());
     SmartDashboard.putNumber("Rotation", RobotContainer.m_drivetrainSubsystem.getGyroscopeRotation().getRadians());
-    */
+    
   }
 
   @Override

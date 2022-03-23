@@ -22,6 +22,7 @@ public class RunPath extends CommandBase {
   public void initialize() {
     Robot.m_robotContainer.m_drivetrainSubsystem.setPathPlannerFollower(path, true);
     path.resetStart();
+    //Robot.m_robotContainer.m_drivetrainSubsystem.resetOdometry(path.getInitialPosition());
   }
 
   // Called every time the scheduler runs while the command is scheduled.
