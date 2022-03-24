@@ -58,10 +58,10 @@ public final class Constants {
           SdsModuleConfigurations.MK3_FAST.getDriveReduction() *
           SdsModuleConfigurations.MK3_FAST.getWheelDiameter() * Math.PI;
 
-    public static final double MAX_AUTON_VELOCITY_METERS_PER_SECOND = 3190.0 / 60.0 *
-          SdsModuleConfigurations.MK3_FAST.getDriveReduction() *
-          SdsModuleConfigurations.MK3_FAST.getWheelDiameter() * Math.PI;
+    public static final double MAX_AUTON_VELOCITY_METERS_PER_SECOND = 3;
+    public static final double AUTON_TO_MAX_VELOCITY_RATIO = MAX_AUTON_VELOCITY_METERS_PER_SECOND/MAX_VELOCITY_METERS_PER_SECOND;
 
+    public static final double MAX_AUTON_VOLTAGE = 12;
     public static final double MAX_ACCELERATION_METERS_PER_SECOND_PER_SECOND = 3.0;
     
 
@@ -96,6 +96,7 @@ public final class Constants {
     //Shooter Constants Below Here
     public static final int LEFT_SHOOTER_MOTOR = 9;
     public static final int RIGHT_SHOOTER_MOTOR = 10;
+    public static final int AUTON_SHOT = 1800;
     public static final double shooterTargetRPM(){
         double RPM;
         if(Robot.m_robotContainer.getManipX()){

@@ -49,8 +49,8 @@ public class PathController {
         double currentX = odometry.getPoseMeters().getX();
         double currentY = odometry.getPoseMeters().getY();
 
-         System.out.println(String.format("Current Commands Pos and Vel [ X(pos): %.2f Y(pos): %.2f ] [ X(vel): %.2f Y(vel): %.2f ]", fwd_back_position, left_right_position, x_velocity, y_velocity));
-         System.out.println(String.format("Current Commands Orientation [ Heading(pos): %.2f Heading(vel): %.2f ]", targetHolonomicHeading.getRadians(), angular_velocity));
+        // System.out.println(String.format("Current Commands Pos and Vel [ X(pos): %.2f Y(pos): %.2f ] [ X(vel): %.2f Y(vel): %.2f ]", fwd_back_position, left_right_position, x_velocity, y_velocity));
+         //System.out.println(String.format("Current Commands Orientation [ Heading(pos): %.2f Heading(vel): %.2f ]", targetHolonomicHeading.getRadians(), angular_velocity));
 
 
 
@@ -58,7 +58,7 @@ public class PathController {
         double output_y_vel = y_velocity + y_pid.calculate(currentY, left_right_position);
         // TODO validate that the error below is calculated correctly, maybe plus?
         Rotation2d orientationError = targetHolonomicHeading.minus(currentOrientation); 
-        
+        //System.out.println(String.format("ERRORS: [%.2f,%.2f,%.2f]", fwd_back_position-currentX,left_right_position-currentY,orientationError.getRadians()));
         double output_rot_vel = angular_velocity + rot_pid.calculate(-orientationError.getRadians(), 0.0);
 
         return new DriveVelocities(output_x_vel, output_y_vel, output_rot_vel);

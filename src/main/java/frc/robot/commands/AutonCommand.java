@@ -17,13 +17,33 @@ public class AutonCommand extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
+      
       new ParallelCommandGroup(
-        new AutonShot(),
         new SequentialCommandGroup(
-          new WaitCommand(3),
-          new IndexCommand()
+        new ChangeIntakePos(),
+        new WaitCommand(.5),
+        new ChangeIntakePos(),
+        new IntakeCommand(),
+        new WaitCommand(1),
+        new AutonHighIndex(),
+        new WaitCommand(1),
+        new AutonIndexLow()
+        ),
+        new AutonShot()
+      ));
+        
+      
+      /*
+      new WaitCommand(7),
+      new SequentialCommandGroup(
+          new WaitCommand(1),
+          new ParallelCommandGroup(
+            new ShootStop(),
+            new StopIndex()
+          )
         )
       )
-    );
+      */
+      
   }
 }

@@ -3,13 +3,13 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.commands;
-import frc.robot.Robot;
-import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class ShootStop extends CommandBase {
-  /** Creates a new ShootStop. */
-  boolean isFinished = false;
-  public ShootStop() {
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Robot;
+
+public class AutonIndexLow extends CommandBase {
+  /** Creates a new AutonIndexLow. */
+  public AutonIndexLow() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -20,8 +20,7 @@ public class ShootStop extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.shooter.setRPM(0);
-    isFinished = true;
+    Robot.intake.setSpeedOfIndexAndIntake(.4, .4, 0);
   }
 
   // Called once the command ends or is interrupted.
@@ -31,6 +30,6 @@ public class ShootStop extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return isFinished;
+    return false;
   }
 }

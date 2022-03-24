@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.Robot;
 
 public class AutonShot extends CommandBase {
@@ -20,7 +21,7 @@ public class AutonShot extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.shooter.setRPM(3400);
+    Robot.shooter.setRPM(Constants.AUTON_SHOT);
   }
 
   // Called once the command ends or is interrupted.

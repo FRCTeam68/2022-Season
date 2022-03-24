@@ -52,9 +52,9 @@ public class RobotContainer {
     // Left stick X axis -> left and right movement
     // Right stick X axis -> rotation
     m_drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(m_drivetrainSubsystem,
-            () -> -modifyAxis(driveController.getLeftY()) * Constants.MAX_VELOCITY_METERS_PER_SECOND,
-            () -> -modifyAxis(driveController.getLeftX()) * Constants.MAX_VELOCITY_METERS_PER_SECOND,
-            () -> -modifyAxis(driveController.getRightX()) * Constants.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND
+            () -> -modifyAxis(-driveController.getRawAxis(Constants.CONTROLLER_LEFTY)) * Constants.MAX_VELOCITY_METERS_PER_SECOND,
+            () -> -modifyAxis(driveController.getRawAxis(Constants.CONTROLLER_LEFTX)) * Constants.MAX_VELOCITY_METERS_PER_SECOND,
+            () -> -modifyAxis(driveController.getRawAxis(Constants.CONTROLLER_RIGHTX)) * Constants.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND
     ));
     
     // Configure the button bindings

@@ -5,6 +5,9 @@
 package frc.robot.commands;
 
 
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.parent.SequentialCommandBase;
 import frc.robot.subsystems.PathFollower;
 
@@ -14,11 +17,18 @@ import frc.robot.subsystems.PathFollower;
 public class RunPathGroup extends SequentialCommandBase {
   /** Creates a new RunPathGroup. */
   RunPath runPath = null;
+  AutonCommand autonCommand = null;
   public RunPathGroup() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     runPath = new RunPath();
-    addCommands(runPath);
+    autonCommand = new AutonCommand();
+    addCommands(new ParallelCommandGroup(
+      autonCommand,
+      new SequentialCommandGroup(
+      new WaitCommand(2),
+      runPath)
+      ));
   }
 
   @Override

@@ -48,6 +48,7 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     pathFollower = new PathFollower("DriveStraight");
+    Autons.RUNPATH.setPathFollowers(Robot.pathFollower);
     m_robotContainer = new RobotContainer();
 
     intake = new Intake();
@@ -92,7 +93,7 @@ public class Robot extends TimedRobot {
     //I also just stopped here because I don't know if I actually need to do this part.
 
     m_autonomousCommand = Autons.RUNPATH.getSequentialCommandBase();
-    m_autonomousCommand.setPathFollowers(Robot.pathFollower);
+    
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
@@ -129,11 +130,11 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Wheel RPM", Robot.shooter.getWheelRPM());
     //SmartDashboard.putNumber("LeftX", Robot.m_robotContainer.getLeftX());
     //SmartDashboard.putNumber("LeftY", Robot.m_robotContainer.getLeftY());
-    /*
+    
     SmartDashboard.putNumber("ODMX", RobotContainer.m_drivetrainSubsystem.getPose().getX());
     SmartDashboard.putNumber("ODMY", RobotContainer.m_drivetrainSubsystem.getPose().getY());
     SmartDashboard.putNumber("Rotation", RobotContainer.m_drivetrainSubsystem.getGyroscopeRotation().getRadians());
-    */
+    
     
   }
 
