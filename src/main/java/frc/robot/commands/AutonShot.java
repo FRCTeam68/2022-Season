@@ -10,8 +10,10 @@ import frc.robot.Robot;
 
 public class AutonShot extends CommandBase {
   /** Creates a new AutonShot. */
+  boolean isFinished = false;
   public AutonShot() {
     // Use addRequirements() here to declare subsystem dependencies.
+    
   }
 
   // Called when the command is initially scheduled.
@@ -22,6 +24,7 @@ public class AutonShot extends CommandBase {
   @Override
   public void execute() {
     Robot.shooter.setRPM(Constants.AUTON_SHOT);
+    isFinished = true;
   }
 
   // Called once the command ends or is interrupted.
@@ -31,6 +34,6 @@ public class AutonShot extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return isFinished;
   }
 }
