@@ -16,6 +16,24 @@ public class AutonCommand extends SequentialCommandGroup {
   public AutonCommand() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
+
+    // Might do something nice enough for stopping the commands after a set amount of time
+    // Just experimenting at the moment, but it should work hopefully.
+    
+    /* ParallelDeadlineGroup commands = new ParallelDeadlineGroup( new SequentialCommandGroup(
+        new ChangeIntakePos(),
+        new WaitCommand(.5),
+        new ChangeIntakePos(),
+        new IntakeCommand(),
+        new WaitCommand(1),
+        new AutonHighIndex(),
+        new WaitCommand(1),
+        new AutonIndexLow()
+        ),
+        new AutonShot()
+        ));
+     commands.setDeadline(new WaitCommand(10));  */
+
     addCommands(
       
       new ParallelCommandGroup(
