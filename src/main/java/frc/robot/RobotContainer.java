@@ -60,6 +60,7 @@ public class RobotContainer {
     
     // Configure the button bindings
     configureButtonBindings();
+    configureButtonBindings();
 
     // Set commands for the driver buttons
     driveI.whenPressed(new ZeroGyro());
