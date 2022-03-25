@@ -96,17 +96,17 @@ public final class Constants {
     //Shooter Constants Below Here
     public static final int LEFT_SHOOTER_MOTOR = 9;
     public static final int RIGHT_SHOOTER_MOTOR = 10;
-    public static final int AUTON_SHOT = 1800;
+    public static final int AUTON_SHOT = 2933;
     public static final double shooterTargetRPM(){
         double RPM;
         if(Robot.m_robotContainer.getManipX()){
-            RPM = 1800;
+            RPM = 1400;
         }
         else if(Robot.m_robotContainer.getManipSquare()){
-            RPM = 3700;
+            RPM = 2550;
         }
         else if(Robot.m_robotContainer.getManipTriangle()){
-            RPM = 4700;
+            RPM = 3133;
         }
         else if(Robot.m_robotContainer.getManipRB()){
             RPM = Robot.shooter.m_calculateRPM();
