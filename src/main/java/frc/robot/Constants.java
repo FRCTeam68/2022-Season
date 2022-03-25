@@ -184,13 +184,24 @@ public final class Constants {
     public static final int CONTROLLOR_MANIP_PS = 13;
     public static final int CONTROLLOR_MANIP_PAD = 14;
 
+    public static final int CONTROLLOR_DRIVE_A = 1;
+    public static final int CONTROLLOR_DRIVE_B = 2;
+    public static final int CONTROLLOR_DRIVE_X = 3;
+    public static final int CONTROLLOR_DRIVE_Y = 4;
+    public static final int CONTROLLOR_DRIVE_LB = 5;
+    public static final int CONTROLLOR_DRIVE_RB = 6;
+    public static final int CONTROLLOR_DRIVE_SELECT = 7;
+    public static final int CONTROLLOR_DRIVE_START = 8;
+    public static final int CONTROLLOR_DRIVE_LS = 9;
+    public static final int CONTROLLOR_DRIVE_RS = 10;
+    
     // Aircontroller stuff
 
-    public static final int CONTROLLER_LEFTX = 0;
-    public static final int CONTROLLER_LEFTY = 1;
+    // public static final int CONTROLLER_LEFTX = 0;
+    // public static final int CONTROLLER_LEFTY = 1;
 
-    public static final int CONTROLLER_RIGHTX = 3;
-    public static final int CONTROLLER_RIGHTY = 4;
+    // public static final int CONTROLLER_RIGHTX = 3;
+    // public static final int CONTROLLER_RIGHTY = 4;
 
     /*
     CONTROLLOR_MANIP_A = 1;
