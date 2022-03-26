@@ -52,7 +52,7 @@ public final class Constants {
     public static final int BACK_RIGHT_MODULE_DRIVE_MOTOR = 1; // FIXME Set back right drive motor ID
     public static final int BACK_RIGHT_MODULE_STEER_MOTOR = 2; // FIXME Set back right steer motor ID
     public static final int BACK_RIGHT_MODULE_STEER_ENCODER = 16; // FIXME Set back right steer encoder ID
-    public static final double BACK_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(-115.0); // FIXME Measure and set back right steer offset
+    public static final double BACK_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(-115.0+171.5); // FIXME Measure and set back right steer offset
 
     public static final double MAX_VELOCITY_METERS_PER_SECOND = 6380.0 / 60.0 *
           SdsModuleConfigurations.MK3_FAST.getDriveReduction() *
@@ -96,17 +96,17 @@ public final class Constants {
     //Shooter Constants Below Here
     public static final int LEFT_SHOOTER_MOTOR = 9;
     public static final int RIGHT_SHOOTER_MOTOR = 10;
-    public static final int AUTON_SHOT = 2933;
+    public static final int AUTON_SHOT = 2646;
     public static final double shooterTargetRPM(){
         double RPM;
         if(Robot.m_robotContainer.getManipX()){
-            RPM = 1400;
+            RPM = 1500;
         }
         else if(Robot.m_robotContainer.getManipSquare()){
             RPM = 2550;
         }
         else if(Robot.m_robotContainer.getManipTriangle()){
-            RPM = 3133;
+            RPM = 3033;
         }
         else if(Robot.m_robotContainer.getManipRB()){
             RPM = Robot.shooter.m_calculateRPM();

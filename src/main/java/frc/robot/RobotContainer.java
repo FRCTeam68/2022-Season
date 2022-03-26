@@ -53,8 +53,8 @@ public class RobotContainer {
     // Right stick X axis -> rotation
 
     m_drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(m_drivetrainSubsystem,
-            () -> -modifyAxis(driveController.getLeftX()) * Constants.MAX_VELOCITY_METERS_PER_SECOND,
             () -> -modifyAxis(driveController.getLeftY()) * Constants.MAX_VELOCITY_METERS_PER_SECOND,
+            () -> -modifyAxis(driveController.getLeftX()) * Constants.MAX_VELOCITY_METERS_PER_SECOND,
             () -> -modifyAxis(driveController.getRightX()) * Constants.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND
     ));
     
@@ -65,9 +65,9 @@ public class RobotContainer {
     // Set commands for the driver buttons
     driveA.whenPressed(new ZeroGyro());
     driveY.whenPressed(new PrimaryLiftCommand());
-    driveRB.whileHeld(new TurretMoveLeft());
+    driveRB.whileHeld(new TurretMoveRight());
     driveRB.whenReleased(new TurretStop());
-    driveLB.whileHeld(new TurretMoveRight());
+    driveLB.whileHeld(new TurretMoveLeft());
     driveLB.whenReleased(new TurretStop());
     //set commands for the manip buttons
     manipLT.whileHeld(new IntakeCommand());
@@ -76,8 +76,8 @@ public class RobotContainer {
     manipRT.whenReleased(new StopIndex());
     manipLB.whenPressed(new ChangeIntakePos());
     
-    //manipRB.whileHeld(new TurretCommand());
-    //manipRB.whenReleased(new TurretStop());
+    manipRB.whileHeld(new TurretCommand());
+    manipRB.whenReleased(new TurretStop());
     manipRB.whileHeld(new CameraModeOn());
     manipRB.whenReleased(new CameraModeOff());
     manipRB.whileHeld(new Shoot());

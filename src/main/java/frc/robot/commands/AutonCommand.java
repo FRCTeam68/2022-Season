@@ -39,6 +39,7 @@ public class AutonCommand extends SequentialCommandGroup {
       new ParallelCommandGroup(
         new SequentialCommandGroup(
         new ChangeIntakePos(),
+        new ChangeIntakePos(),
         new WaitCommand(.5),
         new ChangeIntakePos(),
         new IntakeCommand(),
