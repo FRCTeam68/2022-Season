@@ -129,7 +129,7 @@ public class Shooter extends SubsystemBase{
 
     rpm = 60 * rpsflywheel;
     
-    return rpm;
+    return (rpm*0.64);
   }
   public void setRPM(double wheelRPM){
     //Sensor Velocity in ticks per 100ms / Sensor Ticks per Rev * 600 (ms to min) * 2 gear ratio to shooter

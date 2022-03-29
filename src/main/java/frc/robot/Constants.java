@@ -47,12 +47,12 @@ public final class Constants {
     public static final int BACK_LEFT_MODULE_DRIVE_MOTOR = 3; // FIXME Set back left drive motor ID
     public static final int BACK_LEFT_MODULE_STEER_MOTOR = 4; // FIXME Set back left steer motor ID
     public static final int BACK_LEFT_MODULE_STEER_ENCODER = 17; // FIXME Set back left steer encoder ID
-    public static final double BACK_LEFT_MODULE_STEER_OFFSET = -Math.toRadians(284.0); // FIXME Measure and set back left steer offset
+    public static final double BACK_LEFT_MODULE_STEER_OFFSET = -Math.toRadians(284.0-(27-0.125)); // FIXME Measure and set back left steer offset
 
     public static final int BACK_RIGHT_MODULE_DRIVE_MOTOR = 1; // FIXME Set back right drive motor ID
     public static final int BACK_RIGHT_MODULE_STEER_MOTOR = 2; // FIXME Set back right steer motor ID
     public static final int BACK_RIGHT_MODULE_STEER_ENCODER = 16; // FIXME Set back right steer encoder ID
-    public static final double BACK_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(-115.0); // FIXME Measure and set back right steer offset
+    public static final double BACK_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(-115.0+171.5); // FIXME Measure and set back right steer offset
 
     public static final double MAX_VELOCITY_METERS_PER_SECOND = 6380.0 / 60.0 *
           SdsModuleConfigurations.MK3_FAST.getDriveReduction() *
@@ -96,17 +96,17 @@ public final class Constants {
     //Shooter Constants Below Here
     public static final int LEFT_SHOOTER_MOTOR = 9;
     public static final int RIGHT_SHOOTER_MOTOR = 10;
-    public static final int AUTON_SHOT = 1800;
+    public static final int AUTON_SHOT = 2646;
     public static final double shooterTargetRPM(){
         double RPM;
         if(Robot.m_robotContainer.getManipX()){
-            RPM = 1800;
+            RPM = 1500;
         }
         else if(Robot.m_robotContainer.getManipSquare()){
-            RPM = 3700;
+            RPM = 2550;
         }
         else if(Robot.m_robotContainer.getManipTriangle()){
-            RPM = 4700;
+            RPM = 3033;
         }
         else if(Robot.m_robotContainer.getManipRB()){
             RPM = Robot.shooter.m_calculateRPM();
@@ -178,13 +178,24 @@ public final class Constants {
     public static final int CONTROLLOR_MANIP_PS = 13;
     public static final int CONTROLLOR_MANIP_PAD = 14;
 
+    public static final int CONTROLLOR_DRIVE_A = 1;
+    public static final int CONTROLLOR_DRIVE_B = 2;
+    public static final int CONTROLLOR_DRIVE_X = 3;
+    public static final int CONTROLLOR_DRIVE_Y = 4;
+    public static final int CONTROLLOR_DRIVE_LB = 5;
+    public static final int CONTROLLOR_DRIVE_RB = 6;
+    public static final int CONTROLLOR_DRIVE_SELECT = 7;
+    public static final int CONTROLLOR_DRIVE_START = 8;
+    public static final int CONTROLLOR_DRIVE_LS = 9;
+    public static final int CONTROLLOR_DRIVE_RS = 10;
+    
     // Aircontroller stuff
 
-    public static final int CONTROLLER_LEFTX = 0;
-    public static final int CONTROLLER_LEFTY = 1;
+    // public static final int CONTROLLER_LEFTX = 0;
+    // public static final int CONTROLLER_LEFTY = 1;
 
-    public static final int CONTROLLER_RIGHTX = 3;
-    public static final int CONTROLLER_RIGHTY = 4;
+    // public static final int CONTROLLER_RIGHTX = 3;
+    // public static final int CONTROLLER_RIGHTY = 4;
 
     /*
     public static final int FLIGHT_CONTROLLOR_AONE = 1;

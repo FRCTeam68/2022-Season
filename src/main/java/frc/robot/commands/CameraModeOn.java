@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class CameraModeOn extends CommandBase {
   /** Creates a new CameraMode. */
+  boolean isFinish = false;
   public CameraModeOn() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -22,7 +23,7 @@ public class CameraModeOn extends CommandBase {
   public void execute() {
     
       Robot.vision.setCameraMode(3, 0);
-   
+      //isFinish = true;
   }
 
   // Called once the command ends or is interrupted.
@@ -32,6 +33,6 @@ public class CameraModeOn extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return isFinish;
   }
 }

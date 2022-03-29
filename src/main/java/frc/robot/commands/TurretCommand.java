@@ -13,7 +13,7 @@ public class TurretCommand extends CommandBase {
   double rightX;
   public TurretCommand() {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(Robot.turret);
+    
   }
 
   // Called when the command is initially scheduled.
@@ -23,9 +23,9 @@ public class TurretCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-      rightX = Robot.m_robotContainer.getRightManipulatorJoystickValue();
-      //Robot.turret.setTurretSpeed(Robot.vision.steeringAdjust());
-      Robot.turret.setTurretSpeed(rightX);
+      //rightX = Robot.m_robotContainer.getRightManipulatorJoystickValue();
+      Robot.turret.setTurretSpeed(Robot.vision.steeringAdjust());
+      //Robot.turret.setTurretSpeed(rightX);
       
   }
   

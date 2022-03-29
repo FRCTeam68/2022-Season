@@ -28,16 +28,10 @@ public class RobotContainer {
   private final XboxController driveController = new XboxController(Constants.CONTROLLOR_DRIVE);
   private final XboxController manipController = new XboxController(Constants.CONTROLLOR_MANIP);
   //private final XboxController manipController = new XboxController(Constants.CONTROLLOR_MANIP)
-  /*
-  private JoystickButton driveGTwo;
-  private JoystickButton driveI;
-  private JoystickButton driveCZero;
-  private JoystickButton driveCTwo;
-  */
+  private JoystickButton driveY;
   private JoystickButton driveA;
-  private JoystickButton driveBack;
-  private JoystickButton driveLB;
   private JoystickButton driveRB;
+  private JoystickButton driveLB;
   private JoystickButton manipCircle;
   private JoystickButton manipSquare;
   private JoystickButton manipX;
@@ -58,40 +52,23 @@ public class RobotContainer {
     // Left stick X axis -> left and right movement
     // Right stick X axis -> rotation
 
-    m_drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(
-      m_drivetrainSubsystem,
+    m_drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(m_drivetrainSubsystem,
             () -> -modifyAxis(driveController.getLeftY()) * Constants.MAX_VELOCITY_METERS_PER_SECOND,
             () -> -modifyAxis(driveController.getLeftX()) * Constants.MAX_VELOCITY_METERS_PER_SECOND,
             () -> -modifyAxis(driveController.getRightX()) * Constants.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND
     ));
-    /*
-    //Flight controller
-    m_drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(m_drivetrainSubsystem,
-            () -> -modifyAxis((-driveController.getRawAxis(Constants.CONTROLLER_LEFTY)/0.6)) * Constants.MAX_VELOCITY_METERS_PER_SECOND,
-            () -> -modifyAxis(driveController.getRawAxis(Constants.CONTROLLER_LEFTX)) * Constants.MAX_VELOCITY_METERS_PER_SECOND,
-            () -> -modifyAxis(driveController.getRawAxis(Constants.CONTROLLER_RIGHTX)) * Constants.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND
-    ));
     */
     // Configure the button bindings
     configureButtonBindings();
+    configureButtonBindings();
 
     // Set commands for the driver buttons
-    /*
-    Flight Controller
-    driveI.whenPressed(new ZeroGyro());
-    driveGTwo.whenPressed(new PrimaryLiftCommand());
-    driveCZero.whileHeld(new TurretMoveLeft());
-    driveCZero.whenReleased(new TurretStop());
-    driveCTwo.whileHeld(new TurretMoveRight());
-    driveCTwo.whenReleased(new TurretStop());
-    */
-    driveA.whenPressed(new PrimaryLiftCommand());
-    driveBack.whenPressed(new ZeroGyro());
-    driveLB.whileHeld(new TurretMoveLeft());
-    driveLB.whenReleased(new TurretStop());
+    driveA.whenPressed(new ZeroGyro());
+    driveY.whenPressed(new PrimaryLiftCommand());
     driveRB.whileHeld(new TurretMoveRight());
     driveRB.whenReleased(new TurretStop());
-
+    driveLB.whileHeld(new TurretMoveLeft());
+    driveLB.whenReleased(new TurretStop());
     //set commands for the manip buttons
     manipLT.whileHeld(new IntakeCommand());
     manipLT.whenReleased(new StopIntake());
@@ -99,8 +76,8 @@ public class RobotContainer {
     manipRT.whenReleased(new StopIndex());
     manipLB.whenPressed(new ChangeIntakePos());
     
-    //manipRB.whileHeld(new TurretCommand());
-    //manipRB.whenReleased(new TurretStop());
+    manipRB.whileHeld(new TurretCommand());
+    manipRB.whenReleased(new TurretStop());
     manipRB.whileHeld(new CameraModeOn());
     manipRB.whenReleased(new CameraModeOff());
     manipRB.whileHeld(new Shoot());
@@ -130,17 +107,10 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     // Back button zeros the gyroscope
-    /*
-    Flight Controller
-    driveI = new JoystickButton(driveController, Constants.FLIGHT_CONTROLLOR_I);
-    driveGTwo = new JoystickButton(driveController, Constants.FLIGHT_CONTROLLOR_GTWO);
-    driveCZero = new JoystickButton(driveController, Constants.FLIGHT_CONTROLLOR_CZERO);
-    driveCTwo = new JoystickButton(driveController, Constants.FLIGHT_CONTROLLOR_CTWO);
-    */
     driveA = new JoystickButton(driveController, Constants.CONTROLLOR_DRIVE_A);
-    driveBack = new JoystickButton(driveController, Constants.CONTROLLOR_DRIVE_SELECT);
-    driveLB = new JoystickButton(driveController, Constants.CONTROLLOR_DRIVE_LB);
+    driveY = new JoystickButton(driveController, Constants.CONTROLLOR_DRIVE_Y);
     driveRB = new JoystickButton(driveController, Constants.CONTROLLOR_DRIVE_RB);
+    driveLB = new JoystickButton(driveController, Constants.CONTROLLOR_DRIVE_LB);
 
     manipCircle = new JoystickButton(manipController, Constants.CONTROLLOR_MANIP_CIRCLE);
     manipSquare = new JoystickButton(manipController, Constants.CONTROLLOR_MANIP_SQUARE);
@@ -189,12 +159,12 @@ public class RobotContainer {
 
   public double getLeftX(){
     double leftXAxis;
-    leftXAxis = driveController.getRawAxis(Constants.CONTROLLER_LEFTX);
+    leftXAxis = driveController.getLeftX();
     return leftXAxis;
   }
   public double getLeftY(){
     double leftYAxis;
-    leftYAxis = driveController.getRawAxis(Constants.CONTROLLER_LEFTY);
+    leftYAxis = driveController.getLeftY();
     return leftYAxis;
   }
   public double getRightManipulatorJoystickValue() {
