@@ -97,25 +97,6 @@ public final class Constants {
     public static final int LEFT_SHOOTER_MOTOR = 9;
     public static final int RIGHT_SHOOTER_MOTOR = 10;
     public static final int AUTON_SHOT = 2646;
-    public static final double shooterTargetRPM(){
-        double RPM;
-        if(Robot.m_robotContainer.getManipX()){
-            RPM = 1500;
-        }
-        else if(Robot.m_robotContainer.getManipSquare()){
-            RPM = 2550;
-        }
-        else if(Robot.m_robotContainer.getManipTriangle()){
-            RPM = 3033;
-        }
-        else if(Robot.m_robotContainer.getManipRB()){
-            RPM = Robot.shooter.m_calculateRPM();
-        }
-        else{
-            RPM = 0;
-        }
-        return RPM;
-    }
     
     public static double RELEASE_ANGLE = 60.0; //degrees from horizontal
     public static double THETA = Math.toRadians(RELEASE_ANGLE); 
@@ -194,6 +175,10 @@ public final class Constants {
     public static final int CONTROLLOR_DRIVE_START = 8;
     public static final int CONTROLLOR_DRIVE_LS = 9;
     public static final int CONTROLLOR_DRIVE_RS = 10;
+
+    // Endgame
+    public static final int RIGHT_ARM_MOTOR = 20;
+    public static final int LEFT_ARM_MOTOR = 19; // Obviosly the motor ISNT the 32-bit signed integer limit so CHANGE IT
     
     // Aircontroller stuff
 

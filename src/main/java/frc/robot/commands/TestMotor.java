@@ -3,13 +3,13 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.commands;
-import frc.robot.Constants;
-import frc.robot.Robot;
-import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class Shoot extends CommandBase {
-  /** Creates a new Shoot. */
-  public Shoot() {
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Robot;
+
+public class TestMotor extends CommandBase {
+  /** Creates a new TestMotor. */
+  public TestMotor() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -20,15 +20,16 @@ public class Shoot extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //Robot.shooter.setRPM(Constants.shooterTargetRPM()); //2048 ticks per revolution; 600 goes from minutes to 100ms; 2000 rpm is goal  wall 4400 initiationLine 3700 low 2000
-    //Robot.shooter.setRPM(Robot.shooter.m_calculateRPM());
+    if (Robot.climber.sounds.isPlaying()){
+      Robot.climber.sounds.stop();
+    }else {
+      Robot.climber.sounds.play();
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    Robot.shooter.setRPM(0);
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override

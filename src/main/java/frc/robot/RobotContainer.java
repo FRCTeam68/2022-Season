@@ -40,6 +40,7 @@ public class RobotContainer {
   private JoystickButton manipRT;
   private JoystickButton manipRB;
   private JoystickButton manipLB;
+  private JoystickButton manipPad;
   
 
   /**
@@ -53,9 +54,9 @@ public class RobotContainer {
     // Right stick X axis -> rotation
 
     m_drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(m_drivetrainSubsystem,
-            () -> -modifyAxis(driveController.getLeftY()) * Constants.MAX_VELOCITY_METERS_PER_SECOND,
-            () -> -modifyAxis(driveController.getLeftX()) * Constants.MAX_VELOCITY_METERS_PER_SECOND,
-            () -> -modifyAxis(driveController.getRightX()) * Constants.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND
+            () -> 0,//-modifyAxis(driveController.getLeftY()) * Constants.MAX_VELOCITY_METERS_PER_SECOND,
+            () -> 0,//-modifyAxis(driveController.getLeftX()) * Constants.MAX_VELOCITY_METERS_PER_SECOND,
+            () -> 0//-modifyAxis(driveController.getRightX()) * Constants.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND
     ));
     
     // Configure the button bindings
@@ -86,14 +87,17 @@ public class RobotContainer {
     manipCircle.whileHeld(new OuttakeCommand());
     manipCircle.whenReleased(new StopIntake());
 
-    manipSquare.whileHeld(new Shoot());
+    // Is whenPressed on release? Might need to test a bit, but then also change if needed or somn
+    manipSquare.whenPressed(new ChangeRPM(Constants.CONTROLLOR_MANIP_SQUARE));
     //manipSquare.whenReleased(new Zero());
 
-    manipX.whileHeld(new Shoot());
+    manipX.whenPressed(new ChangeRPM(Constants.CONTROLLOR_MANIP_X));
     //manipX.whenReleased(new ShootStop());
 
-    manipTriangle.whileHeld(new Shoot());
+    manipTriangle.whenPressed(new ChangeRPM(Constants.CONTROLLOR_MANIP_TRIANGLE));
    //manipTriangle.whenReleased(new ShootStop());
+
+   manipPad.whenPressed(new AutoShoot());
     
     //createSmartDashboardNumber("RPM", 0);
     
@@ -120,6 +124,7 @@ public class RobotContainer {
     manipLB = new JoystickButton(manipController, Constants.CONTROLLOR_MANIP_LB);
     manipRB = new JoystickButton(manipController, Constants.CONTROLLOR_MANIP_RB);
     manipRT = new JoystickButton(manipController, Constants.CONTROLLOR_MANIP_RT);
+    manipPad = new JoystickButton(manipController, Constants.CONTROLLOR_MANIP_START);
 
   }
 

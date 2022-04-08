@@ -17,6 +17,8 @@ import frc.robot.commands.Shoot;
 
 public class Shooter extends SubsystemBase{
 
+  public int gracePeroid = 1000, graceTime = 0;
+
   private TalonFX shooterLeft;
   private TalonFX shooterRight;
   private double gP = 0;
@@ -43,6 +45,8 @@ public class Shooter extends SubsystemBase{
  private double rpsflywheel;
  private static double rpm = 0; 
  private double kP, kI, kD, kF;
+
+ public double targetRPM = 0;
 
   public Shooter() {
 
@@ -73,7 +77,7 @@ public class Shooter extends SubsystemBase{
     shooterLeft.setSensorPhase(true);
 
     shooterRight.setNeutralMode(NeutralMode.Coast);
-
+    
     shooterRight.setSensorPhase(true);
     //feedForward = new SimpleMotorFeedforward(-5.0424, 0.0002596, 0.0030056);
     feedForward = new SimpleMotorFeedforward(0.133, 0.0002596, 0.0030056);
@@ -131,6 +135,13 @@ public class Shooter extends SubsystemBase{
     
     return (rpm*0.64);
   }
+
+  public double getCurrentRPM(){
+    double vel = shooterRight.getSensorCollection().getIntegratedSensorVelocity();
+    double RPM = (vel*2)/2048 * 600;
+    return RPM;
+  }
+
   public void setRPM(double wheelRPM){
     //Sensor Velocity in ticks per 100ms / Sensor Ticks per Rev * 600 (ms to min) * 2 gear ratio to shooter
     //Motor Velocity in RPM / 600 (ms to min) * Sensor ticks per rev / pulley Ratio 36 to 18

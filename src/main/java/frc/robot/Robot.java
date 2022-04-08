@@ -37,6 +37,7 @@ public class Robot extends TimedRobot {
   public static RobotContainer m_robotContainer;
   public static Turret turret;
   public static Vision vision;
+  public static Endgame climber;
   public static PathFollower pathFollower;
   public static boolean isTeleop = false;
   /**
@@ -56,6 +57,7 @@ public class Robot extends TimedRobot {
     pnuematics = new Pnuematics();
     turret = new Turret();
     vision = new Vision(); 
+    climber = new Endgame();
     CameraServer.startAutomaticCapture();
 
   }
@@ -125,7 +127,7 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     isTeleop = true;
     SmartDashboard.putNumber("RightStick", Robot.m_robotContainer.getRightManipulatorJoystickValue());
-    SmartDashboard.putBoolean("Good to Shoot", Robot.shooter.goodToShoot(Constants.shooterTargetRPM()));
+    SmartDashboard.putBoolean("Good to Shoot", Robot.shooter.goodToShoot(Robot.shooter.targetRPM));
     SmartDashboard.putNumber("Limelight Distance", Robot.vision.calcDistance());
     SmartDashboard.putNumber("Wheel RPM", Robot.shooter.getWheelRPM());
     //SmartDashboard.putNumber("LeftX", Robot.m_robotContainer.getLeftX());
