@@ -31,6 +31,7 @@ public class Robot extends TimedRobot {
 
   public static double velocity;
 
+  public static DrivetrainSubsystem driveTrain;
   public static Intake intake;
   public static Shooter shooter;
   public static Pnuematics pnuematics;
@@ -49,6 +50,7 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     pathFollower = new PathFollower("DriveStraight");
     Autons.RUNPATH.setPathFollowers(Robot.pathFollower);
+    driveTrain = new DrivetrainSubsystem();
     m_robotContainer = new RobotContainer();
 
     intake = new Intake();

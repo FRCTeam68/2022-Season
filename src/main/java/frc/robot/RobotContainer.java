@@ -23,7 +23,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  public final static DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
+  public final static DrivetrainSubsystem m_drivetrainSubsystem = Robot.driveTrain;
 
   private final XboxController driveController = new XboxController(Constants.CONTROLLOR_DRIVE);
   private final XboxController manipController = new XboxController(Constants.CONTROLLOR_MANIP);
@@ -57,7 +57,7 @@ public class RobotContainer {
             () -> -modifyAxis(driveController.getLeftX()) * Constants.MAX_VELOCITY_METERS_PER_SECOND,
             () -> -modifyAxis(driveController.getRightX()) * Constants.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND
     ));
-    */
+     
     // Configure the button bindings
     configureButtonBindings();
     configureButtonBindings();
