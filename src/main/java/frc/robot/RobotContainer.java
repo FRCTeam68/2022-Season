@@ -30,8 +30,12 @@ public class RobotContainer {
   //private final XboxController manipController = new XboxController(Constants.CONTROLLOR_MANIP)
   private JoystickButton driveY;
   private JoystickButton driveA;
+  private JoystickButton driveX;
+  private JoystickButton driveB;
   private JoystickButton driveRB;
   private JoystickButton driveLB;
+  private JoystickButton driveStart;
+  private JoystickButton driveSelect;
   private JoystickButton manipCircle;
   private JoystickButton manipSquare;
   private JoystickButton manipX;
@@ -54,9 +58,9 @@ public class RobotContainer {
     // Right stick X axis -> rotation
 
     m_drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(m_drivetrainSubsystem,
-            () -> 0,//-modifyAxis(driveController.getLeftY()) * Constants.MAX_VELOCITY_METERS_PER_SECOND,
-            () -> 0,//-modifyAxis(driveController.getLeftX()) * Constants.MAX_VELOCITY_METERS_PER_SECOND,
-            () -> 0//-modifyAxis(driveController.getRightX()) * Constants.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND
+            () -> -modifyAxis(driveController.getLeftY()) * Constants.MAX_VELOCITY_METERS_PER_SECOND,
+            () -> -modifyAxis(driveController.getLeftX()) * Constants.MAX_VELOCITY_METERS_PER_SECOND,
+            () -> -modifyAxis(driveController.getRightX()) * Constants.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND
     ));
     
     // Configure the button bindings
@@ -64,12 +68,17 @@ public class RobotContainer {
     configureButtonBindings();
 
     // Set commands for the driver buttons
-    driveA.whenPressed(new ZeroGyro());
-    driveY.whenPressed(new PrimaryLiftCommand());
+    driveStart.whenPressed(new ZeroGyro());
     driveRB.whileHeld(new TurretMoveRight());
     driveRB.whenReleased(new TurretStop());
     driveLB.whileHeld(new TurretMoveLeft());
     driveLB.whenReleased(new TurretStop());
+    
+    driveSelect.whenPressed(new ZeroArmsEncoders());
+    driveY.whileHeld(new TestClimbRUp());
+    driveB.whileHeld(new TestClimbRDown());
+    driveX.whileHeld(new TestClimbLUp());
+    driveA.whileHeld(new TestClimbLDown());
     //set commands for the manip buttons
     manipLT.whileHeld(new IntakeCommand());
     manipLT.whenReleased(new StopIntake());
@@ -112,9 +121,13 @@ public class RobotContainer {
   private void configureButtonBindings() {
     // Back button zeros the gyroscope
     driveA = new JoystickButton(driveController, Constants.CONTROLLOR_DRIVE_A);
+    driveB = new JoystickButton(driveController, Constants.CONTROLLOR_DRIVE_B);
+    driveX = new JoystickButton(driveController, Constants.CONTROLLOR_DRIVE_X);
     driveY = new JoystickButton(driveController, Constants.CONTROLLOR_DRIVE_Y);
     driveRB = new JoystickButton(driveController, Constants.CONTROLLOR_DRIVE_RB);
     driveLB = new JoystickButton(driveController, Constants.CONTROLLOR_DRIVE_LB);
+    driveSelect = new JoystickButton(driveController, Constants.CONTROLLOR_DRIVE_SELECT);
+    driveStart = new JoystickButton(driveController, Constants.CONTROLLOR_DRIVE_START);
 
     manipCircle = new JoystickButton(manipController, Constants.CONTROLLOR_MANIP_CIRCLE);
     manipSquare = new JoystickButton(manipController, Constants.CONTROLLOR_MANIP_SQUARE);

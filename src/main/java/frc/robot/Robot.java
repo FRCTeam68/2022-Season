@@ -133,9 +133,10 @@ public class Robot extends TimedRobot {
     //SmartDashboard.putNumber("LeftX", Robot.m_robotContainer.getLeftX());
     //SmartDashboard.putNumber("LeftY", Robot.m_robotContainer.getLeftY());
     
-    SmartDashboard.putNumber("ODMX", RobotContainer.m_drivetrainSubsystem.getPose().getX());
-    SmartDashboard.putNumber("ODMY", RobotContainer.m_drivetrainSubsystem.getPose().getY());
-    SmartDashboard.putNumber("Rotation", RobotContainer.m_drivetrainSubsystem.getGyroscopeRotation().getRadians());
+    
+    SmartDashboard.putNumber("Left Climber Arm", Robot.climber.getLeftEncoder());
+    SmartDashboard.putNumber("Right Climber Arm", Robot.climber.getRightEncoder());
+    SmartDashboard.putNumber("Gyro angle from ground", Robot.climber.getAngleToGround());
     
     
   }

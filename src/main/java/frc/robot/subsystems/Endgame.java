@@ -38,6 +38,8 @@ public class Endgame extends SubsystemBase {
     //shooterLeft.configFactoryDefault();
     rightArm.configFactoryDefault();
     leftArm.configFactoryDefault();
+    rightArm.setNeutralMode(NeutralMode.Brake);
+    leftArm.setNeutralMode(NeutralMode.Brake);
     //shooterLeft.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, 0, 0);
     // rightArm.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, 0, 0);
     
@@ -57,8 +59,8 @@ public class Endgame extends SubsystemBase {
     // rightArm.setSensorPhase(true);
     //feedForward = new SimpleMotorFeedforward(-5.0424, 0.0002596, 0.0030056);
 
-    sounds.addInstrument(leftArm);
-    sounds.loadMusic("deply/tester.chrp");
+    //sounds.addInstrument(leftArm);
+    //sounds.loadMusic("deply/tester.chrp");
 
   }
 
@@ -66,18 +68,34 @@ public class Endgame extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
   }
+  public double getLeftEncoder(){
+    return leftArm.getSelectedSensorPosition();
+  }
 
+  public double getRightEncoder(){
+    return rightArm.getSelectedSensorPosition();
+  }
+  public void ResetEncoders(){
+    leftArm.setSelectedSensorPosition(0,0,0);
+    rightArm.setSelectedSensorPosition(0,0,0);
+  }
 
   public void setLeftPos(double pos){
     
     leftArm.set(ControlMode.Position, pos);
     
   }
+  public void setRightPos(double pos){
+    
+    rightArm.set(ControlMode.Position, pos);
+    
+  }
 
-  public void setRightPos(double speed){
-    
+  public void setLeftSpeed(double speed){
+    leftArm.set(ControlMode.PercentOutput, speed);
+  }
+  public void setRightSpeed(double speed){
     rightArm.set(ControlMode.PercentOutput, speed);
-    
   }
 
   public double getAngleToGround(){

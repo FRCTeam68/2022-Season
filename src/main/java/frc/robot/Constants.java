@@ -47,7 +47,7 @@ public final class Constants {
     public static final int BACK_LEFT_MODULE_DRIVE_MOTOR = 3; // FIXME Set back left drive motor ID
     public static final int BACK_LEFT_MODULE_STEER_MOTOR = 4; // FIXME Set back left steer motor ID
     public static final int BACK_LEFT_MODULE_STEER_ENCODER = 17; // FIXME Set back left steer encoder ID
-    public static final double BACK_LEFT_MODULE_STEER_OFFSET = -Math.toRadians(284.0-(27-0.125)); // FIXME Measure and set back left steer offset
+    public static final double BACK_LEFT_MODULE_STEER_OFFSET = -Math.toRadians(284.0-(201.125)); // FIXME Measure and set back left steer offset
 
     public static final int BACK_RIGHT_MODULE_DRIVE_MOTOR = 1; // FIXME Set back right drive motor ID
     public static final int BACK_RIGHT_MODULE_STEER_MOTOR = 2; // FIXME Set back right steer motor ID
@@ -177,8 +177,8 @@ public final class Constants {
     public static final int CONTROLLOR_DRIVE_RS = 10;
 
     // Endgame
-    public static final int RIGHT_ARM_MOTOR = 20;
-    public static final int LEFT_ARM_MOTOR = 19; // Obviosly the motor ISNT the 32-bit signed integer limit so CHANGE IT
+    public static final int RIGHT_ARM_MOTOR = 19;
+    public static final int LEFT_ARM_MOTOR = 20; // Obviosly the motor ISNT the 32-bit signed integer limit so CHANGE IT
     
     // Aircontroller stuff
 
