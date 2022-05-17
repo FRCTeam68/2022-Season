@@ -24,6 +24,9 @@ public final class Constants {
      *
      * Should be measured from center to center.
      */
+
+     public static final String MANIP_CANBUS = "DADbus";
+
     public static final double DRIVETRAIN_TRACKWIDTH_METERS = 20.5; // FIXME Measure and set trackwidth
     /**
      * The front-to-back distance between the drivetrain wheels.
@@ -111,6 +114,18 @@ public final class Constants {
     public static final int TURRET_BOX = 45;
 
     //Endgame Constants Below Here
+    public static final int RIGHT_ARM_MOTOR = 19;
+    public static final int LEFT_ARM_MOTOR = 20; 
+
+    public static final int RARM_PID_SLOT = 0;
+    
+    public static final double RARM_PID_F = 0.03; //0.025
+    public static final double RARM_PID_P = 0.3; //0.3 start
+    public static final double RARM_PID_I = 0.0;
+    public static final double RARM_PID_D = 0.0;
+
+    public static final int rDir = -1; // 1 means positive is up, -1 means positive is down
+    public static final int lDir = -1;
 
     //Pneumatics Constants below here
     public static final int ENDGAME_PRIMARY_LIFT_A = 12;
@@ -124,12 +139,15 @@ public final class Constants {
     public static final int INTAKE_PCM_A = 2;
     public static final int INTAKE_PCM_B = 13;
     public static final int AIR_PUMP_CAN = 19;
+
     //Intake Constantts Below Here
     public static final int INTAKE_MOTOR = 12;
     public static final int INDEX_MOTOR_HIGH = 14;
     public static final int INDEX_MOTOR_LOW = 13;
     public static final int INTAKE_SENSOR = 0;
     public static final int INDEX_SENSOR = 1;
+
+
     //Controller Constants Below Here
     public static final int CONTROLLOR_DRIVE = 0;
     public static final int FLIGHT_CONTROLLOR_AONE = 1;
@@ -150,6 +168,8 @@ public final class Constants {
     public static final int FLIGHT_CONTROLLOR_SELECT = 16;
 
     public static final int CONTROLLOR_MANIP = 1;
+    public static final int CONTROLLOR_QUESTION = 2;
+
     public static final int CONTROLLOR_MANIP_SQUARE = 1;
     public static final int CONTROLLOR_MANIP_X = 2;
     public static final int CONTROLLOR_MANIP_CIRCLE = 3;
@@ -174,13 +194,7 @@ public final class Constants {
     public static final int CONTROLLOR_DRIVE_SELECT = 7;
     public static final int CONTROLLOR_DRIVE_START = 8;
     public static final int CONTROLLOR_DRIVE_LS = 9;
-    public static final int CONTROLLOR_DRIVE_RS = 10;
-
-    // Endgame
-    public static final int RIGHT_ARM_MOTOR = 19;
-    public static final int LEFT_ARM_MOTOR = 20; // Obviosly the motor ISNT the 32-bit signed integer limit so CHANGE IT
-    
-    // Aircontroller stuff
+    public static final int CONTROLLOR_DRIVE_RS = 10;    
 
     // public static final int CONTROLLER_LEFTX = 0;
     // public static final int CONTROLLER_LEFTY = 1;

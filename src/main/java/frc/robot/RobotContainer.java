@@ -5,15 +5,28 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.PS4Controller;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.*;
-import frc.robot.subsystems.DrivetrainSubsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.Commandstants;
+import frc.robot.commands.auton.AutoShoot;
+import frc.robot.commands.drivetrain.DefaultDriveCommand;
+import frc.robot.commands.endgame.AutoClimb;
+import frc.robot.commands.endgame.ManualClimb;
+import frc.robot.commands.intake.ChangeIntakePos;
+import frc.robot.commands.intake.IndexCommand;
+import frc.robot.commands.intake.IntakeCommand;
+import frc.robot.commands.intake.ManualIntakeOverride;
+import frc.robot.commands.intake.OuttakeCommand;
+import frc.robot.commands.other.CameraModeOff;
+import frc.robot.commands.other.CameraModeOn;
+import frc.robot.commands.other.Stop;
+import frc.robot.commands.other.Zero;
+import frc.robot.commands.shooter.ChangeRPM;
+import frc.robot.commands.shooter.Shoot;
+import frc.robot.commands.shooter.TurretCommand;
+import frc.robot.commands.shooter.TurretMove;
+import frc.robot.subsystems.DrivetrainSubsystem;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -27,6 +40,7 @@ public class RobotContainer {
 
   private final XboxController driveController = new XboxController(Constants.CONTROLLOR_DRIVE);
   private final XboxController manipController = new XboxController(Constants.CONTROLLOR_MANIP);
+  private final XboxController whatController = new XboxController(Constants.CONTROLLOR_QUESTION);
   //private final XboxController manipController = new XboxController(Constants.CONTROLLOR_MANIP)
   private JoystickButton driveY;
   private JoystickButton driveA;
@@ -45,6 +59,12 @@ public class RobotContainer {
   private JoystickButton manipRB;
   private JoystickButton manipLB;
   private JoystickButton manipPad;
+  private JoystickButton manipShare;
+  private JoystickButton whatY;
+  private JoystickButton whatA;
+  private JoystickButton whatX;
+  private JoystickButton whatB;
+  private JoystickButton whatRB;
   
 
   /**
@@ -65,36 +85,59 @@ public class RobotContainer {
     
     // Configure the button bindings
     configureButtonBindings();
-    configureButtonBindings();
+
 
     // Set commands for the driver buttons
-    driveStart.whenPressed(new ZeroGyro());
-    driveRB.whileHeld(new TurretMoveRight());
-    driveRB.whenReleased(new TurretStop());
-    driveLB.whileHeld(new TurretMoveLeft());
-    driveLB.whenReleased(new TurretStop());
-    
-    driveSelect.whenPressed(new ZeroArmsEncoders());
-    driveY.whileHeld(new TestClimbRUp());
-    driveB.whileHeld(new TestClimbRDown());
-    driveX.whileHeld(new TestClimbLUp());
-    driveA.whileHeld(new TestClimbLDown());
+    driverControlBinds();
+    manipulatorControlBinds();
+
     //set commands for the manip buttons
+    
+  // For use when we have nothing else to do. For now look at this bear: ʕ – ㉨ – ʔ
+  //  whatRB.whileHeld(new AdvClimb());  
+    
+    //createSmartDashboardNumber("RPM", 0);
+    
+  }
+
+  private void driverControlBinds(){
+    driveStart.whenPressed(new Zero(Commandstants.GYRO_ZERO));
+    driveRB.whileHeld(new TurretMove(-1)); // Right
+    driveRB.whenReleased(new Stop(Commandstants.TURRET_STOP));
+    driveLB.whileHeld(new TurretMove(1)); //Left
+    driveLB.whenReleased(new Stop(Commandstants.TURRET_STOP));
+
+    // whatY.whileHeld(new ManualClimb(Commandstants.R_CLIMB_UP));
+    // whatB.whileHeld(new ManualClimb(Commandstants.R_CLIMB_DOWN));
+    // whatX.whileHeld(new ManualClimb(Commandstants.L_CLIMB_UP));
+    // whatA.whileHeld(new ManualClimb(Commandstants.L_CLIMB_DOWN));
+    
+    driveSelect.whenPressed(new Zero(Commandstants.CLIMBER_ZERO));
+
+    // driveY.whenPressed(new AutoClimb(Commandstants.R_CLIMB_UP));
+    // driveB.whenPressed(new AutoClimb(Commandstants.R_CLIMB_DOWN));
+    // driveX.whenPressed(new AutoClimb(Commandstants.L_CLIMB_UP));
+    // driveA.whenPressed(new AutoClimb(Commandstants.L_CLIMB_DOWN));
+  }
+
+  private void manipulatorControlBinds(){
     manipLT.whileHeld(new IntakeCommand());
-    manipLT.whenReleased(new StopIntake());
+    manipLT.whenReleased(new Stop(Commandstants.INTAKE_STOP));
     manipRT.whileHeld(new IndexCommand());
-    manipRT.whenReleased(new StopIndex());
+    manipRT.whenReleased(new Stop(Commandstants.INDEX_STOP));
     manipLB.whenPressed(new ChangeIntakePos());
     
     manipRB.whileHeld(new TurretCommand());
-    manipRB.whenReleased(new TurretStop());
+    manipRB.whenReleased(new Stop(Commandstants.TURRET_STOP));
     manipRB.whileHeld(new CameraModeOn());
     manipRB.whenReleased(new CameraModeOff());
     manipRB.whileHeld(new Shoot());
-    manipRB.whenReleased(new ShootStop());
+    manipRB.whenReleased(new Stop(Commandstants.SHOOT_STOP));
 
     manipCircle.whileHeld(new OuttakeCommand());
-    manipCircle.whenReleased(new StopIntake());
+    manipCircle.whenReleased(new Stop(Commandstants.INTAKE_STOP));
+
+    manipShare.whileHeld(new ManualIntakeOverride());
 
     // Is whenPressed on release? Might need to test a bit, but then also change if needed or somn
     manipSquare.whenPressed(new ChangeRPM(Constants.CONTROLLOR_MANIP_SQUARE));
@@ -107,9 +150,6 @@ public class RobotContainer {
    //manipTriangle.whenReleased(new ShootStop());
 
    manipPad.whenPressed(new AutoShoot());
-    
-    //createSmartDashboardNumber("RPM", 0);
-    
   }
 
   /**
@@ -138,7 +178,13 @@ public class RobotContainer {
     manipRB = new JoystickButton(manipController, Constants.CONTROLLOR_MANIP_RB);
     manipRT = new JoystickButton(manipController, Constants.CONTROLLOR_MANIP_RT);
     manipPad = new JoystickButton(manipController, Constants.CONTROLLOR_MANIP_START);
+    manipShare = new JoystickButton(manipController, Constants.CONTROLLOR_MANIP_SELECT);
 
+    whatA = new JoystickButton(whatController, Constants.CONTROLLOR_MANIP_X);
+    whatB = new JoystickButton(whatController, Constants.CONTROLLOR_MANIP_CIRCLE);
+    whatX = new JoystickButton(whatController, Constants.CONTROLLOR_MANIP_SQUARE);
+    whatY = new JoystickButton(whatController, Constants.CONTROLLOR_MANIP_TRIANGLE);
+    whatRB= new JoystickButton(whatController, Constants.CONTROLLOR_MANIP_RB);
   }
 
   /**

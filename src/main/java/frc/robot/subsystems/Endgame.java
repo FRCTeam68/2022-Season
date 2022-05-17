@@ -14,6 +14,8 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
+import edu.wpi.first.math.controller.ArmFeedforward;
+import edu.wpi.first.math.controller.ElevatorFeedforward;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.SPI;
 
@@ -22,7 +24,7 @@ public class Endgame extends SubsystemBase {
 
   private TalonFX rightArm, leftArm;
 
-  public Orchestra sounds;
+  public double currentR = 0, currentL = 0;
 
   private double kP, kI, kD, kF;
 
@@ -57,17 +59,26 @@ public class Endgame extends SubsystemBase {
     // rightArm.setNeutralMode(NeutralMode.Brake);
 
     // rightArm.setSensorPhase(true);
-    //feedForward = new SimpleMotorFeedforward(-5.0424, 0.0002596, 0.0030056);
 
-    //sounds.addInstrument(leftArm);
-    //sounds.loadMusic("deply/tester.chrp");
+    rightArm.selectProfileSlot(Constants.RARM_PID_SLOT, 0);
+		rightArm.config_kF(Constants.RARM_PID_SLOT, Constants.RARM_PID_F, 0);
+		rightArm.config_kP(Constants.RARM_PID_SLOT, Constants.RARM_PID_P, 0);
+		rightArm.config_kI(Constants.RARM_PID_SLOT, Constants.RARM_PID_I, 0);
+		rightArm.config_kD(Constants.RARM_PID_SLOT, Constants.RARM_PID_D, 0);
 
+    leftArm.selectProfileSlot(Constants.RARM_PID_SLOT, 0);
+		leftArm.config_kF(Constants.RARM_PID_SLOT, Constants.RARM_PID_F, 0);
+		leftArm.config_kP(Constants.RARM_PID_SLOT, Constants.RARM_PID_P, 0);
+		leftArm.config_kI(Constants.RARM_PID_SLOT, Constants.RARM_PID_I, 0);
+		leftArm.config_kD(Constants.RARM_PID_SLOT, Constants.RARM_PID_D, 0);
   }
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    currentR = rightArm.getStatorCurrent();
+    currentL = leftArm.getStatorCurrent();
   }
+
   public double getLeftEncoder(){
     return leftArm.getSelectedSensorPosition();
   }
@@ -96,6 +107,10 @@ public class Endgame extends SubsystemBase {
   }
   public void setRightSpeed(double speed){
     rightArm.set(ControlMode.PercentOutput, speed);
+  }
+
+  public double[] getCurrents(){
+    return new double[] {currentL, currentR};
   }
 
   public double getAngleToGround(){

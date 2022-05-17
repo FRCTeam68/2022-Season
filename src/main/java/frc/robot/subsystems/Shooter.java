@@ -13,7 +13,7 @@ import frc.robot.Constants;
 
 import  frc.robot.Constants;
 import frc.robot.Robot;
-import frc.robot.commands.Shoot;
+import frc.robot.commands.shooter.Shoot;
 
 public class Shooter extends SubsystemBase{
 
@@ -28,7 +28,6 @@ public class Shooter extends SubsystemBase{
   private double gRef = 0; //Setpoint
   private double shootSpeed = 1;
   private SimpleMotorFeedforward feedForward;
-  private PIDController shooterPID;
 
   private double numerator;
  private double denominator;
@@ -39,12 +38,12 @@ public class Shooter extends SubsystemBase{
  private final double GRAVITY = -32;
  private double xDisplacement = 0;
  private final double LIMELIGHT_HEIGHT_OFF_GROUND = 41.375; //measure, in inches
- private double angleToGoal;
  private double rpsball;
  private double rps_ratio;
  private double rpsflywheel;
  private static double rpm = 0; 
  private double kP, kI, kD, kF;
+ private PIDController shooterPID;
 
  public double targetRPM = 0;
 
@@ -55,8 +54,8 @@ public class Shooter extends SubsystemBase{
     kD = 0.0;
     kF = 0.060;
     //TalonFX Initialization
-    shooterLeft = new TalonFX(Constants.LEFT_SHOOTER_MOTOR); 
-    shooterRight = new TalonFX(Constants.RIGHT_SHOOTER_MOTOR); 
+    shooterLeft = new TalonFX(Constants.LEFT_SHOOTER_MOTOR, Constants.MANIP_CANBUS); 
+    shooterRight = new TalonFX(Constants.RIGHT_SHOOTER_MOTOR, Constants.MANIP_CANBUS); 
     //shooterLeft.configFactoryDefault();
     shooterRight.configFactoryDefault();
     //shooterLeft.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, 0, 0);
@@ -80,8 +79,8 @@ public class Shooter extends SubsystemBase{
     
     shooterRight.setSensorPhase(true);
     //feedForward = new SimpleMotorFeedforward(-5.0424, 0.0002596, 0.0030056);
-    feedForward = new SimpleMotorFeedforward(0.133, 0.0002596, 0.0030056);
-    shooterPID = new PIDController(0.05, 0, 0); //0.14258
+    feedForward = new SimpleMotorFeedforward(0.133, 0.0002596, 0.0030056);    
+    shooterPID = new PIDController(0.05, 0, 0);
   }
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
@@ -101,19 +100,28 @@ public class Shooter extends SubsystemBase{
   }
 
   public void setSpeed(double speed){
-    
+    // We try something new here because ◢▅◣ → ☻
+    // Probably will need to find new values
+    // shooterRight.set(ControlMode.PercentOutput, feedForward.calculate(speed));
+
     shooterRight.set(ControlMode.Velocity, speed);
+    
+  }
+
+  public void setPercentOutput(double speed){
+    
+    shooterRight.set(ControlMode.PercentOutput, speed);
     
   }
 
   public void shooterFeedForward(double velocity){
 
-    shooterRight.set(ControlMode.PercentOutput, feedForward.calculate(velocity));
-    //+ shooterPID.calculate(shooterRight.getSelectedSensorVelocity(), velocity));
+    // shooterRight.set(ControlMode.PercentOutput, feedForward.calculate(velocity));
+    shooterPID.calculate(shooterRight.getSelectedSensorVelocity(), velocity);
   }
 
   public double m_calculateRPM(){
-    
+
     
     xDisplacement = Robot.vision.calcDistance();
   
