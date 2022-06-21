@@ -47,6 +47,11 @@ wpi.java.debugJni = false
 // Set this to true to enable desktop support.
 def includeDesktopSupport = false
 
+// define repositories
+repositories {
+   mavenCentral()
+   maven{ url "https://frcmaven.wpi.edu:443/artifactory/release" }
+}
 // Defining my dependencies. In this case, WPILib (+ friends), and vendor libraries.
 // Also defines JUnit 4.
 dependencies {
@@ -68,7 +73,12 @@ dependencies {
     simulationRelease wpi.sim.enableRelease()
 
     testImplementation 'junit:junit:4.12'
+
+    compileOnly 'edu.wpi.first.shuffleboard:api:2020.+'
+    compileOnly 'edu.wpi.first.shuffleboard.plugin:networktables:2020.+'
 }
+
+
 
 // Simulation configuration (e.g. environment variables).
 wpi.sim.addGui().defaultEnabled = true
