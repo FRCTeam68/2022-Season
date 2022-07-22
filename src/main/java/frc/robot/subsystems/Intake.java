@@ -40,15 +40,15 @@ public class Intake extends SubsystemBase {
   public Intake() {
 
 
-    intakeMotor = new TalonFX(Constants.INTAKE_MOTOR); // Intake Motor (Change value when known)
+    intakeMotor = new TalonFX(Constants.INTAKE_MOTOR, Constants.MANIP_CANBUS); // Intake Motor (Change value when known)
     intakeMotor.configPeakOutputForward(1);
     intakeMotor.configPeakOutputReverse(-1);
 
-    indexMotorHigh = new TalonFX(Constants.INDEX_MOTOR_HIGH); // Change value when known
+    indexMotorHigh = new TalonFX(Constants.INDEX_MOTOR_HIGH, Constants.MANIP_CANBUS); // Change value when known
     indexMotorHigh.configPeakOutputForward(1);
     indexMotorHigh.configPeakOutputReverse(-1);
 
-    indexMotorLow = new TalonFX(Constants.INDEX_MOTOR_LOW); // Change value when known
+    indexMotorLow = new TalonFX(Constants.INDEX_MOTOR_LOW, Constants.MANIP_CANBUS); // Change value when known
     indexMotorLow.configPeakOutputForward(1);
     indexMotorLow.configPeakOutputReverse(-1);
 

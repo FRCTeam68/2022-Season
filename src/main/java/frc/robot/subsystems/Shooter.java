@@ -51,8 +51,8 @@ public class Shooter extends SubsystemBase{
     kD = 0.0;
     kF = 0.060;
     //TalonFX Initialization
-    shooterLeft = new TalonFX(Constants.LEFT_SHOOTER_MOTOR); 
-    shooterRight = new TalonFX(Constants.RIGHT_SHOOTER_MOTOR); 
+    shooterLeft = new TalonFX(Constants.LEFT_SHOOTER_MOTOR, Constants.MANIP_CANBUS); 
+    shooterRight = new TalonFX(Constants.RIGHT_SHOOTER_MOTOR, Constants.MANIP_CANBUS); 
     //shooterLeft.configFactoryDefault();
     shooterRight.configFactoryDefault();
     //shooterLeft.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, 0, 0);

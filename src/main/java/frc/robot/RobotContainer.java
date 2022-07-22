@@ -30,6 +30,8 @@ public class RobotContainer {
   //private final XboxController manipController = new XboxController(Constants.CONTROLLOR_MANIP)
   private JoystickButton driveY;
   private JoystickButton driveA;
+  private JoystickButton driveX;
+  private JoystickButton driveB;
   private JoystickButton driveRB;
   private JoystickButton driveLB;
   private JoystickButton manipCircle;
@@ -64,7 +66,7 @@ public class RobotContainer {
 
     // Set commands for the driver buttons
     driveA.whenPressed(new ZeroGyro());
-    driveY.whenPressed(new PrimaryLiftCommand());
+    //driveY.whenPressed(new PrimaryLiftCommand());
     driveRB.whileHeld(new TurretMoveRight());
     driveRB.whenReleased(new TurretStop());
     driveLB.whileHeld(new TurretMoveLeft());
@@ -108,6 +110,8 @@ public class RobotContainer {
   private void configureButtonBindings() {
     // Back button zeros the gyroscope
     driveA = new JoystickButton(driveController, Constants.CONTROLLOR_DRIVE_A);
+    driveB = new JoystickButton(driveController, Constants.CONTROLLOR_DRIVE_B);
+    driveX = new JoystickButton(driveController, Constants.CONTROLLOR_DRIVE_X);
     driveY = new JoystickButton(driveController, Constants.CONTROLLOR_DRIVE_Y);
     driveRB = new JoystickButton(driveController, Constants.CONTROLLOR_DRIVE_RB);
     driveLB = new JoystickButton(driveController, Constants.CONTROLLOR_DRIVE_LB);

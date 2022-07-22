@@ -31,6 +31,7 @@ public class Robot extends TimedRobot {
 
   public static double velocity;
 
+  public static Endgame climber;
   public static DrivetrainSubsystem driveTrain;
   public static Intake intake;
   public static Shooter shooter;
@@ -52,7 +53,7 @@ public class Robot extends TimedRobot {
     Autons.RUNPATH.setPathFollowers(Robot.pathFollower);
     driveTrain = new DrivetrainSubsystem();
     m_robotContainer = new RobotContainer();
-
+    climber = new Endgame();
     intake = new Intake();
     shooter = new Shooter();
     pnuematics = new Pnuematics();
