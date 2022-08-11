@@ -84,7 +84,6 @@ public class RobotContainer {
     manipRT.whileHeld(new IndexCommand());
     manipRT.whenReleased(new StopIndex());
     manipLB.whenPressed(new ChangeIntakePos());
-    
     manipRB.whileHeld(new TurretCommand());
     manipRB.whenReleased(new TurretStop());
     manipRB.whileHeld(new CameraModeOn());
