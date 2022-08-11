@@ -80,6 +80,7 @@ public class RobotContainer {
     //set commands for the manip buttons
     manipLT.whileHeld(new IntakeCommand());
     manipLT.whenReleased(new StopIntake());
+    
     manipRT.whileHeld(new IndexCommand());
     manipRT.whenReleased(new StopIndex());
     manipLB.whenPressed(new ChangeIntakePos());
