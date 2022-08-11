@@ -32,6 +32,7 @@ public class RobotContainer {
   private JoystickButton driveA;
   private JoystickButton driveX;
   private JoystickButton driveB;
+  private JoystickButton driveStart;
   private JoystickButton driveRB;
   private JoystickButton driveLB;
   private JoystickButton manipCircle;
@@ -65,12 +66,17 @@ public class RobotContainer {
     configureButtonBindings();
 
     // Set commands for the driver buttons
-    driveA.whenPressed(new ZeroGyro());
+    driveStart.whenPressed(new ZeroGyro());
     //driveY.whenPressed(new PrimaryLiftCommand());
     driveRB.whileHeld(new TurretMoveRight());
     driveRB.whenReleased(new TurretStop());
     driveLB.whileHeld(new TurretMoveLeft());
     driveLB.whenReleased(new TurretStop());
+
+    driveA.whileHeld(new RightArmSpeedDown());
+    driveB.whileHeld(new RightArmSpeedUp());
+    driveX.whileHeld(new LeftArmSpeedDown());
+    driveY.whileHeld(new LeftArmSpeedUp());
     //set commands for the manip buttons
     manipLT.whileHeld(new IntakeCommand());
     manipLT.whenReleased(new StopIntake());
@@ -113,6 +119,7 @@ public class RobotContainer {
     driveB = new JoystickButton(driveController, Constants.CONTROLLOR_DRIVE_B);
     driveX = new JoystickButton(driveController, Constants.CONTROLLOR_DRIVE_X);
     driveY = new JoystickButton(driveController, Constants.CONTROLLOR_DRIVE_Y);
+    driveStart = new JoystickButton(driveController, Constants.CONTROLLOR_DRIVE_START);
     driveRB = new JoystickButton(driveController, Constants.CONTROLLOR_DRIVE_RB);
     driveLB = new JoystickButton(driveController, Constants.CONTROLLOR_DRIVE_LB);
 

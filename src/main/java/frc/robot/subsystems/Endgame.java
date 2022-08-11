@@ -98,4 +98,18 @@ public class Endgame extends SubsystemBase {
     rightArm.set(ControlMode.Position, pos);
     
   }
+  public void setLeftSpeed(double speed){
+    
+    leftArm.set(ControlMode.PercentOutput, speed);
+    
+  }
+  public void setRightSpeed(double speed){
+    
+    rightArm.set(ControlMode.PercentOutput, speed);
+    
+  }
+
+
+
+
 }
