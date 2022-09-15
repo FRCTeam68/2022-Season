@@ -26,6 +26,8 @@ public class Endgame extends SubsystemBase {
 
   public double currentR = 0, currentL = 0;
 
+  public boolean manualClimb = false;
+
   private double kP, kI, kD, kF;
 
   public Endgame() {

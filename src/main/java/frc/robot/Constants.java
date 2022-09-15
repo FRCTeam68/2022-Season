@@ -113,7 +113,8 @@ public final class Constants {
     public static final int TURRET_SPUR = 10;
     public static final int TURRET_BOX = 45;
 
-    //Endgame Constants Below Here
+    // Endgame Constants Below Here
+    public static final double climbSpeed = 0.5;
     public static final int RIGHT_ARM_MOTOR = 19;
     public static final int LEFT_ARM_MOTOR = 20; 
 

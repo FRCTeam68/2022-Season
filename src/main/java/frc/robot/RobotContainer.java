@@ -65,6 +65,7 @@ public class RobotContainer {
   private JoystickButton whatX;
   private JoystickButton whatB;
   private JoystickButton whatRB;
+  public static boolean manualClimb = true;
   
 
   /**
@@ -106,18 +107,20 @@ public class RobotContainer {
     driveRB.whenReleased(new Stop(Commandstants.TURRET_STOP));
     driveLB.whileHeld(new TurretMove(1)); //Left
     driveLB.whenReleased(new Stop(Commandstants.TURRET_STOP));
-
-    // whatY.whileHeld(new ManualClimb(Commandstants.R_CLIMB_UP));
-    // whatB.whileHeld(new ManualClimb(Commandstants.R_CLIMB_DOWN));
-    // whatX.whileHeld(new ManualClimb(Commandstants.L_CLIMB_UP));
-    // whatA.whileHeld(new ManualClimb(Commandstants.L_CLIMB_DOWN));
     
-    driveSelect.whenPressed(new Zero(Commandstants.CLIMBER_ZERO));
+    // driveSelect.whenPressed(new Zero(Commandstants.CLIMBER_ZERO));
+
+    driveSelect.whenPressed(() -> manualClimb = !manualClimb);
 
     // driveY.whenPressed(new AutoClimb(Commandstants.R_CLIMB_UP));
     // driveB.whenPressed(new AutoClimb(Commandstants.R_CLIMB_DOWN));
     // driveX.whenPressed(new AutoClimb(Commandstants.L_CLIMB_UP));
     // driveA.whenPressed(new AutoClimb(Commandstants.L_CLIMB_DOWN));
+    driveY.whenPressed(new AutoClimb(Commandstants.R_CLIMB_UP));
+    driveB.whenPressed(new AutoClimb(Commandstants.R_CLIMB_DOWN));
+    driveX.whenPressed(new AutoClimb(Commandstants.L_CLIMB_UP));
+    driveA.whenPressed(new AutoClimb(Commandstants.L_CLIMB_DOWN));
+    
   }
 
   private void manipulatorControlBinds(){
